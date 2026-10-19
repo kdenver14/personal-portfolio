@@ -366,7 +366,7 @@ Three squiggly arcs drifting around all four page corners, after Material 3's wa
   - The arcs sit on a 480-unit canvas at radii 170, 262 and 354.
   - Each has an 80-unit wavelength (rounded so a full turn holds whole waves), a 6-unit amplitude and a 6-unit stroke.
   - Curves are cubic Béziers with exact tangents, so the thick strokes stay smooth.
-- **Size:** the corner box tracks the side margin, `clamp(8rem, (100vw − measure) / 2 + 2rem, 30rem)`. The squiggles stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
+- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The squiggles stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
 - **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the outer squiggle would run under the footer text.
 - **Colour:** Signal Blue mixed into Paper at 30%, 20% and 13%, innermost strongest. The tints are opaque, with no fade mask.
 - **Motion:**
