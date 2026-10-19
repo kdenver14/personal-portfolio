@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Antipolo After Dark sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:linear-gradient(180deg,#0b1426 0%,#16233d 62%,#1d2a44 100%);color:#f5efe3;font-family:"Avenir Next","Helvetica Neue",sans-serif}
+h1{position:absolute;left:100px;top:110px;font-size:80px;font-weight:600;letter-spacing:-.02em;line-height:1}
+p{position:absolute;left:104px;top:220px;width:640px;font-size:24px;line-height:1.45;color:#d9d1c2}
+.meta{position:absolute;right:100px;top:118px;text-align:right;font-size:16px;color:#b9b09f;line-height:1.7}
+svg{position:absolute;left:0;bottom:0}
+.tag{position:absolute;font-size:15px;color:#f2a341;letter-spacing:.06em}
+</style></head><body>
+<h1>Kurt Denver Chavez</h1>
+<p>CS student from Antipolo City. I don't know how I got into this field, but it's been fun so far.</p>
+<div class="meta">Antipolo, Rizal · 14.59° N<br>9:04 PM PHT</div>
+<svg width="1440" height="560" viewBox="0 0 1440 560" id="s"><path d="M0 120 C 200 80, 360 150, 520 110 S 860 60, 1040 120 S 1300 90, 1440 130 L1440 170 L0 170Z" fill="#070d1a"/></svg>
+<div class="tag" style="left:330px;top:560px">● Hand Gesture Control</div>
+<div class="tag" style="left:820px;top:660px">● Collection Manager</div>
+<div class="tag" style="left:1100px;top:540px">● uptime-monitor · in dev</div>
+<script>
+let s="",r=7;const R=()=>{r=(r*9301+49297)%233280;return r/233280};
+for(let i=0;i<900;i++){const y=190+Math.pow(R(),1.6)*360,x=R()*1440,a=.25+R()*.6,z=R()<.04?3:1.2;s+=`<circle cx="${x}" cy="${y}" r="${z}" fill="#f2a341" opacity="${a}"/>`}
+document.getElementById("s").insertAdjacentHTML("beforeend",s);
+</script>
+</body></html>

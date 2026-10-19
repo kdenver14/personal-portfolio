@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Datasheet sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:#fff;color:#141414;font-family:"Helvetica Neue",Arial,sans-serif}
+.hdr{position:absolute;left:80px;right:80px;top:40px;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:6px solid #141414;padding-bottom:12px}
+.hdr .pn{font-size:24px;font-weight:700;letter-spacing:.04em}
+.hdr .meta{font-size:14px;color:#555;text-align:right}
+.title{position:absolute;left:80px;top:120px;width:760px}
+.title h1{font-size:76px;line-height:1;letter-spacing:-.025em;font-weight:700}
+.title p{margin-top:18px;font-size:26px;line-height:1.35;color:#333;width:700px}
+.feat{position:absolute;left:80px;top:400px;width:640px}
+.feat h2,.apps h2{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#0a5bd3;border-bottom:1px solid #141414;padding-bottom:8px;margin-bottom:12px}
+.feat li{font-size:18px;line-height:1.7;margin-left:20px}
+.apps{position:absolute;left:80px;top:650px;width:1280px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+td,th{border-bottom:1px solid #d0d3d8;padding:9px 8px;text-align:left}
+th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#555}
+.chip{position:absolute;left:930px;top:130px;width:300px;height:420px;border:3px solid #141414;border-radius:6px}
+.chip:before{content:"";position:absolute;left:50%;top:-3px;width:44px;height:22px;margin-left:-22px;border:3px solid #141414;border-top:0;border-radius:0 0 22px 22px;background:#fff}
+.chip .c{position:absolute;inset:0;display:grid;place-items:center;font:700 22px/1.2 "Helvetica Neue";text-align:center}
+.pin{position:absolute;width:54px;height:3px;background:#141414}
+.pl{position:absolute;font-size:15px;font-family:Menlo,monospace}
+</style></head><body>
+<div class="hdr"><span class="pn">KDC-2005</span><span class="meta">Kurt Denver Chavez · Portfolio datasheet<br>Rev. 2026-10 · Page 1 of 1</span></div>
+<div class="title"><h1>Kurt Denver Chavez</h1><p>Computer Science student, Antipolo City, PH. Started in C++, builds full-stack TypeScript, trains small models in Python.</p></div>
+<div class="feat"><h2>Features</h2><ul>
+<li>Real-time hand gesture control: 5 gestures, 3 modes, 17★</li>
+<li>Full-stack Next.js 16 + Prisma CRUD, written without AI</li>
+<li>Layered Express APIs: JWT auth, validators, Postgres</li>
+<li>Comfortable with move semantics and pointer ownership</li></ul></div>
+<div class="chip"><div class="c">KDC-2005<br><span style="font-weight:400;font-size:15px">Top view</span></div></div>
+<script>
+const L=["C++","TypeScript","Python","C#","SQL","Docker*"],R=["GitHub","Email","Résumé","Projects","Now","Antipolo"];
+L.forEach((t,i)=>{const y=180+i*60;document.body.insertAdjacentHTML("beforeend",`<div class="pin" style="left:876px;top:${y}px"></div><div class="pl" style="left:770px;top:${y-9}px;width:100px;text-align:right">${t} ${i+1}</div>`)});
+R.forEach((t,i)=>{const y=180+i*60;document.body.insertAdjacentHTML("beforeend",`<div class="pin" style="left:1230px;top:${y}px"></div><div class="pl" style="left:1292px;top:${y-9}px">${12-i} ${t}</div>`)});
+</script>
+<div class="apps"><h2>Typical applications</h2><table>
+<tr><th>Project</th><th>Stack</th><th>Key figure</th><th>Status</th></tr>
+<tr><td>Hand Gesture Control</td><td>Python · MediaPipe · Keras</td><td>200 samples / gesture</td><td>Shipped</td></tr>
+<tr><td>Collection Manager</td><td>Next.js 16 · Prisma 7</td><td>Parallel + intercepting routes</td><td>Shipped</td></tr>
+</table></div>
+</body></html>

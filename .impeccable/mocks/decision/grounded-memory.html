@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Memory Map sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:#f5f6f4;color:#1a1c1e;font-family:"Helvetica Neue",Arial,sans-serif}
+.top{position:absolute;left:80px;top:60px;right:80px;display:flex;justify-content:space-between;font:14px Menlo,monospace;color:#666}
+h1{position:absolute;left:80px;top:140px;font-size:84px;line-height:1;letter-spacing:-.03em;font-weight:700}
+.lede{position:absolute;left:84px;top:250px;width:760px;font-size:26px;line-height:1.4;color:#3a3d40}
+.bar{position:absolute;left:80px;right:80px;top:430px;height:180px;display:flex;border:2px solid #1a1c1e;background:repeating-linear-gradient(-45deg,#e3e1da 0 8px,#f5f6f4 8px 16px)}
+.blk{height:100%;border-right:2px solid #1a1c1e;background:#fff;padding:14px;display:flex;flex-direction:column;justify-content:space-between}
+.blk b{font-size:20px}
+.blk span{font:13px Menlo,monospace;color:#555}
+.blk.hi{background:#2f6fed;color:#fff}.blk.hi span{color:#dbe6ff}
+.blk.wip{background:repeating-linear-gradient(90deg,#fff 0 6px,#ffe9dc 6px 12px);outline:2px dashed #c2410c;outline-offset:-6px}
+.axis{position:absolute;left:80px;right:80px;top:620px;display:flex;justify-content:space-between;font:13px Menlo,monospace;color:#777}
+.legend{position:absolute;left:80px;top:690px;font-size:18px;color:#3a3d40;width:1000px;line-height:1.6}
+</style></head><body>
+<div class="top"><span>kdenver14 · address space</span><span>26 repos · 6 shown · sized by bytes of code</span></div>
+<h1>Kurt Denver Chavez</h1>
+<p class="lede">CS student from Antipolo. C++ was my first language, so I still think about who owns what. Everything I've built, laid out in memory.</p>
+<div class="bar">
+ <div class="blk hi" style="flex:63942"><span>0x0000</span><b>Collection Manager</b><span>63,942 B · TS</span></div>
+ <div class="blk" style="flex:38266"><span>0xF9C6</span><b>Hand Gesture</b><span>38,266 B · Py</span></div>
+ <div class="blk" style="flex:36958"><span>0x1931C</span><b>Game Store</b><span>36,958 B · C#</span></div>
+ <div class="blk" style="flex:17491"><span>0x223BA</span><b>Express</b><span>17,491 B</span></div>
+ <div class="blk wip" style="flex:8322"><span>…</span><b>uptime</b><span>alloc</span></div>
+ <div class="blk" style="flex:5797"><span>Int</span><b>C++</b></div>
+ <div style="flex:14000"></div>
+</div>
+<div class="axis"><span>0x00000</span><span>0x10000</span><span>0x20000</span><span>0x2C000</span></div>
+<p class="legend">Blue: most recent ship. Dashed orange: still allocating (uptime-monitor, setting up Postgres in Docker). Hatched: free, for whatever I build next.</p>
+</body></html>

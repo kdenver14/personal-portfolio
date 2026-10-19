@@ -1,0 +1,34 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Yellow Pad sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;font-family:"American Typewriter","Courier New",monospace}
+body{background:#f4e06d repeating-linear-gradient(180deg,transparent 0 39px,#8db3d9 39px 40px);background-position:0 150px}
+.top{position:absolute;inset:0 0 auto 0;height:150px;background:#f4e06d;border-bottom:2px dashed rgba(0,0,0,.18)}
+.top:before{content:"";position:absolute;left:0;right:0;top:0;height:22px;background:#d8473b}
+.margin{position:absolute;top:0;bottom:0;left:170px;width:8px;border-left:2px solid #d8473b;border-right:2px solid #d8473b}
+.hdr{position:absolute;left:200px;top:62px;right:80px;display:flex;gap:60px;font-size:20px;color:#2a2a2a}
+.hdr b{color:#1f3a93;font-size:34px;font-family:"Bradley Hand","Segoe Print",cursive}
+.score{position:absolute;right:120px;top:40px;width:120px;height:90px;border:4px solid #d8473b;border-radius:50%;color:#d8473b;display:grid;place-items:center;font:700 40px/1 "Bradley Hand",cursive;transform:rotate(-8deg)}
+.body{position:absolute;left:210px;top:190px;right:140px;color:#1f3a93;font:400 32px/40px "Bradley Hand","Segoe Print",cursive}
+.body h1{font-size:72px;line-height:80px;margin-bottom:0}
+.ans{margin-top:40px;font-size:28px}
+.ans li{margin-left:30px}
+.m{position:absolute;left:40px;color:#d8473b;font:700 22px/40px "Bradley Hand",cursive}
+</style></head><body>
+<div class="top"></div><div class="margin"></div>
+<div class="hdr"><span>Name: <b>Kurt Denver Chavez</b></span><span>Subject: <b>Portfolio</b></span><span>Date: <b>Oct 2026</b></span></div>
+<div class="score">17★</div>
+<div class="m" style="top:230px">2022 C++</div>
+<div class="m" style="top:430px">2026</div>
+<div class="body">
+ <h1>I don't know how I got in this field</h1>
+ <p>but it has been fun so far. CS student from Antipolo. C++ first; still thinking about who owns which pointer.</p>
+ <ol class="ans">
+  <li>Hand Gesture Control: draw, volume, click with one hand</li>
+  <li>Collection Manager: Next.js 16 CRUD, no AI</li>
+  <li>Express-Full: JWT auth API, validators by hand</li>
+  <li>uptime-monitor: still setting up Postgres</li>
+ </ol>
+</div>
+</body></html>

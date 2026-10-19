@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Teletext sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:#000;color:#fff;font:400 30px/37.5px "Courier New",monospace}
+.g{display:grid;grid-template-columns:repeat(40,36px);grid-auto-rows:37.5px}
+.row{grid-column:1/-1;white-space:pre}
+.y{color:#ff0}.c{color:#0ff}.r{color:#ff2020}.gr{color:#0f0}
+.dh{font-size:60px;line-height:75px;grid-row:span 2}
+.bar{background:#00c;color:#ff0}
+.mosaic{position:absolute;left:900px;top:300px;display:grid;grid-template-columns:repeat(12,36px);grid-auto-rows:37.5px}
+.mosaic i{background:#0f0}
+</style></head><body>
+<div class="g">
+ <div class="row">P100  <span class="c">KDC</span> 100  Sun 18 Oct  <span class="y">21:04/32</span></div>
+ <div class="row dh bar"> DENVER      PORTFOLIO </div>
+ <div class="row"> </div>
+ <div class="row y"> CS student . Antipolo City PH</div>
+ <div class="row"> </div>
+ <div class="row c"> PROJECTS</div>
+ <div class="row"> Hand Gesture Control ......... <span class="y">201</span></div>
+ <div class="row"> Collection Manager ........... <span class="y">202</span></div>
+ <div class="row"> Express-Full API ............. <span class="y">203</span></div>
+ <div class="row"> uptime-monitor <span class="r">WIP</span> ......... <span class="y">204</span></div>
+ <div class="row"> Int wrapper C++ .............. <span class="y">205</span></div>
+ <div class="row"> Game Store ASP.NET ........... <span class="y">206</span></div>
+ <div class="row"> </div>
+ <div class="row c"> ABOUT ....................... <span class="y">300</span></div>
+ <div class="row c"> CONTACT ..................... <span class="y">400</span></div>
+ <div class="row"> </div>
+ <div class="row bar"> Key a page number   <span class="r">REVEAL</span> </div>
+</div>
+<div class="mosaic">
+ <i style="grid-column:3;grid-row:1/4"></i><i style="grid-column:5;grid-row:1/4"></i><i style="grid-column:7;grid-row:1/4"></i><i style="grid-column:9;grid-row:2/5"></i>
+ <i style="grid-column:3/10;grid-row:4/8"></i><i style="grid-column:1/3;grid-row:5/7"></i><i style="grid-column:4/9;grid-row:8/10"></i>
+</div>
+</body></html>

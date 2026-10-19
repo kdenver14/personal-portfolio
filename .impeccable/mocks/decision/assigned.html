@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Sticker Lid sketch</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1440px;height:900px;overflow:hidden;background:#9fa3a9;font-family:"Helvetica Neue",Arial,sans-serif}
+.lid{position:absolute;inset:18px 22px 0 22px;border-radius:30px 30px 0 0;
+ background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.035) 1px 2px,transparent 2px 4px),
+  radial-gradient(120% 80% at 30% 10%,#e3e5e8 0,#cdd0d4 45%,#b9bcc1 100%);
+ box-shadow:inset 0 0 0 2px #aeb1b6,inset 0 3px 0 #eef0f2}
+.name{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;color:#c4c7cb;
+ text-shadow:0 1px 0 rgba(255,255,255,.8),0 -1px 0 rgba(0,0,0,.18)}
+.name b{display:block;font-size:64px;letter-spacing:-.02em;font-weight:800}
+.name span{font-size:15px;letter-spacing:.2em;text-transform:uppercase}
+.st{position:absolute;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 6px 6px rgba(0,0,0,.28))}
+.hand{left:120px;top:90px;width:360px;height:360px;border-radius:50%;background:#0d1210;transform:rotate(-6deg)}
+.hand svg{position:absolute;inset:0}
+.hand .lbl{position:absolute;bottom:46px;width:100%;text-align:center;color:#00c850;font:700 26px/1 "Courier New",monospace}
+.noai{left:560px;top:70px;width:190px;height:190px;border-radius:50%;background:#fff;border:22px solid #e02a2a;transform:rotate(8deg);display:grid;place-items:center;font:900 64px/1 Arial Black,Arial;color:#111}
+.noai:after{content:"";position:absolute;width:190px;height:22px;background:#e02a2a;transform:rotate(-45deg)}
+.ptr{left:930px;top:110px;padding:22px 28px;background:#1b2a6b;color:#ffd23f;font:700 30px/1 "Courier New",monospace;border-radius:10px;transform:rotate(-4deg)}
+.anti{left:1080px;top:250px;width:250px;height:160px;border-radius:50%;background:#ffd23f;transform:rotate(10deg);display:grid;place-items:center;text-align:center;font:900 30px/1 Georgia,serif;color:#7a1f1f}
+.e401{left:160px;top:560px;padding:26px 30px;background:#ff5a1f;color:#fff;font:900 54px/1 Arial Black,Arial;transform:rotate(4deg);border-radius:6px}
+.wip{left:500px;top:610px;width:420px;height:70px;background:repeating-linear-gradient(-45deg,#111 0 26px,#ffd23f 26px 52px);transform:rotate(-9deg)}
+.wip span{position:absolute;inset:14px 60px;background:#ffd23f;display:grid;place-items:center;font:900 26px/1 Arial;color:#111}
+.cart{left:1010px;top:520px;width:220px;height:250px;background:#6a2fb4;border-radius:14px 14px 24px 24px;transform:rotate(-7deg);color:#fff;display:grid;place-items:center;font:900 34px/1.1 Arial;text-align:center}
+.cpp{left:770px;top:330px;width:170px;height:170px;border-radius:50%;background:#00599c;color:#fff;display:grid;place-items:center;font:900 46px/1 Arial;transform:rotate(-12deg)}
+.tom{left:430px;top:400px;width:90px;height:90px;border-radius:50%;background:#e8402f}
+.sat{left:1240px;top:70px;width:110px;height:70px;background:#2f3a44;border-radius:8px;transform:rotate(18deg)}
+.pong{left:1290px;top:640px;width:90px;height:120px;background:#000;border-radius:8px}
+</style></head><body>
+<div class="lid">
+ <div class="name"><b>Kurt Denver Chavez</b><span>CS student · Antipolo City, PH</span></div>
+ <div class="st hand"><svg viewBox="0 0 360 360" id="h"></svg><div class="lbl">21 landmarks</div></div>
+ <div class="st noai">AI</div>
+ <div class="st ptr">ptr_deleter(p1, p2, p3);</div>
+ <div class="st anti">Antipolo<br>Rizal</div>
+ <div class="st cpp">C++</div>
+ <div class="st e401">401</div>
+ <div class="st wip"><span>UPTIME: IN DEV</span></div>
+ <div class="st cart">GAME<br>STORE</div>
+ <div class="st tom"></div><div class="st sat"></div><div class="st pong"></div>
+</div>
+<script>
+const p=[[0,0],[-.082,-.046],[-.154,-.136],[-.215,-.198],[-.266,-.221],[-.102,-.359],[-.13,-.483],[-.145,-.558],[-.157,-.628],[-.052,-.388],[-.057,-.534],[-.058,-.624],[-.06,-.699],[-.004,-.375],[.005,-.505],[.008,-.592],[.008,-.669],[.041,-.334],[.063,-.431],[.077,-.497],[.089,-.562]];
+const C=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[0,9],[9,10],[10,11],[11,12],[0,13],[13,14],[14,15],[15,16],[0,17],[17,18],[18,19],[19,20],[5,9],[9,13],[13,17]];
+const X=v=>215+v*330,Y=v=>285+v*330;let s="";
+C.forEach(([a,b])=>s+=`<line x1="${X(p[a][0])}" y1="${Y(p[a][1])}" x2="${X(p[b][0])}" y2="${Y(p[b][1])}" stroke="#00c850" stroke-width="5" stroke-linecap="round"/>`);
+p.forEach(q=>s+=`<circle cx="${X(q[0])}" cy="${Y(q[1])}" r="7" fill="#00c850"/>`);
+document.getElementById("h").innerHTML=s;
+</script>
+</body></html>

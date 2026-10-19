@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T17:39:53Z",
+  "title": "Design System: KDC-14",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#171717",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#5f6368",
+        "tonalRamp": [
+          "oklch(15.0% 0.009 253.9)",
+          "oklch(26.4% 0.009 253.9)",
+          "oklch(37.9% 0.009 253.9)",
+          "oklch(49.3% 0.009 253.9)",
+          "oklch(60.7% 0.009 253.9)",
+          "oklch(72.1% 0.009 253.9)",
+          "oklch(83.6% 0.009 253.9)",
+          "oklch(95.0% 0.009 253.9)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#737373",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#ebebe9",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 106.5)",
+          "oklch(26.4% 0.003 106.5)",
+          "oklch(37.9% 0.003 106.5)",
+          "oklch(49.3% 0.003 106.5)",
+          "oklch(60.7% 0.003 106.5)",
+          "oklch(72.1% 0.003 106.5)",
+          "oklch(83.6% 0.003 106.5)",
+          "oklch(95.0% 0.003 106.5)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#cfcfcc",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 106.5)",
+          "oklch(26.4% 0.004 106.5)",
+          "oklch(37.9% 0.004 106.5)",
+          "oklch(49.3% 0.004 106.5)",
+          "oklch(60.7% 0.004 106.5)",
+          "oklch(72.1% 0.004 106.5)",
+          "oklch(83.6% 0.004 106.5)",
+          "oklch(95.0% 0.004 106.5)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#f5f5f4",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 106.4)",
+          "oklch(26.4% 0.001 106.4)",
+          "oklch(37.9% 0.001 106.4)",
+          "oklch(49.3% 0.001 106.4)",
+          "oklch(60.7% 0.001 106.4)",
+          "oklch(72.1% 0.001 106.4)",
+          "oklch(83.6% 0.001 106.4)",
+          "oklch(95.0% 0.001 106.4)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#0a5bd3",
+        "tonalRamp": [
+          "oklch(15.0% 0.198 260.0)",
+          "oklch(26.4% 0.198 260.0)",
+          "oklch(37.9% 0.198 260.0)",
+          "oklch(49.3% 0.198 260.0)",
+          "oklch(60.7% 0.198 260.0)",
+          "oklch(72.1% 0.198 260.0)",
+          "oklch(83.6% 0.198 260.0)",
+          "oklch(95.0% 0.198 260.0)"
+        ]
+      },
+      "orange": {
+        "role": "secondary",
+        "displayName": "Solder Orange",
+        "canonical": "#b4450a",
+        "tonalRamp": [
+          "oklch(15.0% 0.157 42.1)",
+          "oklch(26.4% 0.157 42.1)",
+          "oklch(37.9% 0.157 42.1)",
+          "oklch(49.3% 0.157 42.1)",
+          "oklch(60.7% 0.157 42.1)",
+          "oklch(72.1% 0.157 42.1)",
+          "oklch(83.6% 0.157 42.1)",
+          "oklch(95.0% 0.157 42.1)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name, once per page; Instrument Serif 400."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Project name at the top of its dialog."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Bio, dialog overview, contact line."
+      },
+      "summary": {
+        "displayName": "Summary",
+        "purpose": "The one-line summary on a project card."
+      },
+      "body-list": {
+        "displayName": "Body List",
+        "purpose": "More projects rows, Details facts, the tech strip."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Section titles and dialog sub-headings in Slate; View project and Close in Ink."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Project meta, status and tags."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Panel and video captions, fact labels, flow nodes, footer."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Pin sublabels, gesture labels, code in captions."
+      },
+      "mark": {
+        "displayName": "Mark",
+        "purpose": "KDC-14 on the chip body only; Instrument Sans 700, tracking 0.06em."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code listings, file names and code values in Details."
+      },
+      "mono-pin": {
+        "displayName": "Mono Pin",
+        "purpose": "Pin names in the chip figure."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog",
+        "value": "0 24px 64px -16px rgb(23 23 23 / 0.28)",
+        "purpose": "The open project dialog only; the system's single shadow."
+      },
+      {
+        "name": "dialog-backdrop",
+        "value": "rgb(23 23 23 / 0.4)",
+        "purpose": "The ::backdrop behind the open dialog: Ink at 40%."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Easing for colour transitions and the dialog rise."
+      },
+      {
+        "name": "t-fast",
+        "value": "160ms",
+        "purpose": "Link underline, card fill, pin leg and pin name colour changes. Reduced to 0.01ms under prefers-reduced-motion."
+      },
+      {
+        "name": "dialog-in",
+        "value": "200ms ease-out; from opacity 0, translateY(12px)",
+        "purpose": "The project dialog opening. Off under prefers-reduced-motion."
+      },
+      {
+        "name": "marquee",
+        "value": "45s linear infinite; translateX(-50%)",
+        "purpose": "The tech strip, right to left. Pauses on hover; static and wrapped under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Every action on the page: ink text with a light underline that darkens on hover. Link rows use weight 500.",
+      "html": "<p class=\"ds-p\">Reach me by <a class=\"ds-link\" href=\"#\">Email</a> or on <a class=\"ds-link\" href=\"#\">GitHub</a>.</p>",
+      "css": ".ds-p { font-family: var(--font-sans); font-size: 1rem; line-height: 1.65; color: var(--color-ink-2); margin: 0; } .ds-link { color: var(--color-ink); font-weight: 500; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); transition: text-decoration-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { text-decoration-color: currentColor; } .ds-link:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Section Title",
+      "kind": "custom",
+      "refersTo": "section-title",
+      "description": "The small Slate sentence-case h2 that opens each section; no number, no rule.",
+      "html": "<h2 class=\"ds-section-title\">More projects</h2>",
+      "css": ".ds-section-title { font-family: var(--font-sans); margin: 0 0 1.75rem; font-size: 0.875rem; line-height: 1.4; font-weight: 500; color: var(--color-ink-3); }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "The soft grey container for every project visual and the chip, with a centred Graphite caption.",
+      "html": "<figure class=\"ds-panel\"><div class=\"ds-panel-body\"></div><figcaption class=\"ds-panel-caption\">How a request moves through the code</figcaption></figure>",
+      "css": ".ds-panel { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-panel-body { height: 6rem; } .ds-panel-caption { font-family: var(--font-sans); margin-top: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); text-align: center; }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A whole-card link in a Panel fill: serif title and year, status, Graphite summary and tags, View project at the foot; hover darkens the fill one notch.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card-head\"><span class=\"ds-card-title\">uptime-monitor</span><span class=\"ds-card-year\">2026</span></span><span class=\"ds-status\">In development</span><span class=\"ds-card-summary\">A website uptime monitor that tracks status and response time, written without AI.</span><ul class=\"ds-tags\"><li>TypeScript</li><li>Express 5</li><li>Prisma</li></ul><span class=\"ds-card-open\">View project</span></a>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem; padding: 1.25rem 1.25rem 1.125rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); font-family: var(--font-sans); text-decoration: none; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { background: #eeeeec; } .ds-card:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; } .ds-card-title { font-family: var(--font-serif); font-size: 1.625rem; line-height: 1.1; font-weight: 400; } .ds-card-year { font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { font-size: 0.875rem; color: var(--color-orange); } .ds-card-summary { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-card-open { margin-top: auto; padding-top: 0.75rem; font-size: 0.875rem; font-weight: 500; }"
+    },
+    {
+      "name": "Project Dialog",
+      "kind": "custom",
+      "refersTo": "dialog",
+      "description": "The hash-keyed modal: Paper, 18px radius, the system's one shadow over a 40% ink backdrop, sticky bar with the Close pill, serif headline, overview, Details facts and a hairline foot.",
+      "html": "<div class=\"ds-scrim\"><div class=\"ds-dialog\" role=\"dialog\" aria-label=\"uptime-monitor\"><div class=\"ds-dialog-bar\"><button type=\"button\" class=\"ds-close\">Close</button></div><div class=\"ds-dialog-body\"><header class=\"ds-detail-head\"><h2 class=\"ds-detail-title\">uptime-monitor</h2><span class=\"ds-detail-meta\"><span class=\"ds-status\">In development</span><span>2026</span></span></header><p class=\"ds-detail-text\">Checks each site on a schedule and records status and response time.</p><section><h3 class=\"ds-detail-label\">Details</h3><dl class=\"ds-facts\"><div class=\"ds-fact\"><dt>Runtime</dt><dd>Node.js, Express 5</dd></div><div class=\"ds-fact\"><dt>Entry</dt><dd><code>src/server.ts</code></dd></div></dl></section><footer class=\"ds-detail-foot\"><ul class=\"ds-tags\"><li>TypeScript</li><li>Prisma</li></ul><a class=\"ds-link\" href=\"#\">Source on GitHub</a></footer></div></div></div>",
+      "css": ".ds-scrim { padding: 2rem 1rem; background: rgb(23 23 23 / 0.4); } .ds-dialog { max-width: 44rem; margin: 0 auto; background: var(--color-paper); color: var(--color-ink); border-radius: 18px; box-shadow: 0 24px 64px -16px rgb(23 23 23 / 0.28); font-family: var(--font-sans); animation: ds-dialog-in 200ms cubic-bezier(0.16, 1, 0.3, 1); } @keyframes ds-dialog-in { from { opacity: 0; transform: translateY(12px); } } @media (prefers-reduced-motion: reduce) { .ds-dialog { animation: none; } } .ds-dialog-bar { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 0.875rem 1rem 0; background: linear-gradient(var(--color-paper) 70%, transparent); border-radius: 18px 18px 0 0; } .ds-close { padding: 0.375rem 0.75rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-paper); font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--color-ink); cursor: pointer; } .ds-close:hover { border-color: var(--color-line-strong); } .ds-close:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-dialog-body { padding: 0 2.5rem 2.5rem; } .ds-dialog-body > * + * { margin-top: 1.75rem; } .ds-detail-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; } .ds-detail-title { margin: 0; font-family: var(--font-serif); font-size: 2.25rem; line-height: 1.05; font-weight: 400; } .ds-detail-meta { display: flex; gap: 0.75rem; font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { color: var(--color-orange); } .ds-detail-text { margin: 0; line-height: 1.65; color: var(--color-ink-2); } .ds-detail-label { margin: 0 0 0.75rem; font-size: 0.875rem; font-weight: 500; color: var(--color-ink-3); } .ds-facts { margin: 0; border-top: 1px solid var(--color-line); } .ds-fact { padding-block: 0.625rem; border-bottom: 1px solid var(--color-line); font-size: 0.9375rem; line-height: 1.45; } .ds-fact dt { font-size: 0.8125rem; color: var(--color-ink-3); } .ds-fact dd { margin: 0; } .ds-fact code { font-family: var(--font-mono); font-size: 0.8125rem; } .ds-detail-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-line); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-link { color: var(--color-ink); font-weight: 500; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); transition: text-decoration-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { text-decoration-color: currentColor; } .ds-link:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Tech Strip",
+      "kind": "custom",
+      "refersTo": "tech-strip",
+      "description": "Monochrome technology logos sliding right to left in a 45s linear loop with masked edges; pauses on hover (no Pause button, by owner choice); static and wrapped under reduced motion.",
+      "html": "<div class=\"ds-strip\"><div class=\"ds-strip-track\"><ul class=\"ds-strip-list\" aria-label=\"Technologies I use\"><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\" role=\"img\" aria-label=\"TypeScript\"><title>TypeScript</title><rect x=\"1\" y=\"1\" width=\"22\" height=\"22\" rx=\"1\"/></svg></li><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\" role=\"img\" aria-label=\"Python\"><title>Python</title><circle cx=\"12\" cy=\"12\" r=\"11\"/></svg></li></ul><ul class=\"ds-strip-list\" aria-hidden=\"true\"><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\"><rect x=\"1\" y=\"1\" width=\"22\" height=\"22\" rx=\"1\"/></svg></li><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"11\"/></svg></li></ul></div></div>",
+      "css": ".ds-strip { overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); } .ds-strip-track { display: flex; width: max-content; animation: ds-strip 45s linear infinite; } .ds-strip:hover .ds-strip-track { animation-play-state: paused; } @keyframes ds-strip { to { transform: translateX(-50%); } } .ds-strip-list { display: flex; flex: none; align-items: center; list-style: none; margin: 0; padding: 0; } .ds-strip-list li { margin-right: 2.5rem; } .ds-logo { display: block; width: 1.75rem; height: 1.75rem; fill: var(--color-ink-3); transition: fill 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-logo:hover { fill: var(--color-ink); } @media (prefers-reduced-motion: reduce) { .ds-strip { mask-image: none; } .ds-strip-track { width: auto; animation: none; } .ds-strip-list { flex-wrap: wrap; row-gap: 1.25rem; } .ds-strip-list[aria-hidden] { display: none; } }"
+    },
+    {
+      "name": "Flow Diagram",
+      "kind": "custom",
+      "refersTo": "flow-node",
+      "description": "A request path as white 8px nodes joined by hairline connectors, inside a panel.",
+      "html": "<figure class=\"ds-flow\"><ol class=\"ds-flow-steps\"><li>Route</li><li>Controller</li><li>Service</li><li>Repository</li></ol></figure>",
+      "css": ".ds-flow { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-flow-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 1.125rem; } .ds-flow-steps li { font-family: var(--font-sans); position: relative; min-width: 10rem; padding: 0.4rem 0.875rem; background: var(--color-paper); border: 1px solid var(--color-line); border-radius: 8px; font-size: 0.8125rem; line-height: 1.4; text-align: center; color: var(--color-ink); } .ds-flow-steps li + li::before { content: \"\"; position: absolute; left: 50%; bottom: 100%; width: 1px; height: 1.125rem; background: var(--color-line-strong); }"
+    },
+    {
+      "name": "Code Listing",
+      "kind": "custom",
+      "refersTo": "code-listing",
+      "description": "A panel holding a file-name head row and a numbered Mono body that wraps with a hanging indent.",
+      "html": "<figure class=\"ds-listing\"><figcaption class=\"ds-listing-head\"><code>Int.h</code><a class=\"ds-link\" href=\"#\">View file</a></figcaption><pre class=\"ds-listing-body\"><code><span class=\"ds-line\">template&lt;typename... Args&gt;</span><span class=\"ds-line\">void ptr_deleter(Int* first, Args... args) {</span><span class=\"ds-line\">    delete first; <span class=\"ds-comment\">// free the head</span></span><span class=\"ds-line\">}</span></code></pre></figure>",
+      "css": ".ds-listing { margin: 0; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); } .ds-listing-head { font-family: var(--font-sans); display: flex; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.125rem 0; font-size: 0.8125rem; } .ds-listing-head code { font-family: var(--font-mono); color: var(--color-ink-2); } .ds-listing-head .ds-link { color: var(--color-ink); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); } .ds-listing-head .ds-link:hover { text-decoration-color: currentColor; } .ds-listing-body { --gutter-ch: 3.25ch; margin: 0; padding: 0.75rem 1.125rem 1.125rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; counter-reset: line; } .ds-line { display: block; padding-left: var(--gutter-ch); text-indent: calc(-1 * var(--gutter-ch)); } .ds-line::before { counter-increment: line; content: counter(line); display: inline-block; width: 2ch; margin-right: 1.25ch; color: var(--color-ink-2); text-align: right; text-indent: 0; user-select: none; } .ds-comment { color: var(--color-ink-2); }"
+    },
+    {
+      "name": "Experience Row",
+      "kind": "custom",
+      "refersTo": "list-row",
+      "description": "Role row: Slate date column, title, company and terms, one-line summary, skills and an optional link.",
+      "html": "<ol class=\"ds-roles\"><li class=\"ds-role\"><p class=\"ds-role-dates\">Jan – Feb 2026</p><div><h3 class=\"ds-role-title\">Software Developer (Automation Project)</h3><p class=\"ds-role-terms\">LOOP Marketers · Freelance · Remote</p><p class=\"ds-role-summary\">Built a Telegram automation script that listens for keywords in group chats and responds in real time.</p><p class=\"ds-role-tags\">Python · Telethon · Scripting</p></div></li></ol>",
+      "css": ".ds-roles { font-family: var(--font-sans); list-style: none; margin: 0; padding: 0; } .ds-role { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 0.25rem 1.5rem; padding-block: 1.25rem; border-bottom: 1px solid var(--color-line); } .ds-role:first-child { border-top: 1px solid var(--color-line); } .ds-role-dates { margin: 0; padding-top: 0.1rem; font-size: 0.875rem; color: var(--color-ink-3); font-variant-numeric: tabular-nums; } .ds-role-title { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; color: var(--color-ink); } .ds-role-terms { margin: 0; font-size: 0.875rem; color: var(--color-ink-3); } .ds-role-summary { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink-2); } .ds-role-tags { margin: 0.625rem 0 0; font-size: 0.875rem; color: var(--color-ink-3); }"
+    },
+    {
+      "name": "More Projects Row",
+      "kind": "custom",
+      "refersTo": "list-row",
+      "description": "Hairline list row: name, one line and year; 0.75rem row padding is owner-confirmed density.",
+      "html": "<ul class=\"ds-more\"><li class=\"ds-more-item\"><a class=\"ds-more-name\" href=\"#\">Game Store</a><span class=\"ds-more-desc\">Game store API, ASP.NET Core and EF Core</span><span class=\"ds-more-year\">2024</span></li><li class=\"ds-more-item\"><a class=\"ds-more-name\" href=\"#\">Pomodoro</a><span class=\"ds-more-desc\">Pomodoro timer in Tkinter</span><span class=\"ds-more-year\">2024</span></li></ul>",
+      "css": ".ds-more { font-family: var(--font-sans); list-style: none; margin: 0; padding: 0; } .ds-more-item { display: grid; grid-template-columns: 11rem minmax(0, 1fr) auto; column-gap: 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--color-line); font-size: 0.9375rem; line-height: 1.5; } .ds-more-item:first-child { border-top: 1px solid var(--color-line); } .ds-more-name { color: var(--color-ink); font-weight: 500; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: transparent; transition: text-decoration-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-more-name:hover { text-decoration-color: currentColor; } .ds-more-name:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-more-desc { color: var(--color-ink-2); } .ds-more-year { font-size: 0.875rem; color: var(--color-ink-3); font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "DIP-8 Pin Figure",
+      "kind": "custom",
+      "refersTo": "pin-active",
+      "description": "The single signature: a dark DIP-8 package in a panel; the active pin lights its leg and name blue.",
+      "html": "<figure class=\"ds-pinout\"><div class=\"ds-pinout-grid\"><div class=\"ds-col\"><a class=\"ds-pin ds-pin-left\" href=\"#\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">GND</span><span class=\"ds-pin-sub\">Antipolo, PH</span></span><span class=\"ds-pin-leg\"></span></a><span class=\"ds-pin ds-pin-left is-active\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">CPP</span><span class=\"ds-pin-sub\">C++</span></span><span class=\"ds-pin-leg\"></span></span></div><div class=\"ds-package\"><span class=\"ds-notch\"></span><span class=\"ds-dot\"></span><span class=\"ds-mark\"><span class=\"ds-mark-text\">KDC-14</span><span class=\"ds-date\">2246 PH</span></span></div><div class=\"ds-col\"><span class=\"ds-pin ds-pin-right\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">MAIL</span><span class=\"ds-pin-sub\">Email</span></span><span class=\"ds-pin-leg\"></span></span><span class=\"ds-pin ds-pin-right\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">GH</span><span class=\"ds-pin-sub\">GitHub</span></span><span class=\"ds-pin-leg\"></span></span></div></div><p class=\"ds-readout\"><span class=\"ds-readout-key\">CPP</span> First language; still how I think about memory.</p></figure>",
+      "css": ".ds-pinout { font-family: var(--font-sans); margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); } .ds-pinout-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); max-width: 22.5rem; margin-inline: auto; } .ds-col { display: flex; flex-direction: column; justify-content: space-around; padding-block: 1.1rem; } .ds-pin { display: flex; align-items: center; gap: 0.6rem; min-height: 3.5rem; color: var(--color-ink); text-decoration: none; cursor: pointer; } .ds-pin-left { justify-content: flex-end; text-align: right; } .ds-pin-right { flex-direction: row-reverse; justify-content: flex-end; text-align: left; } .ds-pin-text { display: flex; flex-direction: column; line-height: 1.2; } .ds-pin-name { font-family: var(--font-mono); font-size: 0.875rem; transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1); } a.ds-pin .ds-pin-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--color-line-strong); } .ds-pin-sub { white-space: nowrap; font-size: 0.75rem; color: var(--color-ink-2); } .ds-pin-leg { flex: none; width: 1.35rem; height: 0.8rem; background: #d4d7db; border: 1px solid #a3a9b0; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pin-left .ds-pin-leg { border-right: 0; } .ds-pin-right .ds-pin-leg { border-left: 0; } .ds-pin.is-active .ds-pin-leg, .ds-pin:hover .ds-pin-leg, .ds-pin:focus-visible .ds-pin-leg { background: var(--color-blue); border-color: var(--color-blue); } .ds-pin.is-active .ds-pin-name, .ds-pin:hover .ds-pin-name, .ds-pin:focus-visible .ds-pin-name { color: var(--color-blue); } .ds-pin:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-package { position: relative; width: 7.5rem; min-height: 16rem; background: #1d2024; border-radius: 3px; } .ds-notch { position: absolute; top: -1px; left: 50%; width: 1.75rem; height: 0.875rem; transform: translateX(-50%); background: var(--color-panel); border-radius: 0 0 1rem 1rem; } .ds-dot { position: absolute; top: 0.85rem; left: 0.85rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #33383e; } .ds-mark { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: #e2e5e9; transform: rotate(-90deg); pointer-events: none; } .ds-mark-text { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; } .ds-date { font-family: var(--font-mono); font-size: 0.6875rem; color: #9aa1a9; } .ds-readout { margin: 1rem 0 0; min-height: 2.9em; font-size: 0.8125rem; line-height: 1.45; color: var(--color-ink-2); text-align: center; } .ds-readout-key { font-family: var(--font-mono); color: var(--color-ink); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Column",
+    "overview": "One narrow white column, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, every other repo, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft grey card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a \"How it works\" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThe DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).",
+    "keyCharacteristics": [
+      "White page, near-black ink, two quieter greys, warm-neutral hairlines.",
+      "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one white surface lifted off the page.",
+      "Serif for names and titles, sans for everything else, mono only for literal code and markings.",
+      "Links are ink with a light grey underline that darkens on hover. Blue is not a link colour.",
+      "Blue marks focus, the active pin and the gesture skeletons. Orange marks one status word.",
+      "One shadow in the system, on the open dialog.",
+      "Motion is a 160ms colour change, plus a 200ms dialog rise and a pausable 45s tech strip. Both of those stop under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Slate On White Rule",
+        "body": "Slate (`ink-3`) sits on Paper only. It clears AA on white (about 4.7:1) and fails it on Panel (about 4.35:1). Text inside a panel or card uses Graphite or Ink, which is why card meta and tags are Graphite.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Signals Rule",
+        "body": "Blue means focus or the data being pointed at, and orange means \"In development\". Neither is decoration, a heading colour, a link colour or a fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif Names Rule",
+        "body": "Instrument Serif sets names only: the person, a card title and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.",
+        "section": "typography"
+      },
+      {
+        "name": "The Literal Mono Rule",
+        "body": "JetBrains Mono is for text that is literally code, a file name, a gesture name, a pin name or a chip marking (numerals, date code, readout key). It is always weight 400 and never used for prose, labels or headings. The KDC-14 mark is sans, not mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Space Groups Rule",
+        "body": "Group with whitespace and the panel fill. Hairlines are for lists only: More projects rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections or between cards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Summary And Story Rule",
+        "body": "The page carries a summary of each project. The full story (media, overview, figures, flow, facts and source) lives in that project's dialog, reachable by URL hash.",
+        "section": "layout"
+      },
+      {
+        "name": "The One Lift Rule",
+        "body": "The modal dialog is the only element with a shadow and a backdrop. Cards, panels, the chip and buttons stay flat. Hover changes tone, never elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do present each featured project as a Panel card (14px radius, 1rem grid gap, two up from 40rem) that opens its full story in a hash-keyed dialog.",
+      "Do keep the open dialog the only lifted surface: Paper, 18px radius, one soft shadow, 40% ink backdrop, a bottom sheet below 40rem.",
+      "Do make links Ink with a Hairline Strong underline that darkens on hover over 160ms.",
+      "Do separate sections and cards with space (5rem to 6.5rem between sections), and keep hairlines for lists.",
+      "Do set names in Instrument Serif 400, code, file names and pin names in JetBrains Mono 400, and everything else in Instrument Sans.",
+      "Do keep Slate text on white and use Graphite or Ink inside panels and cards.",
+      "Do keep motion to 160ms colour changes, the 200ms dialog rise and the pausable tech strip, and turn the rise and the strip off under `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "Don't add a header bar, navigation, numbered sections or tables.",
+      "Don't box tags or turn them into pills; tags are plain text joined by middle dots. The dialog's Close button is the only pill.",
+      "Don't use blue for links or decoration, or orange for anything but \"In development\".",
+      "Don't put a shadow on anything but the open dialog, and don't lift cards on hover.",
+      "Don't add a dark mode; the system is light only by design.",
+      "Don't put a label, kicker or eyebrow above the name, a section title, a card title or a dialog title.",
+      "Don't set sans text larger than 1rem or use the serif for anything but names.",
+      "Don't add a second signature figure or extend the chip's hardware styling to other components.",
+      "Don't add page-load or scroll-triggered entrance animations, or autoplaying media."
+    ]
+  }
+}

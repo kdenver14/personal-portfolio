@@ -1,0 +1,40 @@
+import { FEATURED } from "@/content/featured";
+import { Contact } from "@/components/contact";
+import { Experience } from "@/components/experience";
+import { Intro } from "@/components/intro";
+import { MoreProjects } from "@/components/more-projects";
+import { ProjectCard } from "@/components/project-card";
+import { ProjectDetail } from "@/components/project-detail";
+import { ProjectDialog } from "@/components/project-dialog";
+import { Section } from "@/components/section";
+import { SiteFooter } from "@/components/site-footer";
+
+export default function Home() {
+  return (
+    <div className="page">
+      <main>
+        <Intro />
+        <Section id="projects" title="Projects">
+          <div className="cards">
+            {FEATURED.map((project) => <ProjectCard key={project.id} project={project} />)}
+          </div>
+          {FEATURED.map((project) => (
+            <ProjectDialog key={project.id} id={project.id}>
+              <ProjectDetail project={project} />
+            </ProjectDialog>
+          ))}
+        </Section>
+        <Section id="experience" title="Experience">
+          <Experience />
+        </Section>
+        <Section id="more-projects" title="More projects">
+          <MoreProjects />
+        </Section>
+        <Section id="contact" title="Contact">
+          <Contact />
+        </Section>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
