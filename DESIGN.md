@@ -11,7 +11,6 @@ colors:
   panel: "#eaeef3"
   panel-hover: "#e1e6ed"
   blue: "#0a5bd3"
-  orange: "#a83f08"
 typography:
   display:
     fontFamily: "Instrument Serif, Georgia, serif"
@@ -138,7 +137,7 @@ components:
     textColor: "{colors.ink-2}"
     typography: "{typography.small}"
   status-preview:
-    textColor: "{colors.orange}"
+    textColor: "{colors.blue}"
     typography: "{typography.small}"
   tags:
     textColor: "{colors.ink-2}"
@@ -208,19 +207,16 @@ The DIP-8 chip figure is the only signature and the only place the old datasheet
 - Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.
 - Serif for names and titles, sans for everything else, mono only for literal code and markings.
 - Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.
-- Blue marks focus, the active pin and the gesture skeletons. Orange marks one status word.
+- Blue, the only accent, marks focus, the active pin, the gesture skeletons and one status word.
 - One shadow in the system, on the open dialog.
 - Motion is a 160ms colour change, plus a 200ms dialog rise and a pausable 45s tech strip. Both of those stop under reduced motion.
 
 ## Colors
 
-A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue marks focus and the data being pointed at. One burnt orange marks a single status.
+A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, the active pin's leg and name in the chip figure, and the bones and joint strokes of the gesture skeletons. It means "this is focused" or "this is the data you are pointing at".
-
-### Secondary
-- **Solder Orange** (`orange`): the "In development" status word on a card and in a dialog head. Nowhere else.
+- **Signal Blue** (`blue`): the focus ring, the active pin's leg and name in the chip figure, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, flow-diagram nodes and the theme colour.
@@ -235,7 +231,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 ### Named Rules
 **The Slate On Paper Rule.** Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1) and falls below it on a hovered card (4.25:1). Text inside a panel or card uses Graphite (5.19:1 on Panel, 4.82:1 on a hovered card) or Ink, which is why card meta and tags are Graphite.
 
-**The Two Signals Rule.** Blue means focus or the data being pointed at, and orange means "In development". Neither is decoration, a heading colour, a link colour or a fill.
+**The One Signal Rule.** Signal Blue is the only accent. It marks focus, the active pin, the gesture bones and the "In development" status word (5.22:1 on Panel, 4.85:1 on a hovered card). It is never decoration, a heading colour, a link colour or a fill.
 
 ## Typography
 
@@ -317,7 +313,7 @@ A small Slate Label `h2` in sentence case, 1.75rem above the section's content. 
 - **Caption:** inside the panel, centred, Graphite Caption, 1.25rem below the figure.
 
 ### Project Card
-The whole card is one link to its dialog (`#project-id`). Panel fill, 14px radius, padding 1.25rem with 1.125rem at the foot, and 0.5rem between rows. The order is: a serif Title with the year (Graphite, tabular figures) on the right; an orange "In development" when it applies; a Graphite Summary; Graphite tags; and "View project" (Ink, 500, 0.875rem) at the foot. On hover the fill darkens one notch over 160ms. A video poster at 8px radius leads the card when a demo exists.
+The whole card is one link to its dialog (`#project-id`). Panel fill, 14px radius, padding 1.25rem with 1.125rem at the foot, and 0.5rem between rows. The order is: a serif Title with the year (Graphite, tabular figures) on the right; a Signal Blue "In development" when it applies; a Graphite Summary; Graphite tags; and "View project" (Ink, 500, 0.875rem) at the foot. On hover the fill darkens one notch over 160ms. A video poster at 8px radius leads the card when a demo exists.
 
 ### Project Dialog
 A native modal `<dialog>` opened from the URL hash. A direct link opens it, and Back closes it. Escape, a backdrop click and the Close pill also close it. It is a Paper surface with an 18px radius, the system's one shadow and a 40% ink backdrop. It rises 12px and fades in over 200ms on the house ease-out, with no animation under reduced motion. A sticky bar at the top holds the Close pill on the right. The body runs in this order:
@@ -384,7 +380,7 @@ Hand-landmark skeletons drawn from real training data. They appear only in the H
 ### Don't:
 - **Don't** add a header bar, navigation, numbered sections or tables.
 - **Don't** box tags or turn them into pills; tags are plain text joined by middle dots. The dialog's Close button is the only pill.
-- **Don't** use blue for links or decoration, or orange for anything but "In development".
+- **Don't** use blue for links or decoration, or add a second accent colour.
 - **Don't** put a shadow on anything but the open dialog, and don't lift cards on hover.
 - **Don't** add a dark mode; the system is light only by design.
 - **Don't** put a label, kicker or eyebrow above the name, a section title, a card title or a dialog title.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-20T12:00:00Z",
+  "generatedAt": "2026-10-20T18:00:00Z",
   "title": "Design System: KDC-14",
   "extensions": {
     "colorMeta": {
@@ -138,21 +138,6 @@
           "oklch(83.6% 0.198 260.0)",
           "oklch(95.0% 0.198 260.0)"
         ]
-      },
-      "orange": {
-        "role": "secondary",
-        "displayName": "Solder Orange",
-        "canonical": "#a83f08",
-        "tonalRamp": [
-          "oklch(15.0% 0.150 41.8)",
-          "oklch(26.4% 0.150 41.8)",
-          "oklch(37.9% 0.150 41.8)",
-          "oklch(49.3% 0.150 41.8)",
-          "oklch(60.7% 0.150 41.8)",
-          "oklch(72.1% 0.150 41.8)",
-          "oklch(83.6% 0.150 41.8)",
-          "oklch(95.0% 0.150 41.8)"
-        ]
       }
     },
     "typographyMeta": {
@@ -285,7 +270,7 @@
       "refersTo": "card",
       "description": "A whole-card link in a Panel fill: serif title and year, status, Graphite summary and tags, View project at the foot; hover darkens the fill one notch.",
       "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card-head\"><span class=\"ds-card-title\">uptime-monitor</span><span class=\"ds-card-year\">2026</span></span><span class=\"ds-status\">In development</span><span class=\"ds-card-summary\">A website uptime monitor that tracks status and response time, written without AI.</span><ul class=\"ds-tags\"><li>TypeScript</li><li>Express 5</li><li>Prisma</li></ul><span class=\"ds-card-open\">View project</span></a>",
-      "css": ".ds-card { display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem; padding: 1.25rem 1.25rem 1.125rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); font-family: var(--font-sans); text-decoration: none; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { background: var(--color-panel-hover); } .ds-card:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; } .ds-card-title { font-family: var(--font-serif); font-size: 1.625rem; line-height: 1.1; font-weight: 400; } .ds-card-year { font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { font-size: 0.875rem; color: var(--color-orange); } .ds-card-summary { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-card-open { margin-top: auto; padding-top: 0.75rem; font-size: 0.875rem; font-weight: 500; }"
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem; padding: 1.25rem 1.25rem 1.125rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); font-family: var(--font-sans); text-decoration: none; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { background: var(--color-panel-hover); } .ds-card:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; } .ds-card-title { font-family: var(--font-serif); font-size: 1.625rem; line-height: 1.1; font-weight: 400; } .ds-card-year { font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { font-size: 0.875rem; color: var(--color-blue); } .ds-card-summary { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-card-open { margin-top: auto; padding-top: 0.75rem; font-size: 0.875rem; font-weight: 500; }"
     },
     {
       "name": "Project Dialog",
@@ -293,7 +278,7 @@
       "refersTo": "dialog",
       "description": "The hash-keyed modal: Paper, 18px radius, the system's one shadow over a 40% ink backdrop, sticky bar with the Close pill, serif headline, overview, Details facts and a hairline foot.",
       "html": "<div class=\"ds-scrim\"><div class=\"ds-dialog\" role=\"dialog\" aria-label=\"uptime-monitor\"><div class=\"ds-dialog-bar\"><button type=\"button\" class=\"ds-close\">Close</button></div><div class=\"ds-dialog-body\"><header class=\"ds-detail-head\"><h2 class=\"ds-detail-title\">uptime-monitor</h2><span class=\"ds-detail-meta\"><span class=\"ds-status\">In development</span><span>2026</span></span></header><p class=\"ds-detail-text\">Checks each site on a schedule and records status and response time.</p><section><h3 class=\"ds-detail-label\">Details</h3><dl class=\"ds-facts\"><div class=\"ds-fact\"><dt>Runtime</dt><dd>Node.js, Express 5</dd></div><div class=\"ds-fact\"><dt>Entry</dt><dd><code>src/server.ts</code></dd></div></dl></section><footer class=\"ds-detail-foot\"><ul class=\"ds-tags\"><li>TypeScript</li><li>Prisma</li></ul><a class=\"ds-link\" href=\"#\">Source on GitHub</a></footer></div></div></div>",
-      "css": ".ds-scrim { padding: 2rem 1rem; background: rgb(23 23 23 / 0.4); } .ds-dialog { max-width: 44rem; margin: 0 auto; background: var(--color-paper); color: var(--color-ink); border-radius: 18px; box-shadow: 0 24px 64px -16px rgb(23 23 23 / 0.28); font-family: var(--font-sans); animation: ds-dialog-in 200ms cubic-bezier(0.16, 1, 0.3, 1); } @keyframes ds-dialog-in { from { opacity: 0; transform: translateY(12px); } } @media (prefers-reduced-motion: reduce) { .ds-dialog { animation: none; } } .ds-dialog-bar { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 0.875rem 1rem 0; background: linear-gradient(var(--color-paper) 70%, transparent); border-radius: 18px 18px 0 0; } .ds-close { padding: 0.375rem 0.75rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-paper); font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--color-ink); cursor: pointer; } .ds-close:hover { border-color: var(--color-line-strong); } .ds-close:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-dialog-body { padding: 0 2.5rem 2.5rem; } .ds-dialog-body > * + * { margin-top: 1.75rem; } .ds-detail-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; } .ds-detail-title { margin: 0; font-family: var(--font-serif); font-size: 2.25rem; line-height: 1.05; font-weight: 400; } .ds-detail-meta { display: flex; gap: 0.75rem; font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { color: var(--color-orange); } .ds-detail-text { margin: 0; line-height: 1.65; color: var(--color-ink-2); } .ds-detail-label { margin: 0 0 0.75rem; font-size: 0.875rem; font-weight: 500; color: var(--color-ink-3); } .ds-facts { margin: 0; border-top: 1px solid var(--color-line); } .ds-fact { padding-block: 0.625rem; border-bottom: 1px solid var(--color-line); font-size: 0.9375rem; line-height: 1.45; } .ds-fact dt { font-size: 0.8125rem; color: var(--color-ink-3); } .ds-fact dd { margin: 0; } .ds-fact code { font-family: var(--font-mono); font-size: 0.8125rem; } .ds-detail-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-line); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-link { color: var(--color-ink); font-weight: 500; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); transition: text-decoration-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { text-decoration-color: currentColor; } .ds-link:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; }"
+      "css": ".ds-scrim { padding: 2rem 1rem; background: rgb(23 23 23 / 0.4); } .ds-dialog { max-width: 44rem; margin: 0 auto; background: var(--color-paper); color: var(--color-ink); border-radius: 18px; box-shadow: 0 24px 64px -16px rgb(23 23 23 / 0.28); font-family: var(--font-sans); animation: ds-dialog-in 200ms cubic-bezier(0.16, 1, 0.3, 1); } @keyframes ds-dialog-in { from { opacity: 0; transform: translateY(12px); } } @media (prefers-reduced-motion: reduce) { .ds-dialog { animation: none; } } .ds-dialog-bar { position: sticky; top: 0; display: flex; justify-content: flex-end; padding: 0.875rem 1rem 0; background: linear-gradient(var(--color-paper) 70%, transparent); border-radius: 18px 18px 0 0; } .ds-close { padding: 0.375rem 0.75rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-paper); font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--color-ink); cursor: pointer; } .ds-close:hover { border-color: var(--color-line-strong); } .ds-close:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-dialog-body { padding: 0 2.5rem 2.5rem; } .ds-dialog-body > * + * { margin-top: 1.75rem; } .ds-detail-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; } .ds-detail-title { margin: 0; font-family: var(--font-serif); font-size: 2.25rem; line-height: 1.05; font-weight: 400; } .ds-detail-meta { display: flex; gap: 0.75rem; font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { color: var(--color-blue); } .ds-detail-text { margin: 0; line-height: 1.65; color: var(--color-ink-2); } .ds-detail-label { margin: 0 0 0.75rem; font-size: 0.875rem; font-weight: 500; color: var(--color-ink-3); } .ds-facts { margin: 0; border-top: 1px solid var(--color-line); } .ds-fact { padding-block: 0.625rem; border-bottom: 1px solid var(--color-line); font-size: 0.9375rem; line-height: 1.45; } .ds-fact dt { font-size: 0.8125rem; color: var(--color-ink-3); } .ds-fact dd { margin: 0; } .ds-fact code { font-family: var(--font-mono); font-size: 0.8125rem; } .ds-detail-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-line); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-link { color: var(--color-ink); font-weight: 500; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); transition: text-decoration-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { text-decoration-color: currentColor; } .ds-link:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; }"
     },
     {
       "name": "Tech Strip",
@@ -352,7 +337,7 @@
       "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",
       "Serif for names and titles, sans for everything else, mono only for literal code and markings.",
       "Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.",
-      "Blue marks focus, the active pin and the gesture skeletons. Orange marks one status word.",
+      "Blue, the only accent, marks focus, the active pin, the gesture skeletons and one status word.",
       "One shadow in the system, on the open dialog.",
       "Motion is a 160ms colour change, plus a 200ms dialog rise and a pausable 45s tech strip. Both of those stop under reduced motion."
     ],
@@ -363,8 +348,8 @@
         "section": "colors"
       },
       {
-        "name": "The Two Signals Rule",
-        "body": "Blue means focus or the data being pointed at, and orange means \"In development\". Neither is decoration, a heading colour, a link colour or a fill.",
+        "name": "The One Signal Rule",
+        "body": "Signal Blue is the only accent. It marks focus, the active pin, the gesture bones and the \"In development\" status word (5.22:1 on Panel, 4.85:1 on a hovered card). It is never decoration, a heading colour, a link colour or a fill.",
         "section": "colors"
       },
       {
@@ -405,7 +390,7 @@
     "donts": [
       "Don't add a header bar, navigation, numbered sections or tables.",
       "Don't box tags or turn them into pills; tags are plain text joined by middle dots. The dialog's Close button is the only pill.",
-      "Don't use blue for links or decoration, or orange for anything but \"In development\".",
+      "Don't use blue for links or decoration, or add a second accent colour.",
       "Don't put a shadow on anything but the open dialog, and don't lift cards on hover.",
       "Don't add a dark mode; the system is light only by design.",
       "Don't put a label, kicker or eyebrow above the name, a section title, a card title or a dialog title.",
