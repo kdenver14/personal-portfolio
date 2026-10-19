@@ -1,5 +1,5 @@
 export const OWNER = "kdenver14";
-export const SITE_URL = "https://kdenver.dev";
+export const SITE_URL = "https://kdenver.vercel.app";
 export const NAME = "Kurt Denver Chavez";
 export const PART_NUMBER = "KDC-14";
 export const LAST_REVISED = "2026-10";

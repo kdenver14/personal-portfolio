@@ -69,12 +69,17 @@ This writes `src/data/gesture-samples.json` (every 5th sample, 2D, wrist-relativ
 
 ## Deploy
 
-Live at [kdenver.dev](https://kdenver.dev). Hosted on Vercel from the GitHub repo; every push to `main` redeploys.
+Live at [kdenver.vercel.app](https://kdenver.vercel.app). Hosted on Vercel from this GitHub repo.
 
-1. On [vercel.com](https://vercel.com), choose Add New, then Project, and import the GitHub repo. Keep the Next.js preset. No environment variables are needed.
-2. In the project's Settings, open Domains and add `kdenver.dev`. Then do one of these:
-   - Buy the domain through Vercel.
-   - Copy the DNS records Vercel shows into your registrar.
+To ship a change:
 
-   HTTPS is automatic; `.dev` domains require it.
-3. If the domain ever changes, update `SITE_URL` in `src/content/profile.ts`. Link previews use it.
+```bash
+npm run build      # check it builds locally first
+git add -A
+git commit -m "describe the change"
+git push           # Vercel rebuilds main and updates the live site in about a minute
+```
+
+- Push to any other branch to get a preview URL without touching the live site.
+- To undo a bad release, open the Vercel project, go to Deployments, and choose Instant Rollback on the previous one.
+- The address is set in the Vercel project under Settings, then Domains. If it changes, update `SITE_URL` in `src/content/profile.ts`, because link previews use it.
