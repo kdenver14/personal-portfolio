@@ -113,10 +113,52 @@
 
   /* ---------- Page column ---------- */
 
+  body {
+    position: relative;
+    overflow-x: clip;
+  }
+
   .page {
+    position: relative;
+    z-index: 1;
     max-width: calc(var(--measure) + 2 * var(--gutter));
     margin-inline: auto;
     padding: 4.5rem var(--gutter) 0;
+  }
+
+  /* ---------- Corner waves (decorative) ---------- */
+
+  .corner-defs {
+    position: absolute;
+  }
+
+  .corner {
+    position: absolute;
+    z-index: 0;
+    width: min(34rem, 55vw);
+    aspect-ratio: 1;
+    color: var(--color-ink);
+    opacity: 0.32;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at 100% 0%, #000 18%, transparent 74%);
+  }
+
+  .corner-tr {
+    top: 0;
+    right: 0;
+  }
+
+  /* The same art turned half a turn; the mask turns with it, so it fades toward the page centre. */
+  .corner-bl {
+    bottom: 0;
+    left: 0;
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 47.99rem) {
+    .corner {
+      opacity: 0.14;
+    }
   }
 
   @media (min-width: 48rem) {

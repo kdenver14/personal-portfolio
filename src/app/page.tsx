@@ -1,5 +1,6 @@
 import { FEATURED } from "@/content/featured";
 import { Contact } from "@/components/contact";
+import { CornerWaves } from "@/components/corner-waves";
 import { Experience } from "@/components/experience";
 import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
@@ -11,7 +12,9 @@ import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
   return (
-    <div className="page">
+    <>
+      <CornerWaves />
+      <div className="page">
       <main>
         <Intro />
         <Section id="projects" title="Projects">
@@ -35,6 +38,7 @@ export default function Home() {
         </Section>
       </main>
       <SiteFooter />
-    </div>
+      </div>
+    </>
   );
 }
