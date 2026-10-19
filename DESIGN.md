@@ -361,16 +361,15 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
 ### Corner Waves (decoration)
-An op-art field of 52 parallel wavy lines, generated in code by `src/lib/waves.ts`, set in all four page corners behind the content.
-- **Mirroring:** the top-right art is mirrored into the other three corners.
+Concentric wavy rings rippling out of all four page corners, generated in code by `src/lib/waves.ts`.
+- **Geometry:** each ring is 9% larger than the one inside it, carries 40 wave lobes per turn with a slow swell, and twists slightly from ring to ring. Stroke width grows with the radius.
+- **Mirroring:** the top-left art is mirrored into the other three corners.
 - **Colour:** Ink at 30% opacity, 12% below 48rem.
-- **Stroke:** 4.2 at the corner, thinning to 0.6.
-- **Fade:** a radial mask fades the lines out before they reach the text column.
-- **Motion:** like an ocean swell.
-  - The art slides along its lines by exactly one wave period every 38s, linear. Every wave component repeats over that period, so the loop has no seam.
-  - A 7s ease-in-out rock across the lines runs underneath.
-  - Both are transforms on whole layers, so the lines are never redrawn.
-  - Under reduced motion the art is still.
+- **Fade:** a radial mask hides the very corner, holds solid briefly, then fades out before the text column.
+- **Motion:**
+  - Every 6s the whole set scales by one ring step and turns to match. The rings are self-similar, so each ring lands exactly where the next one was and the ripple loops without a seam.
+  - It is a single transform on the layer, so the rings are never redrawn.
+  - Under reduced motion the rings are still.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)

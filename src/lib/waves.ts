@@ -1,26 +1,28 @@
 /**
- * Parallel wavy lines for the corner decoration. Each line sums a primary sine, a secondary sine and a slow
- * swell; every one of them repeats over wavePeriod(wavelength), so sliding the art by that distance along the
- * lines lands on an identical picture and the drift animation loops without a seam.
+ * Concentric wavy rings for the corner decoration, centred on the canvas origin (the page corner).
+ *
+ * The set is self-similar: ring i+1 is ring i scaled by `growth` and turned by rippleTurn(). So scaling and
+ * turning the whole drawing by exactly that much puts every ring where the next one was, which lets a CSS
+ * animation ripple the rings outward forever without a seam. Stroke widths grow with the radius for the
+ * same reason.
  */
-export interface WaveOptions {
-  /** Square canvas size; lines overshoot it so the art still fills the square after rotation. */
-  size: number;
-  lines: number;
-  /** Horizontal distance between sampled points. */
-  step: number;
-  wavelength: number;
-  minAmplitude: number;
-  maxAmplitude: number;
-  /** Phase added per line, in radians: small values keep neighbours nearly parallel. */
+export interface RingOptions {
+  /** Radius of the innermost ring. */
+  innerRadius: number;
+  /** Rings continue until they pass this radius. */
+  outerRadius: number;
+  /** Radius ratio between neighbouring rings (> 1). */
+  growth: number;
+  /** Wave lobes per full turn. */
+  lobes: number;
+  /** Wave height as a share of the ring's radius. */
+  amplitude: number;
+  /** Phase added per ring, in radians: it twists the lobes from ring to ring. */
   phaseStep: number;
-  maxStroke: number;
-  minStroke: number;
-  /** Line position (0 = first, 1 = last) where the stroke is thickest, and where it has thinned to minStroke. */
-  thickAt: number;
-  thinAt: number;
-  /** Extra length added to the end of every line, so the art still covers the canvas while it slides. */
-  extend: number;
+  /** Stroke width as a share of the ring's radius. */
+  strokeRatio: number;
+  /** Distance between sampled points along a ring. */
+  step: number;
 }
 
 export interface WaveLine {
@@ -28,59 +30,51 @@ export interface WaveLine {
   strokeWidth: number;
 }
 
-const OVERSHOOT = 0.35;
-/** The secondary wave and the swell repeat every 1.5 and 3 wavelengths, so 3 wavelengths is the common period. */
-const SECOND_WAVE_RATIO = 1.5;
-const SWELL_RATIO = 3;
-const PERIOD_RATIO = 3;
-const SECOND_WAVE_WEIGHT = 0.35;
-const SECOND_PHASE_RATIO = 0.6;
-const SWELL_DEPTH = 0.55;
-const SWELL_PHASE_PER_LINE = 0.07;
-/** Phase drift is bent so neighbouring lines converge and spread, as in op-art moiré. */
-const DRIFT_BEND = 1.4;
-const DRIFT_BEND_RATE = 0.11;
-const STROKE_DECIMALS = 2;
+/** Arcs run a little past the quarter turn so slight rotation never exposes their ends. */
+const ARC_START = -0.15;
+const ARC_END = Math.PI / 2 + 0.15;
+const MIN_POINTS = 16;
+/** A slower swell along each ring makes the lobes bunch and relax like water. */
+const SWELL_RATIO = 0.25;
+const SWELL_DEPTH = 0.45;
+const STROKE_DECIMALS = 3;
 
-const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
-const clamp01 = (t: number): number => Math.min(1, Math.max(0, t));
-
-/** Distance after which every line repeats exactly. */
-export function wavePeriod(wavelength: number): number {
-  return wavelength * PERIOD_RATIO;
+export function ringCount(options: RingOptions): number {
+  return Math.ceil(Math.log(options.outerRadius / options.innerRadius) / Math.log(options.growth)) + 1;
 }
 
-export function waveY(x: number, base: number, amplitude: number, phase: number, wavelength: number, index: number): number {
-  const swell = 1 + SWELL_DEPTH * Math.sin((2 * Math.PI * x) / (wavelength * SWELL_RATIO) + index * SWELL_PHASE_PER_LINE);
-  const primary = Math.sin((2 * Math.PI * x) / wavelength + phase);
-  const secondary = Math.sin((2 * Math.PI * x) / (wavelength * SECOND_WAVE_RATIO) + phase * SECOND_PHASE_RATIO);
-  return base + amplitude * swell * (primary + SECOND_WAVE_WEIGHT * secondary);
+/** Radius of ring `index` at angle `theta`. */
+export function ringRadius(index: number, theta: number, options: RingOptions): number {
+  const { innerRadius, growth, lobes, amplitude, phaseStep } = options;
+  const base = innerRadius * growth ** index;
+  const phase = index * phaseStep;
+  const swell = 1 + SWELL_DEPTH * Math.sin(lobes * SWELL_RATIO * theta + SWELL_RATIO * phase);
+  return base * (1 + amplitude * swell * Math.sin(lobes * theta + phase));
 }
 
-function linePath(index: number, options: WaveOptions): string {
-  const { size, lines, step, wavelength, minAmplitude, maxAmplitude, phaseStep, extend } = options;
-  const span = size * (1 + 2 * OVERSHOOT);
-  const u = lines > 1 ? index / (lines - 1) : 0;
-  const base = -size * OVERSHOOT + u * span;
-  const amplitude = lerp(minAmplitude, maxAmplitude, 0.5 + 0.5 * Math.sin(u * Math.PI * 1.3));
-  const phase = index * phaseStep + DRIFT_BEND * Math.sin(index * DRIFT_BEND_RATE);
+/** Turn, in degrees, that carries one ring's lobes onto the next ring's (pairs with a scale of `growth`). */
+export function rippleTurn(options: RingOptions): number {
+  return (-options.phaseStep / options.lobes) * (180 / Math.PI);
+}
+
+function ringPath(index: number, options: RingOptions): string {
+  const base = options.innerRadius * options.growth ** index;
+  const count = Math.max(MIN_POINTS, Math.ceil((base * (ARC_END - ARC_START)) / options.step));
   const points: string[] = [];
-  for (let x = -size * OVERSHOOT; x <= size * (1 + OVERSHOOT) + extend; x += step) {
-    points.push(`${Math.round(x)} ${Math.round(waveY(x, base, amplitude, phase, wavelength, index))}`);
+  for (let k = 0; k <= count; k += 1) {
+    const theta = ARC_START + ((ARC_END - ARC_START) * k) / count;
+    const r = ringRadius(index, theta, options);
+    points.push(`${(r * Math.cos(theta)).toFixed(1)} ${(r * Math.sin(theta)).toFixed(1)}`);
   }
   return `M${points.join("L")}`;
 }
 
-export function waveLines(options: WaveOptions): WaveLine[] {
-  if (options.lines < 1 || options.step <= 0 || options.wavelength <= 0 || options.thinAt <= options.thickAt) {
-    throw new RangeError("waveLines needs at least one line, a positive step and wavelength, and thinAt after thickAt");
+export function waveRings(options: RingOptions): WaveLine[] {
+  if (options.innerRadius <= 0 || options.outerRadius <= options.innerRadius || options.growth <= 1 || options.step <= 0) {
+    throw new RangeError("waveRings needs 0 < innerRadius < outerRadius, growth > 1 and a positive step");
   }
-  return Array.from({ length: options.lines }, (_, index) => {
-    const u = options.lines > 1 ? index / (options.lines - 1) : 0;
-    const thinning = clamp01((u - options.thickAt) / (options.thinAt - options.thickAt));
-    return {
-      d: linePath(index, options),
-      strokeWidth: Number(lerp(options.maxStroke, options.minStroke, thinning).toFixed(STROKE_DECIMALS)),
-    };
-  });
+  return Array.from({ length: ringCount(options) }, (_, index) => ({
+    d: ringPath(index, options),
+    strokeWidth: Number((options.strokeRatio * options.innerRadius * options.growth ** index).toFixed(STROKE_DECIMALS)),
+  }));
 }

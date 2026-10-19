@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T18:35:45Z",
+  "generatedAt": "2026-10-19T18:40:58Z",
   "title": "Design System: KDC-14",
   "extensions": {
     "colorMeta": {
@@ -332,9 +332,9 @@
       "name": "Corner Waves",
       "kind": "custom",
       "refersTo": "decoration",
-      "description": "Op-art wavy line field in all four page corners, mirrored from the top-right art; Ink at 30% opacity (12% on phones), thick at the corner and fading out radially. Drifts one wave period along the lines every 38s (seamless) over a 7s cross-line rock, still under reduced motion. Decorative and aria-hidden.",
-      "html": "<svg class=\"ds-waves\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\"><path d=\"M0 20 Q15 10 30 20 T60 20 T90 20 T120 20\" stroke-width=\"3\"/><path d=\"M0 32 Q15 22 30 32 T60 32 T90 32 T120 32\" stroke-width=\"2\"/><path d=\"M0 44 Q15 34 30 44 T60 44 T90 44 T120 44\" stroke-width=\"1.2\"/></g></svg>",
-      "css": ".ds-waves { width: 12rem; aspect-ratio: 1; color: var(--color-ink); opacity: 0.32; mask-image: radial-gradient(circle at 100% 0%, #000 18%, transparent 74%); pointer-events: none; }"
+      "description": "Concentric wavy rings rippling out of all four page corners (top-left art mirrored); Ink at 30% opacity (12% on phones) behind a radial fade. A 6s linear scale-and-turn by one ring step loops seamlessly because the rings are self-similar; still under reduced motion. Decorative and aria-hidden.",
+      "html": "<svg class=\"ds-waves\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\"><path d=\"M30 0 Q33 8 29 15 T26 30\" stroke-width=\"0.6\"/><path d=\"M55 0 Q60 14 53 28 T47 55\" stroke-width=\"0.9\"/><path d=\"M85 0 Q92 20 82 40 T73 85\" stroke-width=\"1.3\"/></g></svg>",
+      "css": ".ds-waves { width: 12rem; aspect-ratio: 1; color: var(--color-ink); opacity: 0.3; mask-image: radial-gradient(circle at 0% 0%, transparent 6%, #000 12%, #000 22%, transparent 74%); pointer-events: none; }"
     }
   ],
   "narrative": {

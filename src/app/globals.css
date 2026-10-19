@@ -132,7 +132,8 @@
     position: absolute;
   }
 
-  /* Each corner is the top-right art mirrored into place; the mask mirrors with it, so it always fades inward. */
+  /* Each corner is the top-left art mirrored into place; the mask mirrors with it, so it always fades inward.
+     The mask also hides the corner's centre, where the innermost ring is born on each loop. */
   .corner {
     position: absolute;
     z-index: 0;
@@ -142,56 +143,45 @@
     color: var(--color-ink);
     opacity: 0.3;
     pointer-events: none;
-    mask-image: radial-gradient(circle at 100% 0%, #000 16%, transparent 72%);
-  }
-
-  .corner-tr {
-    top: 0;
-    right: 0;
+    mask-image: radial-gradient(circle at 0% 0%, transparent 6%, #000 12%, #000 22%, transparent 74%);
   }
 
   .corner-tl {
     top: 0;
     left: 0;
-    transform: scaleX(-1);
   }
 
-  .corner-br {
-    bottom: 0;
+  .corner-tr {
+    top: 0;
     right: 0;
-    transform: scaleY(-1);
+    transform: scaleX(-1);
   }
 
   .corner-bl {
     bottom: 0;
     left: 0;
+    transform: scaleY(-1);
+  }
+
+  .corner-br {
+    bottom: 0;
+    right: 0;
     transform: rotate(180deg);
   }
 
-  .corner-bob {
-    width: 100%;
-    height: 100%;
-    animation: wave-bob 7s ease-in-out infinite alternate;
-  }
-
-  /* Slides exactly one wave period along the lines per loop; the art repeats there, so there is no seam. */
+  /* Grows the rings by one ring step per loop around the corner, so they ripple outward without a seam. */
   .corner-art {
     display: block;
     width: 100%;
     height: 100%;
     overflow: visible;
-    animation: wave-drift 38s linear infinite;
+    transform-origin: 0 0;
+    animation: ripple 6s linear infinite;
   }
 
-  @keyframes wave-drift {
+  @keyframes ripple {
     to {
-      transform: translate(var(--drift-x), var(--drift-y));
-    }
-  }
-
-  @keyframes wave-bob {
-    to {
-      transform: translate(var(--bob-x), var(--bob-y));
+      transform: rotate(var(--ripple-turn)) scale(var(--ripple-scale));
     }
   }
 
@@ -202,7 +192,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .corner-bob,
     .corner-art {
       animation: none;
     }
