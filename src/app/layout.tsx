@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
-import { DESCRIPTOR, GITHUB_URL, NAME, SITE_URL } from "@/content/profile";
+import { DESCRIPTOR, GITHUB_URL, NAME, SITE_TITLE, SITE_URL } from "@/content/profile";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -24,11 +24,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: NAME,
+  title: SITE_TITLE,
   description: `${NAME}, ${DESCRIPTOR}. Projects and contact.`,
   authors: [{ name: NAME, url: GITHUB_URL }],
   openGraph: {
-    title: NAME,
+    title: SITE_TITLE,
     description: `${DESCRIPTOR}.`,
     type: "profile",
   },

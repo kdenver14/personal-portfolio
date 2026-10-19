@@ -1,6 +1,8 @@
 export const OWNER = "kdenver14";
 export const SITE_URL = "https://kdenver.vercel.app";
 export const NAME = "Kurt Denver Chavez";
+/** What the browser tab and link previews call the site. */
+export const SITE_TITLE = "Denver";
 export const PART_NUMBER = "KDC-14";
 export const LAST_REVISED = "2026-10";
 
