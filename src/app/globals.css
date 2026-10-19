@@ -5,13 +5,15 @@
 
 @theme {
   --color-*: initial;
-  --color-paper: #ffffff;
+  /* Warm paper: a cream ground with sand panels; ink-3 is darkened to keep 4.5:1 on the tint. */
+  --color-paper: #faf7f2;
   --color-ink: #171717;
   --color-ink-2: #5f6368;
-  --color-ink-3: #737373;
-  --color-line: #ebebe9;
-  --color-line-strong: #cfcfcc;
-  --color-panel: #f5f5f4;
+  --color-ink-3: #6b6b6b;
+  --color-line: #e6e1d6;
+  --color-line-strong: #c9c2b4;
+  --color-panel: #f1ede4;
+  --color-panel-hover: #e9e4d8;
   --color-blue: #0a5bd3;
   --color-orange: #b4450a;
 
@@ -269,7 +271,7 @@
   }
 
   .card:hover {
-    background: #eeeeec;
+    background: var(--color-panel-hover);
   }
 
   .card-poster {
