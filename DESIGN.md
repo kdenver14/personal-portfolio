@@ -2,15 +2,16 @@
 name: KDC-14
 description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and one DIP-8 chip figure.
 colors:
-  paper: "#ffffff"
+  paper: "#f5f7fa"
   ink: "#171717"
   ink-2: "#5f6368"
-  ink-3: "#737373"
-  line: "#ebebe9"
-  line-strong: "#cfcfcc"
-  panel: "#f5f5f4"
+  ink-3: "#6b6b6b"
+  line: "#e0e5eb"
+  line-strong: "#c3cbd5"
+  panel: "#eaeef3"
+  panel-hover: "#e1e6ed"
   blue: "#0a5bd3"
-  orange: "#b4450a"
+  orange: "#a83f08"
 typography:
   display:
     fontFamily: "Instrument Serif, Georgia, serif"
@@ -126,7 +127,7 @@ components:
     rounded: "{rounded.panel}"
     padding: "1.25rem 1.25rem 1.125rem"
   card-hover:
-    backgroundColor: "#eeeeec"
+    backgroundColor: "{colors.panel-hover}"
   card-title:
     textColor: "{colors.ink}"
     typography: "{typography.title}"
@@ -196,24 +197,24 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow white column, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, every other repo, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, every other repo, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.
 
-The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft grey card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a "How it works" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
+The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a "How it works" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
 The DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).
 
 **Key Characteristics:**
-- White page, near-black ink, two quieter greys, warm-neutral hairlines.
-- Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one white surface lifted off the page.
+- Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.
+- Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.
 - Serif for names and titles, sans for everything else, mono only for literal code and markings.
-- Links are ink with a light grey underline that darkens on hover. Blue is not a link colour.
+- Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.
 - Blue marks focus, the active pin and the gesture skeletons. Orange marks one status word.
 - One shadow in the system, on the open dialog.
 - Motion is a 160ms colour change, plus a 200ms dialog rise and a pausable 45s tech strip. Both of those stop under reduced motion.
 
 ## Colors
 
-A warm-neutral grey-ink palette on pure white. One saturated blue marks focus and the data being pointed at. One burnt orange marks a single status.
+A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue marks focus and the data being pointed at. One burnt orange marks a single status.
 
 ### Primary
 - **Signal Blue** (`blue`): the focus ring, the active pin's leg and name in the chip figure, and the bones and joint strokes of the gesture skeletons. It means "this is focused" or "this is the data you are pointing at".
@@ -225,13 +226,14 @@ A warm-neutral grey-ink palette on pure white. One saturated blue marks focus an
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, flow-diagram nodes and the theme colour.
 - **Ink** (`ink`): the name, card and dialog titles, links, the availability line, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
 - **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, pin sublabels, the pin readout, captions inside panels, code-listing line numbers and comments, and gesture labels.
-- **Slate** (`ink-3`): section titles, dialog sub-headings ("How it works", "Details"), fact labels, the strip's logos, More projects years, the footer, and captions on white.
+- **Slate** (`ink-3`): section titles, dialog sub-headings ("How it works", "Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
 - **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule, flow-node borders and the Close pill's resting border.
 - **Hairline Strong** (`line-strong`): resting link underlines, connectors between flow nodes, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the chip panel, flow and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker (`#eeeeec`).
+- **Panel** (`panel`): the fill of every project card, the chip panel, flow and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
-**The Slate On White Rule.** Slate (`ink-3`) sits on Paper only. It clears AA on white (about 4.7:1) and fails it on Panel (about 4.35:1). Text inside a panel or card uses Graphite or Ink, which is why card meta and tags are Graphite.
+**The Slate On Paper Rule.** Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1) and falls below it on a hovered card (4.25:1). Text inside a panel or card uses Graphite (5.19:1 on Panel, 4.82:1 on a hovered card) or Ink, which is why card meta and tags are Graphite.
 
 **The Two Signals Rule.** Blue means focus or the data being pointed at, and orange means "In development". Neither is decoration, a heading colour, a link colour or a fill.
 
@@ -281,7 +283,7 @@ Rows that pair a name with a year (card head, dialog head, More projects rows) p
 
 ## Elevation & Depth
 
-Nearly flat. The page has one tonal step: Panel grey on white, with white flow nodes inside a panel where a diagram needs them. A hovered card darkens one notch (`#eeeeec`). The only lifted surface is the open dialog. It is white paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
+Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Paper flow nodes inside a panel where a diagram needs them. A hovered card darkens one notch to Panel Hover. The only lifted surface is the open dialog. It is Paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
 
 ### Named Rules
 **The One Lift Rule.** The modal dialog is the only element with a shadow and a backdrop. Cards, panels, the chip and buttons stay flat. Hover changes tone, never elevation.
@@ -310,7 +312,7 @@ A small Slate Label `h2` in sentence case, 1.75rem above the section's content. 
 
 ### Panel
 - **Corner Style:** 14px.
-- **Background:** Panel grey. No border and no shadow.
+- **Background:** Panel blue-gray. No border and no shadow.
 - **Internal Padding:** set per figure, about 2rem top and 1rem to 1.25rem sides and bottom. The code listing is tighter (0.875rem to 1.125rem).
 - **Caption:** inside the panel, centred, Graphite Caption, 1.25rem below the figure.
 
@@ -344,7 +346,7 @@ A single line of monochrome technology logos, sliding right to left in a 45s lin
 None is populated yet. When present, it leads the dialog at full width, with the 14px radius and a Panel fill before load, and its poster leads the card. It has native controls and never autoplays. A visible Slate caption sits 0.625rem below it as the text alternative.
 
 ### Flow Diagram
-A vertical chain of white nodes (8px radius, 1px Hairline border, Caption type, centred, minimum 10rem wide) joined by 1px Hairline Strong connectors, centred in a panel. It appears under "How it works" in a dialog.
+A vertical chain of Paper nodes (8px radius, 1px Hairline border, Caption type, centred, minimum 10rem wide) joined by 1px Hairline Strong connectors, centred in a panel. It appears under "How it works" in a dialog.
 
 ### Code Listing
 A panel with a head row above a Mono body at line-height 1.7. The head holds the file name in Mono Graphite and a "View file" link. Long lines wrap with a hanging indent under the code, so phones never scroll or clip a listing. Line numbers are generated, right-aligned in Graphite, and unselectable. Comments are Graphite.
@@ -376,7 +378,7 @@ Hand-landmark skeletons drawn from real training data. They appear only in the H
 - **Do** make links Ink with a Hairline Strong underline that darkens on hover over 160ms.
 - **Do** separate sections and cards with space (5rem to 6.5rem between sections), and keep hairlines for lists.
 - **Do** set names in Instrument Serif 400, code, file names and pin names in JetBrains Mono 400, and everything else in Instrument Sans.
-- **Do** keep Slate text on white and use Graphite or Ink inside panels and cards.
+- **Do** keep Slate text on Paper and use Graphite or Ink inside panels and cards.
 - **Do** keep motion to 160ms colour changes, the 200ms dialog rise and the pausable tech strip, and turn the rise and the strip off under `prefers-reduced-motion`.
 
 ### Don't:
