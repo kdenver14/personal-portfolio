@@ -132,18 +132,15 @@
     position: absolute;
   }
 
-  /* Each corner is the top-left art mirrored into place; the mask mirrors with it, so it always fades inward.
-     The mask also hides the corner's centre, where the innermost ring is born on each loop. */
+  /* Each corner is the top-left art mirrored into place. The box tracks the side margin, so the squiggles
+     stay clear of the text column on wide screens and shrink to small accents above it on narrow ones. */
   .corner {
     position: absolute;
     z-index: 0;
-    width: min(30rem, 46vw);
+    width: clamp(8rem, calc((100vw - var(--measure)) / 2 + 2rem), 30rem);
     aspect-ratio: 1;
     overflow: hidden;
-    color: var(--color-ink);
-    opacity: 0.3;
     pointer-events: none;
-    mask-image: radial-gradient(circle at 0% 0%, transparent 6%, #000 12%, #000 22%, transparent 74%);
   }
 
   .corner-tl {
@@ -169,30 +166,36 @@
     transform: rotate(180deg);
   }
 
-  /* Grows the rings by one ring step per loop around the corner, so they ripple outward without a seam. */
-  .corner-art {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    transform-origin: 0 0;
-    animation: ripple 6s linear infinite;
-  }
-
-  @keyframes ripple {
-    to {
-      transform: rotate(var(--ripple-turn)) scale(var(--ripple-scale));
+  /* Below this width the side margin is narrower than the outer squiggle, so the bottom pair would run
+     under the footer text. The top pair still clears the name, which sits lower. */
+  @media (max-width: 51.99rem) {
+    .corner-bl,
+    .corner-br {
+      display: none;
     }
   }
 
-  @media (max-width: 47.99rem) {
-    .corner {
-      opacity: 0.12;
+  /* Turns each squiggle by one of its waves per loop around the corner, so the wave drifts along the arc
+     without a seam. Each squiggle is its own layer, so the turn stays on the compositor. */
+  .squiggle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    color: color-mix(in oklab, var(--color-blue) var(--tint), var(--color-paper));
+    transform-origin: 0 0;
+    animation: drift var(--drift) linear infinite;
+  }
+
+  @keyframes drift {
+    to {
+      transform: rotate(var(--turn));
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .corner-art {
+    .squiggle {
       animation: none;
     }
   }

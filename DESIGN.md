@@ -361,15 +361,19 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
 ### Corner Waves (decoration)
-Concentric wavy rings rippling out of all four page corners, generated in code by `src/lib/waves.ts`.
-- **Geometry:** each ring is 9% larger than the one inside it, carries 40 wave lobes per turn with a slow swell, and twists slightly from ring to ring. Stroke width grows with the radius.
-- **Mirroring:** the top-left art is mirrored into the other three corners.
-- **Colour:** Ink at 30% opacity, 12% below 48rem.
-- **Fade:** a radial mask hides the very corner, holds solid briefly, then fades out before the text column.
+Three squiggly arcs drifting around all four page corners, after Material 3's wavy progress indicator. They are generated in code by `src/lib/waves.ts`.
+- **Geometry:**
+  - The arcs sit on a 480-unit canvas at radii 170, 262 and 354.
+  - Each has an 80-unit wavelength (rounded so a full turn holds whole waves), a 6-unit amplitude and a 6-unit stroke.
+  - Curves are cubic Béziers with exact tangents, so the thick strokes stay smooth.
+- **Size:** the corner box tracks the side margin, `clamp(8rem, (100vw − measure) / 2 + 2rem, 30rem)`. The squiggles stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
+- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the outer squiggle would run under the footer text.
+- **Colour:** Signal Blue mixed into Paper at 30%, 20% and 13%, innermost strongest. The tints are opaque, with no fade mask.
 - **Motion:**
-  - Every 6s the whole set scales by one ring step and turns to match. The rings are self-similar, so each ring lands exactly where the next one was and the ripple loops without a seam.
-  - It is a single transform on the layer, so the rings are never redrawn.
-  - Under reduced motion the rings are still.
+  - Each arc turns by exactly one wave per loop, so the wave drifts along the arc without a seam.
+  - Loops take 12s, 16s and 20s and alternate direction.
+  - Each arc is its own layer, so the turn stays on the compositor.
+  - Under reduced motion the arcs are still.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)

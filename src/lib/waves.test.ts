@@ -1,46 +1,41 @@
 import { describe, expect, it } from "vitest";
-import { ringCount, ringRadius, rippleTurn, waveRings, type RingOptions } from "./waves";
+import { arcSpan, lobeCount, squiggleArc, squiggleRadius, type SquiggleOptions } from "./waves";
 
-const OPTIONS: RingOptions = {
-  innerRadius: 10,
-  outerRadius: 100,
-  growth: 1.25,
-  lobes: 24,
-  amplitude: 0.04,
-  phaseStep: 0.3,
-  strokeRatio: 0.005,
-  step: 8,
-};
+const OPTIONS: SquiggleOptions = { radius: 100, wavelength: 60, amplitude: 5 };
+const LOBES = lobeCount(OPTIONS.radius, OPTIONS.wavelength);
+const WAVE = (2 * Math.PI) / LOBES;
 
-const DEG = Math.PI / 180;
+function startPoint(d: string): [number, number] {
+  const match = /^M(-?[\d.]+) (-?[\d.]+)/.exec(d);
+  return [Number(match?.[1]), Number(match?.[2])];
+}
 
-describe("waveRings", () => {
-  it("adds rings until they pass the outer radius", () => {
-    expect(ringCount(OPTIONS)).toBe(12);
-    expect(waveRings(OPTIONS)).toHaveLength(12);
+describe("squiggleArc", () => {
+  it("rounds the wavelength so a full turn holds a whole number of waves", () => {
+    expect(LOBES).toBe(10);
+    expect(squiggleArc(OPTIONS).lobes).toBe(LOBES);
   });
 
-  it("draws every ring as one moveto followed by linetos", () => {
-    for (const ring of waveRings(OPTIONS)) {
-      expect(ring.d).toMatch(/^M-?[\d.]+ -?[\d.]+(L-?[\d.]+ -?[\d.]+)+$/);
+  it("lands on itself when turned by one wave, so the drift loops seamlessly", () => {
+    for (const theta of [0, 0.4, 1.1, 1.5]) {
+      expect(squiggleRadius(theta + WAVE, OPTIONS, LOBES)).toBeCloseTo(squiggleRadius(theta, OPTIONS, LOBES), 9);
     }
   });
 
-  it("maps each ring onto the next when scaled by growth and turned by rippleTurn, so the ripple loops seamlessly", () => {
-    const turn = rippleTurn(OPTIONS) * DEG;
-    for (const theta of [0.1, 0.7, 1.3]) {
-      const scaledAndTurned = OPTIONS.growth * ringRadius(4, theta - turn, OPTIONS);
-      expect(scaledAndTurned).toBeCloseTo(ringRadius(5, theta, OPTIONS), 9);
-    }
+  it("runs more than one wave past both edges of the quarter turn, so turning by a wave never shows an end", () => {
+    const { start, end } = arcSpan(LOBES);
+    expect(start).toBeLessThan(-WAVE);
+    expect(end).toBeGreaterThan(Math.PI / 2 + WAVE);
   });
 
-  it("grows the stroke with the radius by the same ratio as the rings", () => {
-    // A large ratio keeps rounding to three decimals out of the comparison.
-    const [first, second] = waveRings({ ...OPTIONS, strokeRatio: 0.5 });
-    expect((second?.strokeWidth ?? 0) / (first?.strokeWidth ?? 1)).toBeCloseTo(OPTIONS.growth, 3);
+  it("draws one moveto followed by cubic curves, starting on the squiggle", () => {
+    const { d } = squiggleArc(OPTIONS);
+    expect(d).toMatch(/^M-?[\d.]+ -?[\d.]+(C-?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+ -?[\d.]+)+$/);
+    const [x, y] = startPoint(d);
+    expect(Math.hypot(x, y)).toBeCloseTo(squiggleRadius(arcSpan(LOBES).start, OPTIONS, LOBES), 0);
   });
 
-  it("throws when growth does not enlarge the rings", () => {
-    expect(() => waveRings({ ...OPTIONS, growth: 1 })).toThrow(RangeError);
+  it("throws when the wave is as tall as the radius", () => {
+    expect(() => squiggleArc({ ...OPTIONS, amplitude: OPTIONS.radius })).toThrow(RangeError);
   });
 });

@@ -1,80 +1,83 @@
 /**
- * Concentric wavy rings for the corner decoration, centred on the canvas origin (the page corner).
+ * Squiggly arcs for the corner decoration, after Material 3's wavy progress indicator: circles around the
+ * canvas origin (the page corner) whose radius swings like a sine wave.
  *
- * The set is self-similar: ring i+1 is ring i scaled by `growth` and turned by rippleTurn(). So scaling and
- * turning the whole drawing by exactly that much puts every ring where the next one was, which lets a CSS
- * animation ripple the rings outward forever without a seam. Stroke widths grow with the radius for the
- * same reason.
+ * Every arc carries a whole number of waves per full turn, so turning it by one wave (360° / lobes) lands it
+ * exactly on itself. A CSS animation can repeat that turn forever and the wave drifts along the arc without
+ * a seam.
  */
-export interface RingOptions {
-  /** Radius of the innermost ring. */
-  innerRadius: number;
-  /** Rings continue until they pass this radius. */
-  outerRadius: number;
-  /** Radius ratio between neighbouring rings (> 1). */
-  growth: number;
-  /** Wave lobes per full turn. */
-  lobes: number;
-  /** Wave height as a share of the ring's radius. */
+export interface SquiggleOptions {
+  /** Mean radius of the arc. */
+  radius: number;
+  /** Target length of one wave along the arc; rounded so a full turn holds whole waves. */
+  wavelength: number;
+  /** Height of the wave either side of the mean radius. */
   amplitude: number;
-  /** Phase added per ring, in radians: it twists the lobes from ring to ring. */
-  phaseStep: number;
-  /** Stroke width as a share of the ring's radius. */
-  strokeRatio: number;
-  /** Distance between sampled points along a ring. */
-  step: number;
 }
 
-export interface WaveLine {
+export interface Squiggle {
   d: string;
-  strokeWidth: number;
+  /** Waves per full turn. */
+  lobes: number;
 }
 
-/** Arcs run a little past the quarter turn so slight rotation never exposes their ends. */
-const ARC_START = -0.15;
-const ARC_END = Math.PI / 2 + 0.15;
-const MIN_POINTS = 16;
-/** A slower swell along each ring makes the lobes bunch and relax like water. */
-const SWELL_RATIO = 0.25;
-const SWELL_DEPTH = 0.45;
-const STROKE_DECIMALS = 3;
+type Point = readonly [number, number];
 
-export function ringCount(options: RingOptions): number {
-  return Math.ceil(Math.log(options.outerRadius / options.innerRadius) / Math.log(options.growth)) + 1;
+/** Each wave is drawn as this many cubic Béziers with exact tangents, which keeps thick strokes smooth. */
+const SEGMENTS_PER_LOBE = 4;
+/** Extra angle, in radians, past one wave beyond each edge of the quarter turn. */
+const OVERHANG = 0.1;
+const MIN_LOBES = 3;
+const DECIMALS = 1;
+const TURN = 2 * Math.PI;
+
+export function lobeCount(radius: number, wavelength: number): number {
+  return Math.max(MIN_LOBES, Math.round((TURN * radius) / wavelength));
 }
 
-/** Radius of ring `index` at angle `theta`. */
-export function ringRadius(index: number, theta: number, options: RingOptions): number {
-  const { innerRadius, growth, lobes, amplitude, phaseStep } = options;
-  const base = innerRadius * growth ** index;
-  const phase = index * phaseStep;
-  const swell = 1 + SWELL_DEPTH * Math.sin(lobes * SWELL_RATIO * theta + SWELL_RATIO * phase);
-  return base * (1 + amplitude * swell * Math.sin(lobes * theta + phase));
+export function squiggleRadius(theta: number, options: SquiggleOptions, lobes: number): number {
+  return options.radius + options.amplitude * Math.sin(lobes * theta);
 }
 
-/** Turn, in degrees, that carries one ring's lobes onto the next ring's (pairs with a scale of `growth`). */
-export function rippleTurn(options: RingOptions): number {
-  return (-options.phaseStep / options.lobes) * (180 / Math.PI);
+/** Angles the arc spans: the quarter turn plus one wave and a little more on both sides, so a turn never shows an end. */
+export function arcSpan(lobes: number): { start: number; end: number } {
+  const margin = TURN / lobes + OVERHANG;
+  return { start: -margin, end: Math.PI / 2 + margin };
 }
 
-function ringPath(index: number, options: RingOptions): string {
-  const base = options.innerRadius * options.growth ** index;
-  const count = Math.max(MIN_POINTS, Math.ceil((base * (ARC_END - ARC_START)) / options.step));
-  const points: string[] = [];
-  for (let k = 0; k <= count; k += 1) {
-    const theta = ARC_START + ((ARC_END - ARC_START) * k) / count;
-    const r = ringRadius(index, theta, options);
-    points.push(`${(r * Math.cos(theta)).toFixed(1)} ${(r * Math.sin(theta)).toFixed(1)}`);
+function pointAt(theta: number, options: SquiggleOptions, lobes: number): Point {
+  const r = squiggleRadius(theta, options, lobes);
+  return [r * Math.cos(theta), r * Math.sin(theta)];
+}
+
+/** Derivative of pointAt with respect to theta. */
+function tangentAt(theta: number, options: SquiggleOptions, lobes: number): Point {
+  const r = squiggleRadius(theta, options, lobes);
+  const dr = options.amplitude * lobes * Math.cos(lobes * theta);
+  return [dr * Math.cos(theta) - r * Math.sin(theta), dr * Math.sin(theta) + r * Math.cos(theta)];
+}
+
+const coords = ([x, y]: Point): string => `${x.toFixed(DECIMALS)} ${y.toFixed(DECIMALS)}`;
+
+/** Hermite-to-Bézier: control points sit a third of the step along each end's tangent. */
+function curveTo(from: number, to: number, options: SquiggleOptions, lobes: number): string {
+  const third = (to - from) / 3;
+  const [x0, y0] = pointAt(from, options, lobes);
+  const [dx0, dy0] = tangentAt(from, options, lobes);
+  const [dx1, dy1] = tangentAt(to, options, lobes);
+  const end = pointAt(to, options, lobes);
+  return `C${coords([x0 + dx0 * third, y0 + dy0 * third])} ${coords([end[0] - dx1 * third, end[1] - dy1 * third])} ${coords(end)}`;
+}
+
+export function squiggleArc(options: SquiggleOptions): Squiggle {
+  const { radius, wavelength, amplitude } = options;
+  if (radius <= 0 || wavelength <= 0 || amplitude < 0 || amplitude >= radius) {
+    throw new RangeError("squiggleArc needs a positive radius and wavelength, and 0 <= amplitude < radius");
   }
-  return `M${points.join("L")}`;
-}
-
-export function waveRings(options: RingOptions): WaveLine[] {
-  if (options.innerRadius <= 0 || options.outerRadius <= options.innerRadius || options.growth <= 1 || options.step <= 0) {
-    throw new RangeError("waveRings needs 0 < innerRadius < outerRadius, growth > 1 and a positive step");
-  }
-  return Array.from({ length: ringCount(options) }, (_, index) => ({
-    d: ringPath(index, options),
-    strokeWidth: Number((options.strokeRatio * options.innerRadius * options.growth ** index).toFixed(STROKE_DECIMALS)),
-  }));
+  const lobes = lobeCount(radius, wavelength);
+  const { start, end } = arcSpan(lobes);
+  const count = Math.ceil(((end - start) * lobes * SEGMENTS_PER_LOBE) / TURN);
+  const step = (end - start) / count;
+  const curves = Array.from({ length: count }, (_, k) => curveTo(start + k * step, start + (k + 1) * step, options, lobes));
+  return { d: `M${coords(pointAt(start, options, lobes))}${curves.join("")}`, lobes };
 }
