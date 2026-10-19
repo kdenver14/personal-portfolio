@@ -132,15 +132,17 @@
     position: absolute;
   }
 
+  /* Each corner is the top-right art mirrored into place; the mask mirrors with it, so it always fades inward. */
   .corner {
     position: absolute;
     z-index: 0;
-    width: min(34rem, 55vw);
+    width: min(30rem, 46vw);
     aspect-ratio: 1;
+    overflow: hidden;
     color: var(--color-ink);
-    opacity: 0.32;
+    opacity: 0.3;
     pointer-events: none;
-    mask-image: radial-gradient(circle at 100% 0%, #000 18%, transparent 74%);
+    mask-image: radial-gradient(circle at 100% 0%, #000 16%, transparent 72%);
   }
 
   .corner-tr {
@@ -148,22 +150,61 @@
     right: 0;
   }
 
-  /* The same art turned half a turn; the mask turns with it, so it fades toward the page centre. */
+  .corner-tl {
+    top: 0;
+    left: 0;
+    transform: scaleX(-1);
+  }
+
+  .corner-br {
+    bottom: 0;
+    right: 0;
+    transform: scaleY(-1);
+  }
+
   .corner-bl {
     bottom: 0;
     left: 0;
     transform: rotate(180deg);
   }
 
-  @media (max-width: 47.99rem) {
-    .corner {
-      opacity: 0.14;
+  .corner-bob {
+    width: 100%;
+    height: 100%;
+    animation: wave-bob 7s ease-in-out infinite alternate;
+  }
+
+  /* Slides exactly one wave period along the lines per loop; the art repeats there, so there is no seam. */
+  .corner-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: wave-drift 38s linear infinite;
+  }
+
+  @keyframes wave-drift {
+    to {
+      transform: translate(var(--drift-x), var(--drift-y));
     }
   }
 
-  @media (min-width: 48rem) {
-    .page {
-      padding-top: 7.5rem;
+  @keyframes wave-bob {
+    to {
+      transform: translate(var(--bob-x), var(--bob-y));
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .corner {
+      opacity: 0.12;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .corner-bob,
+    .corner-art {
+      animation: none;
     }
   }
 
@@ -535,10 +576,6 @@
     display: flex;
     width: max-content;
     animation: marquee 45s linear infinite;
-  }
-
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
   }
 
   @keyframes marquee {

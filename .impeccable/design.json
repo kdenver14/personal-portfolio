@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T18:20:47Z",
+  "generatedAt": "2026-10-19T18:35:45Z",
   "title": "Design System: KDC-14",
   "extensions": {
     "colorMeta": {
@@ -225,7 +225,7 @@
       {
         "name": "marquee",
         "value": "45s linear infinite; translateX(-50%)",
-        "purpose": "The tech strip, right to left. Pauses on hover; static and wrapped under prefers-reduced-motion."
+        "purpose": "The tech strip, right to left, never pausing; static and wrapped under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -284,9 +284,9 @@
       "name": "Tech Strip",
       "kind": "custom",
       "refersTo": "tech-strip",
-      "description": "Monochrome technology logos sliding right to left in a 45s linear loop with masked edges; pauses on hover (no Pause button, by owner choice); static and wrapped under reduced motion.",
+      "description": "Monochrome technology logos sliding right to left in a 45s linear loop with masked edges; never pauses (owner choice: no hover pause, no button); static and wrapped under reduced motion.",
       "html": "<div class=\"ds-strip\"><div class=\"ds-strip-track\"><ul class=\"ds-strip-list\" aria-label=\"Technologies I use\"><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\" role=\"img\" aria-label=\"TypeScript\"><title>TypeScript</title><rect x=\"1\" y=\"1\" width=\"22\" height=\"22\" rx=\"1\"/></svg></li><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\" role=\"img\" aria-label=\"Python\"><title>Python</title><circle cx=\"12\" cy=\"12\" r=\"11\"/></svg></li></ul><ul class=\"ds-strip-list\" aria-hidden=\"true\"><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\"><rect x=\"1\" y=\"1\" width=\"22\" height=\"22\" rx=\"1\"/></svg></li><li><svg class=\"ds-logo\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"11\"/></svg></li></ul></div></div>",
-      "css": ".ds-strip { overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); } .ds-strip-track { display: flex; width: max-content; animation: ds-strip 45s linear infinite; } .ds-strip:hover .ds-strip-track { animation-play-state: paused; } @keyframes ds-strip { to { transform: translateX(-50%); } } .ds-strip-list { display: flex; flex: none; align-items: center; list-style: none; margin: 0; padding: 0; } .ds-strip-list li { margin-right: 2.5rem; } .ds-logo { display: block; width: 1.75rem; height: 1.75rem; fill: var(--color-ink-3); transition: fill 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-logo:hover { fill: var(--color-ink); } @media (prefers-reduced-motion: reduce) { .ds-strip { mask-image: none; } .ds-strip-track { width: auto; animation: none; } .ds-strip-list { flex-wrap: wrap; row-gap: 1.25rem; } .ds-strip-list[aria-hidden] { display: none; } }"
+      "css": ".ds-strip { overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); } .ds-strip-track { display: flex; width: max-content; animation: ds-strip 45s linear infinite; } @keyframes ds-strip { to { transform: translateX(-50%); } } .ds-strip-list { display: flex; flex: none; align-items: center; list-style: none; margin: 0; padding: 0; } .ds-strip-list li { margin-right: 2.5rem; } .ds-logo { display: block; width: 1.75rem; height: 1.75rem; fill: var(--color-ink-3); transition: fill 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-logo:hover { fill: var(--color-ink); } @media (prefers-reduced-motion: reduce) { .ds-strip { mask-image: none; } .ds-strip-track { width: auto; animation: none; } .ds-strip-list { flex-wrap: wrap; row-gap: 1.25rem; } .ds-strip-list[aria-hidden] { display: none; } }"
     },
     {
       "name": "Flow Diagram",
@@ -332,7 +332,7 @@
       "name": "Corner Waves",
       "kind": "custom",
       "refersTo": "decoration",
-      "description": "Op-art wavy line field in the top-right and bottom-left page corners; Ink at 32% opacity (14% on phones), thick at the corner and fading out radially before the text column. Decorative and aria-hidden.",
+      "description": "Op-art wavy line field in all four page corners, mirrored from the top-right art; Ink at 30% opacity (12% on phones), thick at the corner and fading out radially. Drifts one wave period along the lines every 38s (seamless) over a 7s cross-line rock, still under reduced motion. Decorative and aria-hidden.",
       "html": "<svg class=\"ds-waves\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\"><path d=\"M0 20 Q15 10 30 20 T60 20 T90 20 T120 20\" stroke-width=\"3\"/><path d=\"M0 32 Q15 22 30 32 T60 32 T90 32 T120 32\" stroke-width=\"2\"/><path d=\"M0 44 Q15 34 30 44 T60 44 T90 44 T120 44\" stroke-width=\"1.2\"/></g></svg>",
       "css": ".ds-waves { width: 12rem; aspect-ratio: 1; color: var(--color-ink); opacity: 0.32; mask-image: radial-gradient(circle at 100% 0%, #000 18%, transparent 74%); pointer-events: none; }"
     }

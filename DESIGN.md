@@ -335,7 +335,7 @@ A single line of monochrome technology logos, sliding right to left in a 45s lin
 - **Logos:** 1.75rem square, Slate fill turning Ink on hover, 2.5rem apart. Each is one SVG path: Simple Icons (CC0), or Devicon (MIT) for C#.
 - **Names:** each logo carries its name as an accessible label and a native tooltip.
 - **Loop:** the list is drawn twice so the loop has no seam, and the copy is hidden from assistive tech. Both edges fade out through a 12% mask.
-- **Pausing:** the strip pauses on hover. The owner chose to have no Pause button.
+- **Pausing:** none. By the owner's choice it never pauses, not even on hover, and has no Pause button.
 - **Reduced motion:** the strip stops, loses the mask and wraps as a static grid of logos.
 
 ### Demo Video (slot)
@@ -361,12 +361,17 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
 ### Corner Waves (decoration)
-An op-art field of 52 parallel wavy lines, generated in code by `src/lib/waves.ts`. Two sines per line, a slow swell along each line, and a bent phase drift make the lines bunch and spread.
-- **Placement:** top-right and bottom-left corners of the page, behind the content. The bottom-left copy is the same art rotated half a turn.
-- **Colour:** Ink at 32% opacity, 14% below 48rem.
+An op-art field of 52 parallel wavy lines, generated in code by `src/lib/waves.ts`, set in all four page corners behind the content.
+- **Mirroring:** the top-right art is mirrored into the other three corners.
+- **Colour:** Ink at 30% opacity, 12% below 48rem.
 - **Stroke:** 4.2 at the corner, thinning to 0.6.
 - **Fade:** a radial mask fades the lines out before they reach the text column.
-- **Behaviour:** purely decorative, so it is `aria-hidden` and has no pointer events.
+- **Motion:** like an ocean swell.
+  - The art slides along its lines by exactly one wave period every 38s, linear. Every wave component repeats over that period, so the loop has no seam.
+  - A 7s ease-in-out rock across the lines runs underneath.
+  - Both are transforms on whole layers, so the lines are never redrawn.
+  - Under reduced motion the art is still.
+- **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)
 The single signature, in a panel under the tech strip. The dark package body is drawn as a top view, at least 16rem tall. It has a notch, a pin-1 dot and mono pin numbers. The KDC-14 mark (Sans 700, tracking 0.06em) is rotated to run along the body, with a mono date code. Four pins sit on each side. Each pin has a mono name over a Micro Graphite sublabel, and a grey leg. Hovering, focusing or tapping a pin turns its leg and name Signal Blue and its body number white. Its description appears in a centred Graphite readout below. The readout idles on "Me, as an 8-pin chip. Hover or tap a pin." The GH and MAIL pins are real links with underlined names. The CLK pin shows live Philippine time.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { waveLines, type WaveOptions } from "./waves";
+import { waveLines, wavePeriod, waveY, type WaveOptions } from "./waves";
 
 const OPTIONS: WaveOptions = {
   size: 100,
@@ -13,6 +13,7 @@ const OPTIONS: WaveOptions = {
   minStroke: 0.5,
   thickAt: 0,
   thinAt: 1,
+  extend: 0,
 };
 
 describe("waveLines", () => {
@@ -45,6 +46,19 @@ describe("waveLines", () => {
 
   it("throws when thinAt does not come after thickAt", () => {
     expect(() => waveLines({ ...OPTIONS, thickAt: 0.6, thinAt: 0.6 })).toThrow(RangeError);
+  });
+
+  it("repeats exactly after one wave period, so the drift loops without a seam", () => {
+    const period = wavePeriod(40);
+    for (const x of [0, 17, 93]) {
+      expect(waveY(x + period, 10, 6, 0.4, 40, 3)).toBeCloseTo(waveY(x, 10, 6, 0.4, 40, 3), 9);
+    }
+  });
+
+  it("lengthens every line by the extend distance", () => {
+    const short = waveLines(OPTIONS)[0]?.d.split("L").length ?? 0;
+    const long = waveLines({ ...OPTIONS, extend: 50 })[0]?.d.split("L").length ?? 0;
+    expect(long - short).toBe(5);
   });
 
   it("throws when asked for no lines", () => {

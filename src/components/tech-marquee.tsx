@@ -16,7 +16,7 @@ function LogoList({ copy }: { copy: boolean }) {
   );
 }
 
-/** Technology logos sliding right to left. Pauses on hover; stays still under reduced motion. */
+/** Technology logos sliding right to left without pausing; stays still under reduced motion. */
 export function TechMarquee() {
   return (
     <div className="marquee">
