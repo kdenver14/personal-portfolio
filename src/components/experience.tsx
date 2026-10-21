@@ -1,11 +1,16 @@
+import type { CSSProperties } from "react";
 import type { Role } from "@/domain/datasheet";
 import { EXPERIENCE } from "@/content/experience";
 import { formatMonthRange } from "@/lib/format";
 import { TagList } from "./project-meta";
 
-function RoleEntry({ role }: { role: Role }) {
+type CSSVars = CSSProperties & Record<`--${string}`, string>;
+
+/** `--i` is the role's place on the timeline, so its glow starts one slice after the role above it. */
+function RoleEntry({ role, index }: { role: Role; index: number }) {
+  const place: CSSVars = { "--i": String(index) };
   return (
-    <li className="role">
+    <li className="role" style={place}>
       <p className="role-dates tabular">{formatMonthRange(role.start, role.end)}</p>
       <div className="role-body">
         <h3 className="role-title">{role.title}</h3>
@@ -24,10 +29,12 @@ function RoleEntry({ role }: { role: Role }) {
   );
 }
 
+/** `--count` sets the glow's cycle: one slice per role, plus one to rest. */
 export function Experience() {
+  const timeline: CSSVars = { "--count": String(EXPERIENCE.length) };
   return (
-    <ol className="roles">
-      {EXPERIENCE.map((role) => <RoleEntry key={`${role.company}-${role.start}`} role={role} />)}
+    <ol className="roles" style={timeline}>
+      {EXPERIENCE.map((role, i) => <RoleEntry key={`${role.company}-${role.start}`} role={role} index={i} />)}
     </ol>
   );
 }

@@ -1,6 +1,6 @@
 import { FEATURED } from "@/content/featured";
 import { Contact } from "@/components/contact";
-import { CornerCircuits } from "@/components/corner-circuits";
+import { CornerDots } from "@/components/corner-dots";
 import { Experience } from "@/components/experience";
 import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
@@ -13,7 +13,7 @@ import { SiteFooter } from "@/components/site-footer";
 export default function Home() {
   return (
     <>
-      <CornerCircuits />
+      <CornerDots />
       <div className="page">
       <main>
         <Intro />

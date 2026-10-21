@@ -347,12 +347,21 @@ A vertical chain of Paper nodes (8px radius, 1px Hairline border, Caption type, 
 ### Code Listing
 A panel with a head row above a Mono body at line-height 1.7. The head holds the file name in Mono Graphite and a "View file" link. Long lines wrap with a hanging indent under the code, so phones never scroll or clip a listing. Line numbers are generated, right-aligned in Graphite, and unselectable. Comments are Graphite.
 
-### Experience Row
-A hairline list of roles, newest first. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 1.25rem vertical padding. From 40rem up, a 9rem Slate date column (short month range, tabular figures) sits beside the body. Below 40rem the dates stack above it. The body holds:
-- the title (600);
-- company and terms in Slate small type;
-- a one-line summary in Graphite;
-- skills using the Tags style, with an optional text link on the right.
+### Experience Timeline
+Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padding and no rules between rows.
+- **Layout:** from 40rem up, a 9rem Slate date column (short month range, tabular figures, right-aligned) sits left of the rail and the body sits right of it, 3rem apart. Below 40rem the rail runs down the left edge and the dates stack above the body.
+- **Body:**
+  - the title (600);
+  - company and terms in Slate small type;
+  - a one-line summary in Graphite;
+  - skills using the Tags style, with an optional text link on the right.
+- **Rail:** 2px, Signal Blue mixed into Paper at 18%. It runs from the first role's dot to the last one's.
+- **Dots:** a 10px Paper dot per role with a 2px ring (Signal Blue at 55%), level with the first line of text.
+- **Glow:**
+  - A soft Signal Blue streak, 3.5rem long, runs down the rail one role per 1.5s slice.
+  - Each dot's ring turns full blue and gives off a small halo as the streak reaches it, then fades.
+  - The cycle is one slice per role plus one slice of rest. With three roles that is 6s.
+  - Under reduced motion the timeline is still.
 
 ### More Projects List
 A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and the year in Slate tabular figures.
@@ -360,24 +369,15 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
-### Corner Circuits (decoration)
-Circuit-board traces in all four page corners, echoing the chip figure. Each trace has a signal pulse that runs in from the page edge and lights its pad. The component is `src/components/corner-circuits.tsx`, and the routes are checked by `src/lib/traces.ts`.
-- **Geometry:**
-  - Seven traces on a 480-unit canvas route in from the top and left edges, PCB style: every segment is horizontal, vertical or at 45°.
-  - `routeTrace` rejects any other angle at build time.
-  - No two traces cross. Each trace ends on a round pad of radius 6.
-  - Strokes are 2.5 units with round joins.
-- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The traces stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
-- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the longest trace would run under the footer text.
-- **Colour:**
-  - Traces and idle pads are Signal Blue mixed into Paper at 20%.
-  - The pulse and a lit pad are Signal Blue at 85%.
-- **Motion:**
-  - The pulse is a dash 8% of the trace long, with a gap that leaves the trace dark half the time.
-  - One loop moves the dash by exactly one period, so it repeats without a seam.
-  - The pad lights at the moment the pulse's head arrives, about halfway through the loop.
-  - Loops run 4s, 5.3s or 6.6s in turn, and each trace starts 1.7s further in, so the pulses never move in step.
-  - Under reduced motion the pulses are removed and the pads stay unlit.
+### Corner Dots (decoration)
+A fine dot grid in all four page corners, with a ring of lit dots rippling out of each corner. It is pure CSS in `src/components/corner-dots.tsx`.
+- **Grid:** 18px spacing, with dots of about 3px in Signal Blue mixed into Paper at 26%. A radial mask fades the grid out with distance from the corner.
+- **Ripple:**
+  - A second, full-blue grid (90%) shows only inside a 72px ring.
+  - The ring pattern repeats every 180px. One 4.5s loop moves it outward by exactly that much, so the ripple has no seam.
+  - Under reduced motion the ripple is removed.
+- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The dots stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
+- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the dot field would run under the footer text.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)

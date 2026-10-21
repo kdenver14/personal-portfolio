@@ -106,6 +106,13 @@
   }
 }
 
+/* Animatable radius for the corner dot ripple. */
+@property --ripple {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 @layer components {
   .tabular {
     font-variant-numeric: tabular-nums;
@@ -126,13 +133,13 @@
     padding: 4.5rem var(--gutter) 0;
   }
 
-  /* ---------- Corner circuits (decorative) ---------- */
+  /* ---------- Corner dots (decorative) ---------- */
 
-  /* Each corner is the top-left art mirrored into place. The box tracks the side margin, so the traces
+  /* Each corner is the top-left art mirrored into place. The box tracks the side margin, so the dots
      stay clear of the text column on wide screens and shrink to small accents above it on narrow ones. */
   .corner {
-    --trace: color-mix(in oklab, var(--color-blue) 20%, var(--color-paper));
-    --signal: color-mix(in oklab, var(--color-blue) 85%, var(--color-paper));
+    --dot-idle: color-mix(in oklab, var(--color-blue) 26%, var(--color-paper));
+    --dot-lit: color-mix(in oklab, var(--color-blue) 90%, var(--color-paper));
     position: absolute;
     z-index: 0;
     width: clamp(8rem, calc((100% - var(--measure)) / 2 + 2rem), 30rem);
@@ -164,7 +171,7 @@
     transform: rotate(180deg);
   }
 
-  /* Below this width the side margin is narrower than the longest trace, so the bottom pair would run
+  /* Below this width the side margin is narrower than the dot field, so the bottom pair would run
      under the footer text. The top pair still clears the name, which sits lower. */
   @media (max-width: 51.99rem) {
     .corner-bl,
@@ -173,70 +180,42 @@
     }
   }
 
-  .circuit {
-    display: block;
-    width: 100%;
-    height: 100%;
+  /* A fixed 18px dot grid, fading out with distance from the corner. */
+  .dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--dot-idle) 1.4px, transparent 1.9px);
+    background-position: 4px 4px;
+    background-size: 18px 18px;
+    mask-image: radial-gradient(circle at 0 0, #000 15%, transparent 72%);
   }
 
-  .trace {
-    fill: none;
-    stroke: var(--trace);
-    stroke-width: 2.5;
-    stroke-linejoin: round;
+  /* The same grid in full blue, shown only inside a ring that runs out of the corner. The ring pattern repeats
+     every 180px and one loop moves it by exactly that much, so the ripple has no seam. */
+  .dots-lit {
+    background-image: radial-gradient(circle, var(--dot-lit) 1.6px, transparent 2.1px);
+    mask-image:
+      radial-gradient(circle at 0 0, #000 10%, transparent 70%),
+      repeating-radial-gradient(
+        circle at 0 0,
+        transparent var(--ripple),
+        #000 calc(var(--ripple) + 36px),
+        transparent calc(var(--ripple) + 72px),
+        transparent calc(var(--ripple) + 180px)
+      );
+    mask-composite: intersect;
+    animation: dot-ripple 4.5s linear infinite;
   }
 
-  /* The pulse is 8% of the trace followed by a gap long enough to leave the trace dark half the time.
-     One loop moves the pattern by exactly one period, so it repeats without a seam. */
-  .trace-pulse {
-    fill: none;
-    stroke: var(--signal);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 8 192;
-    animation: trace-pulse var(--pulse) linear var(--delay) infinite;
-  }
-
-  @keyframes trace-pulse {
-    from {
-      stroke-dashoffset: 8;
-    }
-
+  @keyframes dot-ripple {
     to {
-      stroke-dashoffset: -192;
-    }
-  }
-
-  /* The pulse's head reaches the pad halfway through the loop, so the pad lights then. */
-  .trace-pad {
-    fill: var(--color-paper);
-    stroke: var(--trace);
-    stroke-width: 2.5;
-    animation: trace-pad var(--pulse) linear var(--delay) infinite;
-  }
-
-  @keyframes trace-pad {
-    0%,
-    48%,
-    64%,
-    100% {
-      fill: var(--color-paper);
-      stroke: var(--trace);
-    }
-
-    53% {
-      fill: var(--signal);
-      stroke: var(--signal);
+      --ripple: 180px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .trace-pulse {
+    .dots-lit {
       display: none;
-    }
-
-    .trace-pad {
-      animation: none;
     }
   }
 
@@ -1001,16 +980,96 @@
 
   /* ---------- Experience ---------- */
 
-  .role {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.25rem 1.5rem;
-    padding-block: 1.25rem;
-    border-bottom: 1px solid var(--color-line);
+  /* A timeline: a rail with a ring dot per role. A soft glow runs down the rail one role per slice, and each
+     dot pulses as the glow reaches it. The cycle rests for one slice before it repeats. */
+  .roles {
+    --rail-x: 0.3125rem;
+    --dot-y: 1.95rem;
+    --dot: 0.625rem;
+    --streak: 3.5rem;
+    --slice: 1.5s;
+    --cycle: calc(var(--slice) * (var(--count) + 1));
+    --rail: color-mix(in oklab, var(--color-blue) 18%, var(--color-paper));
+    --ring: color-mix(in oklab, var(--color-blue) 55%, var(--color-paper));
   }
 
-  .role:first-child {
-    border-top: 1px solid var(--color-line);
+  .role {
+    --delay: calc(var(--i) * var(--slice));
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem 3rem;
+    padding: 1.25rem 0 1.25rem 1.75rem;
+  }
+
+  .role::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: calc(var(--dot-y) - var(--dot) / 2);
+    left: calc(var(--rail-x) - var(--dot) / 2);
+    box-sizing: border-box;
+    width: var(--dot);
+    height: var(--dot);
+    border: 2px solid var(--ring);
+    border-radius: 50%;
+    background: var(--color-paper);
+    animation: role-dot var(--cycle) ease-out var(--delay) infinite;
+  }
+
+  /* The rail from this dot to the next is the role's own height, since every dot sits at the same offset. */
+  .role:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: var(--dot-y);
+    left: calc(var(--rail-x) - 1px);
+    width: 2px;
+    height: 100%;
+    background:
+      linear-gradient(transparent, color-mix(in oklab, var(--color-blue) 75%, transparent), transparent) no-repeat 0
+        calc(-1 * var(--streak)) / 100% var(--streak),
+      var(--rail);
+    animation: role-streak var(--cycle) linear var(--delay) infinite;
+  }
+
+  @keyframes role-dot {
+    0% {
+      border-color: var(--color-blue);
+      box-shadow:
+        0 0 0 0 color-mix(in oklab, var(--color-blue) 30%, transparent),
+        0 0 8px 1px color-mix(in oklab, var(--color-blue) 45%, transparent);
+    }
+
+    22%,
+    100% {
+      border-color: var(--ring);
+      box-shadow:
+        0 0 0 7px transparent,
+        0 0 8px 1px transparent;
+    }
+  }
+
+  /* Moves count + 1 rail-crossings per cycle, so the glow crosses its rail in one slice and spends the
+     rest of the loop below it, out of sight. */
+  @keyframes role-streak {
+    from {
+      background-position:
+        0 calc(-1 * var(--streak)),
+        0 0;
+    }
+
+    to {
+      background-position:
+        0 calc(-1 * var(--streak) + (100% + 2 * var(--streak)) * (var(--count) + 1)),
+        0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .role::before,
+    .role::after {
+      animation: none;
+    }
   }
 
   .role-dates {
@@ -1054,12 +1113,18 @@
   }
 
   @media (min-width: 40rem) {
+    .roles {
+      --rail-x: 10.5rem;
+    }
+
     .role {
       grid-template-columns: 9rem minmax(0, 1fr);
+      padding-left: 0;
     }
 
     .role-dates {
       padding-top: 0.1rem;
+      text-align: right;
     }
   }
 
