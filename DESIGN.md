@@ -360,20 +360,24 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
-### Corner Waves (decoration)
-Three squiggly arcs drifting around all four page corners, after Material 3's wavy progress indicator. They are generated in code by `src/lib/waves.ts`.
+### Corner Circuits (decoration)
+Circuit-board traces in all four page corners, echoing the chip figure. Each trace has a signal pulse that runs in from the page edge and lights its pad. The component is `src/components/corner-circuits.tsx`, and the routes are checked by `src/lib/traces.ts`.
 - **Geometry:**
-  - The arcs sit on a 480-unit canvas at radii 170, 262 and 354.
-  - Each has an 80-unit wavelength (rounded so a full turn holds whole waves), a 6-unit amplitude and a 6-unit stroke.
-  - Curves are cubic Béziers with exact tangents, so the thick strokes stay smooth.
-- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The squiggles stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
-- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the outer squiggle would run under the footer text.
-- **Colour:** Signal Blue mixed into Paper at 30%, 20% and 13%, innermost strongest. The tints are opaque, with no fade mask.
+  - Seven traces on a 480-unit canvas route in from the top and left edges, PCB style: every segment is horizontal, vertical or at 45°.
+  - `routeTrace` rejects any other angle at build time.
+  - No two traces cross. Each trace ends on a round pad of radius 6.
+  - Strokes are 2.5 units with round joins.
+- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The traces stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
+- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the longest trace would run under the footer text.
+- **Colour:**
+  - Traces and idle pads are Signal Blue mixed into Paper at 20%.
+  - The pulse and a lit pad are Signal Blue at 85%.
 - **Motion:**
-  - Each arc turns by exactly one wave per loop, so the wave drifts along the arc without a seam.
-  - Loops take 12s, 16s and 20s and alternate direction.
-  - Each arc is its own layer, so the turn stays on the compositor.
-  - Under reduced motion the arcs are still.
+  - The pulse is a dash 8% of the trace long, with a gap that leaves the trace dark half the time.
+  - One loop moves the dash by exactly one period, so it repeats without a seam.
+  - The pad lights at the moment the pulse's head arrives, about halfway through the loop.
+  - Loops run 4s, 5.3s or 6.6s in turn, and each trace starts 1.7s further in, so the pulses never move in step.
+  - Under reduced motion the pulses are removed and the pads stay unlit.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)
