@@ -410,8 +410,8 @@ Copyright on the left and the "Updated" month on the right, in Slate Caption typ
 ### Dot Field (decoration)
 A liquid field of grey dashes around the text column, in the spirit of Google Antigravity's hero. It is `src/components/dot-field.tsx`, with the pure logic in `src/lib/dot-field.ts` and `src/lib/noise.ts`.
 - **Particles:**
-  - Poisson-disc spacing (22px minimum) from a fixed seed, on a fixed canvas, so the field stays put while the page scrolls under it.
-  - They cover the whole screen, the text column included. Under the column and within 16px of it they are dimmed to 30% visibility, so they stay quiet behind the words, and they brighten to full over the next 110px. Phones get the dimmed field too.
+  - Poisson-disc spacing (26px minimum) from a fixed seed, on a fixed canvas, so the field stays put while the page scrolls under it.
+  - They cover the whole screen, the text column included. Under the column and within 16px of it they fade to a faint 14% visibility (an eighth of full opacity), so the text reads clearly over them, and they brighten to full over the next 110px. Phones get the dimmed field too.
 - **Ring:**
   - A ring, 30% of the larger screen side in radius, trails the mouse with a 0.45s ease. That lag is what makes it feel liquid. It also circles a little (6% of its radius, 0.8 rad/s) around a resting mouse, so the field never stops. With no mouse it wanders widely around a point a little below the centre (±22% across, ±16% down).
   - Its radius breathes by 9%, and noise bends its edge in and out.

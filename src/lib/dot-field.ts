@@ -53,8 +53,8 @@ export const COLUMN_GAP = 16;
 /** Past the gap, particles brighten to full over this distance. */
 const COLUMN_FADE = 110;
 /** Visibility of particles under the text: present, so the field reads as one, but quiet behind the words. */
-export const COLUMN_DIM = 0.3;
-const SPACING = 22;
+export const COLUMN_DIM = 0.14;
+const SPACING = 26;
 const POISSON_TRIES = 20;
 const FULL_TURN = Math.PI * 2;
 const UINT32_RANGE = 2 ** 32;
@@ -79,7 +79,7 @@ const BAND_PUSH = 10;
 const SIZE_SECONDS = 0.22;
 
 const SIZE_LEVELS = 6;
-const FADE_LEVELS = 4;
+const FADE_LEVELS = 8;
 const SPECK = { width: 1.1, alpha: 0.28, halfLength: 0.01 };
 const DASH = { width: 1.2, widthStep: 0.28, alpha: 0.3, alphaStep: 0.08, halfLength: 1, stretch: 4 };
 
