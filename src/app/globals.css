@@ -88,9 +88,11 @@
     text-wrap: pretty;
   }
 
+  /* Code shows the characters typed: no ligatures turning -> or /= into single glyphs. */
   code,
   pre {
     font-family: var(--font-mono);
+    font-variant-ligatures: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -649,6 +651,7 @@
     padding: 0.75rem 0.875rem;
     overflow: hidden;
     font-family: var(--font-mono);
+    font-variant-ligatures: none;
     font-size: 0.75rem;
     line-height: 1.55;
     color: #e2e5e9;
@@ -1668,6 +1671,23 @@
     .more-year {
       grid-column: 3;
     }
+  }
+
+  /* The other repos live on GitHub; the link reads like a card's "View project". */
+  .more-all {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .more-all-arrow {
+    display: inline-block;
+    transition: transform var(--t-fast) var(--ease-out);
+  }
+
+  .more-all:hover .more-all-arrow {
+    transform: translate(2px, -2px);
   }
 
   /* ---------- Contact and footer ---------- */

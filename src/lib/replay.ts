@@ -123,13 +123,6 @@ export function windowAt(initial: WindowState, steps: readonly WindowStep[], ms:
   return play<WindowFrame, WindowStep>({ state: initial, focus: null }, steps, ms, windowSpan, applyWindow);
 }
 
-const SECONDS_PER_MINUTE = 60;
-
-/** A timer readout as pomodoro-app formats it: minutes unpadded, seconds padded ("25:00", "0:03"). */
-export function pomodoroClock(seconds: number): string {
-  return `${Math.floor(seconds / SECONDS_PER_MINUTE)}:${String(seconds % SECONDS_PER_MINUTE).padStart(2, "0")}`;
-}
-
 /** How long a replay runs, in ms; at or past this it shows its final frame. */
 export function replayDuration(replay: Replay): number {
   switch (replay.kind) {

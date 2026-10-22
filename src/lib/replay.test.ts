@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { TerminalStep, WindowState, WindowStep } from "@/domain/datasheet";
-import { PONG, PONG_START, TYPE_MS, pomodoroClock, pongAt, pongStep, replayDuration, terminalAt, windowAt } from "./replay";
+import { PONG, PONG_START, TYPE_MS, pongAt, pongStep, replayDuration, terminalAt, windowAt } from "./replay";
 
 const TERMINAL: TerminalStep[] = [{ cmd: "ls" }, { out: "a.txt" }, { note: "done" }];
 
@@ -49,13 +49,6 @@ describe("replayDuration", () => {
     const end = replayDuration(replay);
     expect(terminalAt(TERMINAL, end - 1).lines).toHaveLength(3);
     expect(end).toBeGreaterThan(2 * TYPE_MS);
-  });
-});
-
-describe("pomodoroClock", () => {
-  it("formats like pomodoro-app: minutes unpadded, seconds padded", () => {
-    expect(pomodoroClock(25 * 60)).toBe("25:00");
-    expect(pomodoroClock(3)).toBe("0:03");
   });
 });
 

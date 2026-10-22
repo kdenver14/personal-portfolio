@@ -7,6 +7,7 @@ export const PART_NUMBER = "KDC-14";
 export const LAST_REVISED = "2026-10";
 
 export const GITHUB_URL = `https://github.com/${OWNER}`;
+export const GITHUB_REPOS_URL = `${GITHUB_URL}?tab=repositories`;
 export const GITHUB_LABEL = `github.com/${OWNER}`;
 export const EMAIL_USER = "kurtdenverchavez2005";
 export const EMAIL_DOMAIN = "gmail.com";

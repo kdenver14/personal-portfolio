@@ -196,7 +196,7 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, every other repo, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a "How it works" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
@@ -380,9 +380,11 @@ Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padd
   - Under reduced motion the timeline is still.
 
 ### More Projects List
+Six repos the owner chose, each with a replay, newest first. Everything else is one link away: "View more projects ↗" under the list opens the GitHub repositories tab in a new tab. It is Sans 500 at 0.875rem like a card's "View project", and the arrow nudges up and right on hover. The owner cut the list from 13 rows (2026-10-22) because a replay for every repo was not worth it.
+
 A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and the year in Slate tabular figures.
 - **Interaction:** quieter than the featured cards, by the owner's choice.
-  - The whole row opens the project's pop-up (below): the name's link, to `#<id>`, is stretched over it. A project without a replay would link straight to GitHub instead, with a ↗ arrow.
+  - The whole row opens the project's pop-up (below): the name's link, to `#<id>`, is stretched over it. Every row has a replay; the build fails if one is missing.
   - Rows bleed 0.75rem past the column so the hover tint has room. The hairlines stay column-wide.
   - On hover, the row takes a Panel tint with a 0.5rem radius, and the year fades up and out as a → arrow slides in, over 160ms.
   - Keyboard focus outlines the whole row in Signal Blue and shows the arrow.

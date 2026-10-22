@@ -43,29 +43,39 @@ export const FEATURED: readonly FeaturedProject[] = [
     flow: ["Webcam", "MediaPipe Hands", "Keras classifier", "Mode machine", "Draw / Volume / Click"],
   },
   {
-    id: "int-wrapper",
-    repo: "Int-as-integer-data_type",
-    name: "Int wrapper",
+    id: "dsa",
+    repo: "Data-Structure-and-Algorithms-implementation-",
+    name: "DSA implementations",
     status: "complete",
-    summary: "A custom Int that behaves like the primitive int, with every operator overloaded and division by zero throwing.",
+    summary: "Data structures and algorithms written by hand in C++, from linked lists to heaps, as my interview reviewer.",
     overview: [
-      "One of my first C++ repos: a custom Int that behaves like the primitive int.",
-      "Every arithmetic, comparison, compound-assignment and stream operator is overloaded, division by zero throws, and a variadic template frees several heap Ints in one call.",
+      "My reviewer for data structures and algorithms: each one written by hand in C++, most with a diagram alongside.",
+      "Eight topics, from singly and doubly linked lists, stacks, queues and hash tables to heaps, graphs and binary-tree traversals, plus five sorts and 11 interview problems such as two-sum and reversing a linked list.",
     ],
     facts: [
-      { label: "Operators", value: "18 overloaded" },
-      { label: "Division by zero", value: "throws std::runtime_error", code: true },
-      { label: "GitHub stars", value: "2" },
+      { label: "Topics", value: "8, from linked lists to graphs" },
+      { label: "Sorts", value: "Bubble, selection, insertion, merge, quick" },
+      { label: "Interview problems", value: "11" },
+      { label: "Source files", value: "31 .cpp" },
     ],
-    tags: ["C++", "Operator overloading", "Variadic templates"],
+    tags: ["C++", "Data structures", "Algorithms"],
     listing: {
-      caption: "Int.h",
+      caption: "reverseLinkedList.cpp",
       language: "cpp",
-      href: `${GITHUB_URL}/Int-as-integer-data_type/blob/HEAD/Int/Int.h`,
-      source: `template<typename... Args>
-void ptr_deleter(Int* first, Args... args) {
-    delete first;
-    ptr_deleter(args...);  // Recursively call for the remaining pointers
+      href: `${GITHUB_URL}/Data-Structure-and-Algorithms-implementation-/blob/HEAD/LinkedList/singly_linkedList/interviews/reverseLinkedList.cpp`,
+      source: `void reverseLinkedList(){
+    Node* previous = nullptr;
+    Node* current = head;
+    Node* next = nullptr;
+    tail = head;
+
+    while(current){
+        next = current->next;
+        current->next = previous;
+        previous = current;
+        current = next;
+    }
+    head = previous;
 }`,
     },
   },

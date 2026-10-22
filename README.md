@@ -25,7 +25,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | --- | --- |
 | Name, contact, bio | `src/content/profile.ts` |
 | Pins on the chip figure | `src/content/pins.ts` |
-| A row in More projects (and every project's year) | `src/content/projects.ts` |
+| A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
 | A featured project: card line, full overview, details, tags, video, code listing, how-it-works steps | `src/content/featured.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |
 
