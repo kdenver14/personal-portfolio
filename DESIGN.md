@@ -369,19 +369,20 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
-### Dot Frame (decoration)
-A band of grey dots around all four screen edges that reacts to the mouse. It is `src/components/dot-frame.tsx`.
-- **Grid:** 18px spacing, anchored to the screen's top-left. Dots are about 3px, in Ink mixed into Paper at 20%.
-- **Bands:**
-  - The frame is fixed, so it frames the screen while the page scrolls under it.
-  - The side bands widen with the margin, `clamp(1.125rem, (100% − measure) / 2 − 2rem, 7rem)`, so they end 2rem short of the text column. On phones that leaves one column of dots.
-  - The top and bottom bands are 2.25rem.
-  - Every band holds solid for its first 35%, then fades toward the middle.
+### Dot Field (decoration)
+Grey dots scattered around the text column that float up near the mouse. It is `src/components/dot-field.tsx`, with the pure logic in `src/lib/dot-field.ts`.
+- **Scatter:**
+  - Poisson-disc spacing (26px minimum) from a fixed seed, so the dots look natural but never clump or leave holes, and the pattern is the same on every load at a given screen size.
+  - Dots vary from about 2 to 4px across and from 16% to 32% Ink opacity, so they read as grey on Paper.
+- **Placement:**
+  - The canvas is fixed, so the dots stay put while the page scrolls under them.
+  - No dot comes within 32px of the text column. Past that, density ramps up over 160px, so the field is densest at the screen edges and fades in toward the text.
+  - The column width is measured from a hidden box sized to the measure. At 768px only a few stray dots remain, and phones show none.
 - **Hover:**
-  - Within a soft 15rem circle around the mouse, dots darken to Ink at 55% and grow to about 4px.
-  - The circle fades in on the first mouse move and out when the cursor leaves the window, over 300ms.
-  - Only a mouse triggers it; touch and pen leave the frame static.
-  - The cursor position is written to CSS variables at most once per frame. The lit circle is a small layer whose background is shifted back by its own position, so its dots land exactly on the grid's.
+  - Dots within 130px of the mouse float up to 9px and bob gently, each on its own phase and pace. A faint shadow stays at the home position while a dot is lifted.
+  - They ease back home when the cursor moves away or leaves the window. Easing is time-based, so it looks the same at any frame rate.
+  - Only a mouse triggers it; touch and pen leave the dots still. Under reduced motion the dots stay still.
+  - The canvas animates only while a dot is away from home or the mouse is near one, and is otherwise idle.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)

@@ -126,58 +126,28 @@
     padding: 4.5rem var(--gutter) 0;
   }
 
-  /* ---------- Dot frame (decorative) ---------- */
+  /* ---------- Dot field (decorative) ---------- */
 
-  /* A band of grey dots around the screen edges. It is fixed, so it frames the screen as the page scrolls.
-     The side bands widen with the margin and end 2rem short of the text column; every band holds solid for
-     its first 35%, then fades. */
-  .frame {
-    --band-x: clamp(1.125rem, calc((100% - var(--measure)) / 2 - 2rem), 7rem);
-    --band-y: 2.25rem;
-    --hot-size: 15rem;
-    --dot-idle: color-mix(in oklab, var(--color-ink) 20%, var(--color-paper));
-    --dot-hot: color-mix(in oklab, var(--color-ink) 55%, var(--color-paper));
+  /* Grey dots scattered around the text column, drawn on a fixed canvas by DotField. The canvas takes its
+     ink from `color`; the hidden column box is measured so the dots keep clear of the text at any measure. */
+  .field {
     position: fixed;
     inset: 0;
     z-index: 0;
-    overflow: hidden;
     pointer-events: none;
-    mask-image:
-      linear-gradient(to right, #000 calc(var(--band-x) * 0.35), transparent var(--band-x)),
-      linear-gradient(to left, #000 calc(var(--band-x) * 0.35), transparent var(--band-x)),
-      linear-gradient(to bottom, #000 calc(var(--band-y) * 0.35), transparent var(--band-y)),
-      linear-gradient(to top, #000 calc(var(--band-y) * 0.35), transparent var(--band-y));
   }
 
-  /* An 18px grid anchored to the screen's top-left corner. */
-  .frame-dots {
+  .field-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: var(--color-ink);
+  }
+
+  .field-column {
     position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, var(--dot-idle) 1.3px, transparent 1.8px);
-    background-size: 18px 18px;
-  }
-
-  /* Darker, larger dots in a soft circle centred on the cursor. Its background is shifted back by its own
-     position, so its dots sit exactly on the grid's. */
-  .frame-hot {
-    position: absolute;
-    top: var(--hot-y, 0);
-    left: var(--hot-x, 0);
-    width: var(--hot-size);
-    height: var(--hot-size);
-    margin: calc(var(--hot-size) / -2) 0 0 calc(var(--hot-size) / -2);
-    background-image: radial-gradient(circle, var(--dot-hot) 2px, transparent 2.5px);
-    background-position:
-      calc(var(--hot-size) / 2 - var(--hot-x, 0px))
-      calc(var(--hot-size) / 2 - var(--hot-y, 0px));
-    background-size: 18px 18px;
-    mask-image: radial-gradient(closest-side, #000, transparent);
-    opacity: 0;
-    transition: opacity 300ms var(--ease-out);
-  }
-
-  .frame[data-hot] .frame-hot {
-    opacity: 1;
+    width: min(var(--measure), 100%);
+    visibility: hidden;
   }
 
   .panel {
