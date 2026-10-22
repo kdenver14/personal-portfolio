@@ -86,3 +86,69 @@ export interface GestureSet {
   /** samples[sample][landmark] = [x, y], wrist-relative, y grows downward. */
   samples: readonly (readonly (readonly [number, number])[])[];
 }
+
+/** Output colour in a terminal replay: plain, or a success line. */
+export type TerminalTone = "plain" | "ok";
+
+/**
+ * One beat of a terminal replay. `cmd` is typed at the prompt; `out` is a line the program really prints;
+ * `note` is narration about what happens off-screen, shown as a muted comment and never as output.
+ */
+export type TerminalStep =
+  | { readonly cmd: string }
+  | { readonly out: string; readonly tone?: TerminalTone }
+  | { readonly note: string }
+  | { readonly wait: number };
+
+export interface WindowField {
+  readonly label?: string;
+  readonly placeholder?: string;
+  readonly value: string;
+}
+
+export interface WindowItem {
+  readonly text: string;
+  readonly meta?: string;
+  /** Button labels drawn beside the item, e.g. ["Save", "Delete"]. */
+  readonly actions?: readonly string[];
+}
+
+/** What a mock app window shows at one moment. */
+export interface WindowState {
+  readonly heading: string;
+  readonly fields?: readonly WindowField[];
+  /** Label of the form's main button. */
+  readonly action?: string;
+  readonly items?: readonly WindowItem[];
+  /** Large readout, such as a timer. */
+  readonly display?: string;
+  readonly marks?: string;
+  readonly status?: string;
+}
+
+/**
+ * One beat of a window replay: type into an empty field (the last by default), type onto the end of a
+ * field or list item, patch the window, or hold.
+ */
+export type WindowStep =
+  | { readonly type: string; readonly field?: number }
+  | { readonly append: string; readonly field: number }
+  | { readonly append: string; readonly item: number }
+  | { readonly set: Partial<WindowState>; /** Ms to hold afterwards; defaults to a beat. */ readonly hold?: number }
+  | { readonly wait: number };
+
+interface ReplayBase {
+  /** URL hash that opens the project's pop-up. */
+  readonly id: string;
+  readonly repo: string;
+  /** Title bar text, such as the file being run or the app's name. */
+  readonly title: string;
+  /** What the replay shows, in one or two sentences: the text alternative to the animation. */
+  readonly description: string;
+}
+
+/** A short scripted replay of a project, built from its repository's code with sample values. */
+export type Replay =
+  | (ReplayBase & { readonly kind: "terminal"; readonly steps: readonly TerminalStep[] })
+  | (ReplayBase & { readonly kind: "window"; readonly initial: WindowState; readonly steps: readonly WindowStep[] })
+  | (ReplayBase & { readonly kind: "pong"; readonly seconds: number; /** Game seconds per replay second. */ readonly speed: number });

@@ -46,10 +46,16 @@ function leaveProject(): void {
   emit();
 }
 
-export function ProjectDialog({ id, children }: { id: string; children: ReactNode }) {
+/** Whether project `id` is open, that is, its hash is in the URL. Closed during server rendering. */
+export function useProjectOpen(id: string): boolean {
+  return useSyncExternalStore(subscribe, readHash, readServerHash) === `#${id}`;
+}
+
+/** `compact` is the smaller pop-up used for More projects. */
+export function ProjectDialog({ id, compact = false, children }: { id: string; compact?: boolean; children: ReactNode }) {
   const ref = useRef<HTMLDialogElement>(null);
   const pressedBackdrop = useRef(false);
-  const isOpen = useSyncExternalStore(subscribe, readHash, readServerHash) === `#${id}`;
+  const isOpen = useProjectOpen(id);
 
   useEffect(() => {
     const dialog = ref.current;
@@ -68,7 +74,7 @@ export function ProjectDialog({ id, children }: { id: string; children: ReactNod
   return (
     <dialog
       ref={ref}
-      className="dialog"
+      className={compact ? "dialog dialog-compact" : "dialog"}
       aria-labelledby={`${id}-title`}
       onClose={() => {
         if (window.location.hash === `#${id}`) {

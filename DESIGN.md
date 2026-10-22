@@ -366,11 +366,27 @@ Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padd
 ### More Projects List
 A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and the year in Slate tabular figures.
 - **Interaction:** quieter than the featured cards, by the owner's choice.
-  - The whole row links to the repo: the name's link is stretched over it.
+  - The whole row opens the project's pop-up (below): the name's link, to `#<id>`, is stretched over it. A project without a replay would link straight to GitHub instead, with a ↗ arrow.
   - Rows bleed 0.75rem past the column so the hover tint has room. The hairlines stay column-wide.
-  - On hover, the row takes a Panel tint with a 0.5rem radius, and the year fades up and out as a ↗ arrow slides in, over 160ms.
+  - On hover, the row takes a Panel tint with a 0.5rem radius, and the year fades up and out as a → arrow slides in, over 160ms.
   - Keyboard focus outlines the whole row in Signal Blue and shows the arrow.
   - Hover styles apply only on devices that can hover, so a tap on a phone doesn't leave a row tinted.
+
+### More Project Pop-up
+A compact version of the project dialog (36rem wide, title at 1.875rem), opened through the URL hash like the featured ones. It holds the name and year, the one-line summary, a replay of the project running, and a foot with the language and "Source on GitHub".
+- **Replay:** a short scripted animation built from the repository's code, in `src/content/replays.ts`, with the timelines in `src/lib/replay.ts`.
+  - **Terminal**, for scripts, APIs and console programs. It is dark like the chip, in JetBrains Mono 0.75rem. Commands are typed at a `$` prompt.
+    - Output lines are only what the program really prints, in its own wording, with sample values. Success lines are a light blue.
+    - Anything off-screen, such as a browser, an email or a key press, is a muted italic `#` comment and never looks like output.
+    - The prompt comes back only when the replay ends.
+  - **Window**, for UI apps. It is a light mock of the app's screen, using the app's own headings, placeholders and button labels. Fields type in with a blue focus border and a caret, and new list items rise in.
+  - **Pong** is the turtle game drawn in SVG with its real court, speeds and scoring, sped up three times.
+- **Playback:**
+  - It plays once from the top each time the pop-up opens and stops on the last frame.
+  - One button is Pause, Play or Replay depending on the state.
+  - Under reduced motion it opens on the last frame. Nothing animates while the pop-up is closed.
+- **Text alternative:** the screen is `aria-hidden`. The caption under it describes what the replay shows, followed by "A replay of the repo's code, with sample values."
+- No secrets or personal values from the repositories appear in any replay.
 
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
