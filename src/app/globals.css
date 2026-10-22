@@ -956,10 +956,14 @@
     box-shadow: inset 0 0 0 1.5px var(--color-blue);
   }
 
-  /* Where an error turned the request away. */
-  .demo-stop.is-refused .demo-dot {
-    background: var(--color-ink);
+  /* A stage that isn't built yet: a dashed ring, blue once the job passes through. */
+  .demo-stop.is-planned .demo-dot {
+    border: 1.5px dashed var(--color-line-strong);
     box-shadow: none;
+  }
+
+  .demo-stop.is-planned.is-lit .demo-dot {
+    border-color: var(--color-blue);
   }
 
   .demo-stop-name {
@@ -988,6 +992,14 @@
     border-radius: 50%;
     background: var(--color-blue);
     box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-blue) 16%, transparent);
+  }
+
+  /* Hollow while the job crosses planned stages. */
+  .demo-pulse.is-ghost {
+    background: var(--color-paper);
+    box-shadow:
+      inset 0 0 0 1.5px var(--color-blue),
+      0 0 0 4px color-mix(in oklab, var(--color-blue) 10%, transparent);
   }
 
   @media (min-width: 40rem) {

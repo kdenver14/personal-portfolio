@@ -160,6 +160,26 @@ export interface DemoRequest {
   readonly response?: string;
 }
 
+/** A stage of a project's pipeline; planned stages are drawn but not built yet. */
+export interface PipelineStop {
+  readonly name: string;
+  readonly planned: boolean;
+}
+
+/** One check of a monitored site, in the checker's result fields. Values are samples. */
+export interface CheckSample {
+  /** Stops the job passes through, from the stored monitor to the checker, and on to alerts when the site is down. */
+  readonly visits: readonly number[];
+  /** The checker's stop: the result shows once the job reaches it. */
+  readonly resultAt: number;
+  readonly isUp: boolean;
+  readonly statusCode: number | null;
+  /** Milliseconds, when the site answered. */
+  readonly responseTime?: number;
+  /** What went wrong, in words, when it didn't. */
+  readonly failure?: string;
+}
+
 export type SortAlgorithm = "bubble" | "selection";
 
 /** One sort from the repo, on the array in its own main(). */
@@ -206,7 +226,14 @@ interface DemoBase {
 
 /** A featured project's animated mini demo, drawn from its repository's code. */
 export type Demo =
-  | (DemoBase & { readonly kind: "requests"; readonly stops: readonly string[]; readonly requests: readonly DemoRequest[] })
+  | (DemoBase & {
+      readonly kind: "pipeline";
+      readonly stops: readonly PipelineStop[];
+      /** The request that creates the monitor. */
+      readonly create: DemoRequest;
+      readonly monitor: { readonly url: string; readonly interval: number };
+      readonly checks: readonly CheckSample[];
+    })
   | (DemoBase & { readonly kind: "sort"; readonly runs: readonly SortRun[] })
   | (DemoBase & {
       readonly kind: "operators";

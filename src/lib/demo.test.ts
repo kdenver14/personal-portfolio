@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { DemoRequest, GestureBeat, OperatorBeat } from "@/domain/datasheet";
-import { HOP_MS, gestureAt, modeBefore, operatorsAt, pulseAt, refusedAt, requestPath, requestsAt, travelMs } from "./demo";
+import type { CheckSample, DemoRequest, GestureBeat, OperatorBeat } from "@/domain/datasheet";
+import { HOP_MS, gestureAt, modeBefore, operatorsAt, pipelineAt, pulseAt, requestPath, travelMs } from "./demo";
 
 const created: DemoRequest = { method: "POST", path: "/monitors", visits: [0, 1, 2, 3, 4], answeredAt: 1, status: 201 };
 const refused: DemoRequest = { method: "POST", path: "/monitors", visits: [0, 1], answeredAt: 1, status: 400 };
-const notFound: DemoRequest = { method: "GET", path: "/monitors/7", visits: [0, 1, 2, 3, 4], answeredAt: 1, status: 404 };
 
 describe("requestPath", () => {
   it("goes out through every visit and back to the stop that answers", () => {
@@ -20,17 +19,6 @@ describe("requestPath", () => {
   });
 });
 
-describe("refusedAt", () => {
-  it("names the stop that turned an error away before it went further", () => {
-    expect(refusedAt(refused)).toBe(1);
-  });
-
-  it("is null for a success, or an error found after a full trip", () => {
-    expect(refusedAt(created)).toBeNull();
-    expect(refusedAt(notFound)).toBeNull();
-  });
-});
-
 describe("pulseAt", () => {
   it("eases between stops and takes longer to skip one", () => {
     expect(pulseAt([0, 1], HOP_MS / 2).at).toBeCloseTo(0.5);
@@ -39,16 +27,26 @@ describe("pulseAt", () => {
   });
 });
 
-describe("requestsAt", () => {
-  it("lights only the stops a refused request reached", () => {
-    const end = requestsAt([refused], 60_000);
-    expect(end).toMatchObject({ index: 0, lit: [0, 1], answered: true, pulse: null });
+describe("pipelineAt", () => {
+  const create: DemoRequest = { method: "POST", path: "/monitors", visits: [0, 1], answeredAt: 0, status: 201 };
+  const up: CheckSample = { visits: [1, 2, 3], resultAt: 3, isUp: true, statusCode: 200, responseTime: 143 };
+  const down: CheckSample = { visits: [1, 2, 3, 4], resultAt: 3, isUp: false, statusCode: null, failure: "timed out" };
+
+  it("creates the monitor before any check", () => {
+    expect(pipelineAt(create, [up], 0)).toMatchObject({ check: null, pulse: null, answered: false });
+    expect(pipelineAt(create, [up], 600 + 2 * HOP_MS)).toMatchObject({ check: null, lit: [0, 1], answered: true });
   });
 
-  it("moves to the next request once the first is answered and shown", () => {
-    const first = requestsAt([created, refused], 0);
-    expect(first).toMatchObject({ index: 0, pulse: null, answered: false });
-    expect(requestsAt([created, refused], 60_000).index).toBe(1);
+  it("shows a check's result once the job reaches the checker, while it goes on to alerts", () => {
+    const createMs = 600 + 2 * HOP_MS + 1900;
+    const atChecker = pipelineAt(create, [down], createMs + 600 + 2 * HOP_MS + 1);
+    expect(atChecker).toMatchObject({ check: 0, answered: true });
+    expect(atChecker.pulse).not.toBeNull();
+    expect(pipelineAt(create, [down], 60_000)).toMatchObject({ check: 0, lit: [1, 2, 3, 4], pulse: null, answered: true });
+  });
+
+  it("plays checks back to back", () => {
+    expect(pipelineAt(create, [up, down], 60_000).check).toBe(1);
   });
 });
 

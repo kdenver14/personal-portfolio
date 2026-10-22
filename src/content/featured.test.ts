@@ -6,14 +6,17 @@ import { FEATURED } from "./featured";
 const recorded = new Set(parseGestureFile(samples).map((set) => set.gesture));
 
 describe("FEATURED demos", () => {
-  it("routes every request through stops that exist, and answers from one it visited", () => {
+  it("sends the pipeline's create request and checks only through stops that exist", () => {
     for (const { demo } of FEATURED) {
-      if (demo.kind !== "requests") {
+      if (demo.kind !== "pipeline") {
         continue;
       }
-      for (const request of demo.requests) {
-        expect(request.visits.every((stop) => stop >= 0 && stop < demo.stops.length)).toBe(true);
-        expect(request.visits).toContain(request.answeredAt);
+      const exists = (stop: number) => stop >= 0 && stop < demo.stops.length;
+      expect(demo.create.visits.every(exists)).toBe(true);
+      expect(demo.create.visits).toContain(demo.create.answeredAt);
+      for (const check of demo.checks) {
+        expect(check.visits.every(exists)).toBe(true);
+        expect(check.visits).toContain(check.resultAt);
       }
     }
   });

@@ -5,7 +5,7 @@ import type { Project, ProjectStatus } from "@/domain/datasheet";
  * which has a replay. Everything else is one link away on GitHub.
  */
 export const PROJECTS: readonly Project[] = [
-  { repo: "uptime-monitor", name: "uptime-monitor", function: "Uptime monitor API, in development", language: "TypeScript", created: "2026-08" },
+  { repo: "uptime-monitor", name: "uptime-monitor", function: "Website uptime monitor, in development", language: "TypeScript", created: "2026-08" },
   { repo: "Hand-Gesture-Control-Keras-Project", name: "Hand Gesture Control", function: "Gesture-driven mouse, volume and drawing", language: "Python", created: "2026-02" },
   { repo: "Express-Full", name: "Express-Full", function: "Movie watchlist REST API with JWT auth, without AI", language: "TypeScript", created: "2026-02" },
   { repo: "Collection-Manager", name: "Collection Manager", function: "Games and users CRUD on the Next.js App Router, without AI", language: "TypeScript", created: "2026-01" },

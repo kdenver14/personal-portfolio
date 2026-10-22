@@ -1,7 +1,8 @@
 /** Pure timelines for the featured projects' live diagrams: what each one shows `ms` into its demo. */
 
-import type { Demo, DemoRequest, GestureBeat, GestureMode, OperatorBeat } from "@/domain/datasheet";
+import type { CheckSample, Demo, DemoRequest, GestureBeat, GestureMode, OperatorBeat } from "@/domain/datasheet";
 import { sortDuration } from "./sort";
+import { segmentAt } from "./timeline";
 
 /** Time for the pulse to travel from one stop to the next; skipping stops takes proportionally longer. */
 export const HOP_MS = 380;
@@ -9,11 +10,14 @@ export const HOP_MS = 380;
 const REQUEST_INTRO_MS = 600;
 /** The response stays up this long before the next request. */
 const ANSWER_MS = 1900;
+/** A check's monitor is shown this long before its job sets off. */
+const CHECK_INTRO_MS = 600;
+/** The check's result stays up this long once the job has finished. */
+const CHECK_HOLD_MS = 1900;
 /** The hand eases from one pose to the next over this long. */
 const MORPH_MS = 700;
 const GESTURE_HOP_MS = 300;
 const GESTURE_HOLD_MS = 1300;
-const FIRST_ERROR_STATUS = 400;
 /** Each line of main is on screen this long; its printed value appears after RESULT_DELAY_MS. */
 const OPERATOR_MS = 750;
 const RESULT_DELAY_MS = 300;
@@ -62,44 +66,46 @@ export function requestPath(request: DemoRequest): number[] {
   return [...request.visits, ...back];
 }
 
-/** The stop that turned the request away, when it got no further than the stop that refused it. */
-export function refusedAt(request: DemoRequest): number | null {
-  return request.status >= FIRST_ERROR_STATUS && request.visits.at(-1) === request.answeredAt ? request.answeredAt : null;
-}
-
 const requestSpan = (request: DemoRequest) => REQUEST_INTRO_MS + travelMs(requestPath(request)) + ANSWER_MS;
 
-export interface RequestFrame {
-  readonly index: number;
-  /** Null before the pulse sets off and once the response is back. */
+const checkSpan = (check: CheckSample) => CHECK_INTRO_MS + travelMs(check.visits) + CHECK_HOLD_MS;
+
+export interface PipelineFrame {
+  /** Null while the monitor is being created, then the index of the check on screen. */
+  readonly check: number | null;
+  /** Null before the pulse sets off and once it has finished. */
   readonly pulse: number | null;
-  /** Stops the request has reached so far. */
+  /** Stops reached so far in this scene. */
   readonly lit: readonly number[];
+  /** The create request has its response, or the check has its result. */
   readonly answered: boolean;
 }
 
-function requestFrame(index: number, request: DemoRequest, elapsed: number): RequestFrame {
-  const path = requestPath(request);
-  const travel = elapsed - REQUEST_INTRO_MS;
+/** One trip along `path` after an intro; `answeredWhen` says from the stops reached whether the answer is in. */
+function trip(
+  path: readonly number[],
+  introMs: number,
+  elapsed: number,
+  answeredWhen: (lit: number[]) => boolean,
+): Omit<PipelineFrame, "check"> {
+  const travel = elapsed - introMs;
   if (travel < 0) {
-    return { index, pulse: null, lit: [], answered: false };
+    return { pulse: null, lit: [], answered: false };
   }
   const pulse = pulseAt(path, travel);
   const lit = [...new Set(path.slice(0, pulse.reached))];
-  const answered = travel >= travelMs(path);
-  return { index, pulse: answered ? null : pulse.at, lit, answered };
+  const moving = travel < travelMs(path);
+  return { pulse: moving ? pulse.at : null, lit, answered: !moving || answeredWhen(lit) };
 }
 
-export function requestsAt(requests: readonly DemoRequest[], ms: number): RequestFrame {
-  let start = 0;
-  for (const [index, request] of requests.entries()) {
-    const span = requestSpan(request);
-    if (ms < start + span || index === requests.length - 1) {
-      return requestFrame(index, request, Math.min(ms - start, span));
-    }
-    start += span;
+/** The monitor is created through the API, then each check's job travels the pipeline to the checker and beyond. */
+export function pipelineAt(create: DemoRequest, checks: readonly CheckSample[], ms: number): PipelineFrame {
+  const { index, elapsed } = segmentAt([requestSpan(create), ...checks.map(checkSpan)], ms) ?? { index: 0, elapsed: 0 };
+  const check = checks[index - 1];
+  if (!check) {
+    return { check: null, ...trip(requestPath(create), REQUEST_INTRO_MS, elapsed, () => false) };
   }
-  return { index: 0, pulse: null, lit: [], answered: false };
+  return { check: index - 1, ...trip(check.visits, CHECK_INTRO_MS, elapsed, (lit) => lit.includes(check.resultAt)) };
 }
 
 const gestureSpan = (stops: number) => MORPH_MS + (stops - 1) * GESTURE_HOP_MS + GESTURE_HOLD_MS;
@@ -190,8 +196,8 @@ export function operatorsAt(initial: number, beats: readonly OperatorBeat[], hea
 /** How long a demo runs, in ms; at or past this it shows its final frame. */
 export function demoDuration(demo: Demo): number {
   switch (demo.kind) {
-    case "requests":
-      return demo.requests.reduce((sum, request) => sum + requestSpan(request), 0);
+    case "pipeline":
+      return requestSpan(demo.create) + demo.checks.reduce((sum, check) => sum + checkSpan(check), 0);
     case "sort":
       return sortDuration(demo.runs);
     case "gesture":

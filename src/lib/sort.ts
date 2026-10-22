@@ -1,6 +1,7 @@
 /** The repo's sorts as steps, and what the bars show `ms` into a run of them. */
 
 import type { SortAlgorithm, SortRun } from "@/domain/datasheet";
+import { segmentAt } from "./timeline";
 
 /** Positions are slots in the array, as the C++ indexes them. */
 export type SortStep =
@@ -159,13 +160,10 @@ function runFrame(index: number, run: SortRun, elapsed: number): SortFrame {
 }
 
 export function sortAt(runs: readonly SortRun[], ms: number): SortFrame {
-  let start = 0;
-  for (const [index, run] of runs.entries()) {
-    const span = runSpan(run);
-    if (ms < start + span || index === runs.length - 1) {
-      return runFrame(index, run, Math.min(ms - start, span));
-    }
-    start += span;
+  const segment = segmentAt(runs.map(runSpan), ms);
+  const run = segment ? runs[segment.index] : undefined;
+  if (!segment || !run) {
+    return { run: 0, slots: [], comparing: [], marked: null, settled: [], caption: "", done: false };
   }
-  return { run: 0, slots: [], comparing: [], marked: null, settled: [], caption: "", done: false };
+  return runFrame(segment.index, run, segment.elapsed);
 }

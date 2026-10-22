@@ -1,8 +1,8 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import type { Demo, DemoRequest, GestureBeat, GestureMode, SortRun } from "@/domain/datasheet";
-import { type OperatorFrame, demoDuration, gestureAt, modeBefore, operatorsAt, refusedAt, requestsAt } from "@/lib/demo";
+import type { CheckSample, Demo, DemoRequest, GestureBeat, GestureMode, SortRun } from "@/domain/datasheet";
+import { type OperatorFrame, demoDuration, gestureAt, modeBefore, operatorsAt, pipelineAt } from "@/lib/demo";
 import { HAND_CONNECTIONS, type HandPoses, lerpPose, project, type Point } from "@/lib/landmarks";
 import { sortAt } from "@/lib/sort";
 import { useProjectOpen } from "./project-dialog";
@@ -38,7 +38,8 @@ interface StopLineProps {
   stops: readonly string[];
   pulse: number | null;
   lit: (stop: number) => boolean;
-  refused?: number | null;
+  /** Stops drawn but not built yet; the pulse goes hollow on the way through them. */
+  planned?: (stop: number) => boolean;
   /** A reading under each stop; stale ones are from the previous beat. */
   values?: readonly { text: string; stale: boolean }[];
   /** Lays the stops across on wider screens; otherwise they run down. */
@@ -46,19 +47,22 @@ interface StopLineProps {
 }
 
 /** The project's layers as stops on a line, with a pulse travelling between them. */
-function StopLine({ stops, pulse, lit, refused = null, values, across = false }: StopLineProps) {
+function StopLine({ stops, pulse, lit, planned = () => false, values, across = false }: StopLineProps) {
+  const ghost = pulse !== null && (planned(Math.floor(pulse)) || planned(Math.ceil(pulse)));
   return (
     <div className={across ? "demo-line is-across" : "demo-line"} style={{ "--stops": String(stops.length) } as CSSVars}>
       <ol className="demo-stops">
         {stops.map((stop, i) => (
-          <li key={stop} className={`demo-stop${lit(i) ? " is-lit" : ""}${refused === i ? " is-refused" : ""}`}>
+          <li key={stop} className={`demo-stop${lit(i) ? " is-lit" : ""}${planned(i) ? " is-planned" : ""}`}>
             <span className="demo-dot" />
             <span className="demo-stop-name">{stop}</span>
             {values ? <span className={values[i]?.stale ? "demo-stop-value is-stale" : "demo-stop-value"}>{values[i]?.text}</span> : null}
           </li>
         ))}
       </ol>
-      {pulse === null ? null : <span className="demo-pulse" style={{ "--at": pulse.toFixed(PULSE_DECIMALS) } as CSSVars} />}
+      {pulse === null ? null : (
+        <span className={ghost ? "demo-pulse is-ghost" : "demo-pulse"} style={{ "--at": pulse.toFixed(PULSE_DECIMALS) } as CSSVars} />
+      )}
     </div>
   );
 }
@@ -79,33 +83,69 @@ function RequestLines({ request }: { request: DemoRequest }) {
   );
 }
 
-function RequestsScreen({ stops, requests, ms }: { stops: readonly string[]; requests: readonly DemoRequest[]; ms: number }) {
-  const frame = requestsAt(requests, ms);
-  const request = requests[frame.index];
-  if (!request) {
-    return null;
-  }
-  const ok = request.status < FIRST_ERROR_STATUS;
+function ResponseLine({ request }: { request: DemoRequest }) {
+  return (
+    <>
+      <span className={request.status < FIRST_ERROR_STATUS ? "demo-status is-ok" : "demo-status"}>
+        {request.status} {STATUS_TEXT[request.status]}
+      </span>
+      {request.response ? <code className="demo-detail">{request.response}</code> : null}
+    </>
+  );
+}
+
+/** The sample in the checker's result fields. */
+function checkFields(check: CheckSample): string {
+  const time = check.responseTime === undefined ? [] : [`responseTime: ${check.responseTime}`];
+  return `{ ${[`isUp: ${check.isUp}`, `statusCode: ${check.statusCode}`, ...time].join(", ")} }`;
+}
+
+function CheckLine({ check }: { check: CheckSample }) {
+  return (
+    <>
+      <span className={check.isUp ? "demo-status is-ok" : "demo-status"}>{check.isUp ? "Up" : "Down"}</span>
+      <code className="demo-detail">{checkFields(check)}</code>
+      {check.failure ? <span className="demo-muted">{check.failure}</span> : null}
+    </>
+  );
+}
+
+type PipelineDemo = Extract<Demo, { kind: "pipeline" }>;
+
+function MonitorLines({ monitor }: { monitor: PipelineDemo["monitor"] }) {
+  return (
+    <div className="demo-head">
+      <p className="demo-head-line">
+        <span className="demo-method">CHECK</span>
+        <code>{monitor.url}</code>
+      </p>
+      <code className="demo-detail">every {monitor.interval} s</code>
+    </div>
+  );
+}
+
+/** The API's response to the create request, or the result of the check on screen. */
+function PipelineAnswer({ demo, check }: { demo: PipelineDemo; check: CheckSample | undefined }) {
+  return check ? <CheckLine check={check} /> : <ResponseLine request={demo.create} />;
+}
+
+/** The monitor is created through the API, then each check travels the pipeline, planned stages included. */
+function PipelineScreen({ demo, ms }: { demo: PipelineDemo; ms: number }) {
+  const frame = pipelineAt(demo.create, demo.checks, ms);
+  const check = frame.check === null ? undefined : demo.checks[frame.check];
+  const planned = (stop: number) => demo.stops[stop]?.planned ?? false;
   return (
     <div className="demo-screen">
-      <RequestLines request={request} />
+      {check ? <MonitorLines monitor={demo.monitor} /> : <RequestLines request={demo.create} />}
       <StopLine
-        stops={stops}
+        stops={demo.stops.map((stop) => stop.name)}
         pulse={frame.pulse}
         lit={(stop) => frame.lit.includes(stop)}
-        refused={frame.answered ? refusedAt(request) : null}
+        planned={planned}
+        values={demo.stops.map((stop) => ({ text: stop.planned ? "planned" : "", stale: true }))}
         across
       />
-      <p className="demo-foot">
-        {frame.answered ? (
-          <>
-            <span className={ok ? "demo-status is-ok" : "demo-status"}>
-              {request.status} {STATUS_TEXT[request.status]}
-            </span>
-            {request.response ? <code className="demo-detail">{request.response}</code> : null}
-          </>
-        ) : null}
-      </p>
+      <p className="demo-foot">{frame.answered ? <PipelineAnswer demo={demo} check={check} /> : null}</p>
     </div>
   );
 }
@@ -252,8 +292,8 @@ interface DemoProps {
 
 function DemoScreen({ demo, hand, ms }: DemoProps & { ms: number }) {
   switch (demo.kind) {
-    case "requests":
-      return <RequestsScreen stops={demo.stops} requests={demo.requests} ms={ms} />;
+    case "pipeline":
+      return <PipelineScreen demo={demo} ms={ms} />;
     case "sort":
       return <SortScreen runs={demo.runs} ms={ms} />;
     case "operators":
