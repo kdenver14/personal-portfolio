@@ -42,9 +42,9 @@ function WindowForm({ state, focus }: { state: WindowState; focus: WindowFocus }
       {(state.fields ?? []).map((field, i) => (
         <div key={i} className="replay-field">
           {field.label ? <span className="replay-label">{field.label}</span> : null}
-          <span className={focus && "field" in focus && focus.field === i ? "replay-input is-focused" : "replay-input"}>
+          <span className={focus?.field === i ? "replay-input is-focused" : "replay-input"}>
             {field.value || <span className="replay-placeholder">{field.placeholder}</span>}
-            {focus && "field" in focus && focus.field === i ? <Caret /> : null}
+            {focus?.field === i ? <Caret /> : null}
           </span>
         </div>
       ))}
@@ -61,18 +61,14 @@ function WindowScreen({ title, initial, steps, ms }: { title: string; initial: W
       <div className="replay-app">
         {state.heading ? <p className="replay-heading">{state.heading}</p> : null}
         {state.status ? <p className="replay-status">{state.status}</p> : null}
-        {state.display ? <p className="replay-display tabular">{state.display}</p> : null}
         <WindowForm state={state} focus={focus} />
-        {state.marks ? <p className="replay-marks">{state.marks}</p> : null}
         <ul className="replay-items">
           {(state.items ?? []).map((item, i) => (
             <li key={i} className="replay-item">
               <span className="replay-item-text">
                 {item.text}
-                {focus && "item" in focus && focus.item === i ? <Caret /> : null}
                 {item.meta ? <span className="replay-item-meta">{item.meta}</span> : null}
               </span>
-              {item.actions?.map((action) => <span key={action} className="replay-chip">{action}</span>)}
             </li>
           ))}
         </ul>

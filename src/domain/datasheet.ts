@@ -109,8 +109,6 @@ export interface WindowField {
 export interface WindowItem {
   readonly text: string;
   readonly meta?: string;
-  /** Button labels drawn beside the item, e.g. ["Save", "Delete"]. */
-  readonly actions?: readonly string[];
 }
 
 /** What a mock app window shows at one moment. */
@@ -120,20 +118,12 @@ export interface WindowState {
   /** Label of the form's main button. */
   readonly action?: string;
   readonly items?: readonly WindowItem[];
-  /** Large readout, such as a timer. */
-  readonly display?: string;
-  readonly marks?: string;
   readonly status?: string;
 }
 
-/**
- * One beat of a window replay: type into an empty field (the last by default), type onto the end of a
- * field or list item, patch the window, or hold.
- */
+/** One beat of a window replay: type into an empty field (the last by default), patch the window, or hold. */
 export type WindowStep =
   | { readonly type: string; readonly field?: number }
-  | { readonly append: string; readonly field: number }
-  | { readonly append: string; readonly item: number }
   | { readonly set: Partial<WindowState>; /** Ms to hold afterwards; defaults to a beat. */ readonly hold?: number }
   | { readonly wait: number };
 

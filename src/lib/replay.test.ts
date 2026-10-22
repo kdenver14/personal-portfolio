@@ -24,7 +24,7 @@ describe("terminalAt", () => {
 
 describe("windowAt", () => {
   const initial: WindowState = { heading: "Todo", fields: [{ value: "" }], items: [{ text: "Milk" }] };
-  const steps: WindowStep[] = [{ type: "Eggs" }, { set: { items: [{ text: "Milk" }, { text: "Eggs" }] } }, { append: "!", item: 0 }];
+  const steps: WindowStep[] = [{ type: "Eggs" }, { set: { items: [{ text: "Milk" }, { text: "Eggs" }] } }];
 
   it("types into the field and focuses it", () => {
     const frame = windowAt(initial, steps, 2 * TYPE_MS);
@@ -33,13 +33,9 @@ describe("windowAt", () => {
   });
 
   it("applies a patch and drops the focus", () => {
-    const frame = windowAt(initial, steps.slice(0, 2), 60_000);
+    const frame = windowAt(initial, steps, 60_000);
     expect(frame.state.items).toEqual([{ text: "Milk" }, { text: "Eggs" }]);
     expect(frame.focus).toBeNull();
-  });
-
-  it("appends to a list item without losing its text", () => {
-    expect(windowAt(initial, steps, 60_000).state.items?.[0]?.text).toBe("Milk!");
   });
 });
 

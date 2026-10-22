@@ -26,8 +26,8 @@ export interface TerminalFrame {
   readonly typing: boolean;
 }
 
-/** Where the caret is: a form field or a list item, by index. */
-export type WindowFocus = { readonly field: number } | { readonly item: number } | null;
+/** The form field the caret is in, by index. */
+export type WindowFocus = { readonly field: number } | null;
 
 export interface WindowFrame {
   readonly state: WindowState;
@@ -85,9 +85,6 @@ function windowSpan(step: WindowStep): number {
   if ("type" in step) {
     return step.type.length * TYPE_MS + FIELD_MS;
   }
-  if ("append" in step) {
-    return step.append.length * TYPE_MS + FIELD_MS;
-  }
   if ("set" in step) {
     return step.hold ?? SET_MS;
   }
@@ -105,18 +102,9 @@ function applyWindow({ state }: WindowFrame, step: WindowStep, elapsed: number):
     return { state, focus: null };
   }
   const fields = state.fields ?? [];
-  if ("type" in step) {
-    const field = step.field ?? fields.length - 1;
-    const value = typed(step.type, elapsed);
-    return { state: { ...state, fields: replaceAt(fields, field, (f) => ({ ...f, value })) }, focus: { field } };
-  }
-  const more = typed(step.append, elapsed);
-  if ("item" in step) {
-    const items = replaceAt(state.items ?? [], step.item, (it) => ({ ...it, text: it.text + more }));
-    return { state: { ...state, items }, focus: { item: step.item } };
-  }
-  const updated = replaceAt(fields, step.field, (f) => ({ ...f, value: f.value + more }));
-  return { state: { ...state, fields: updated }, focus: { field: step.field } };
+  const field = step.field ?? fields.length - 1;
+  const value = typed(step.type, elapsed);
+  return { state: { ...state, fields: replaceAt(fields, field, (f) => ({ ...f, value })) }, focus: { field } };
 }
 
 export function windowAt(initial: WindowState, steps: readonly WindowStep[], ms: number): WindowFrame {
