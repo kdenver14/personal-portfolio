@@ -365,6 +365,12 @@ Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padd
 
 ### More Projects List
 A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and the year in Slate tabular figures.
+- **Interaction:** quieter than the featured cards, by the owner's choice.
+  - The whole row links to the repo: the name's link is stretched over it.
+  - Rows bleed 0.75rem past the column so the hover tint has room. The hairlines stay column-wide.
+  - On hover, the row takes a Panel tint with a 0.5rem radius, and the year fades up and out as a ↗ arrow slides in, over 160ms.
+  - Keyboard focus outlines the whole row in Signal Blue and shows the arrow.
+  - Hover styles apply only on devices that can hover, so a tap on a phone doesn't leave a row tinted.
 
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.

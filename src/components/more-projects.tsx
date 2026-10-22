@@ -6,6 +6,7 @@ import { formatYear, repoUrl } from "@/lib/format";
 const FEATURED_REPOS = new Set(FEATURED.map((project) => project.repo));
 const MORE = PROJECTS.filter((project) => !FEATURED_REPOS.has(project.repo));
 
+/** Every other repo as a row; the whole row links to GitHub, and on hover the year gives way to an arrow. */
 export function MoreProjects() {
   return (
     <ul className="more">
@@ -15,7 +16,12 @@ export function MoreProjects() {
             {project.name}
           </a>
           <span className="more-desc">{project.function}</span>
-          <span className="more-year tabular">{formatYear(project.created)}</span>
+          <span className="more-year tabular">
+            <span className="more-year-text">{formatYear(project.created)}</span>
+            <span className="more-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </span>
         </li>
       ))}
     </ul>
