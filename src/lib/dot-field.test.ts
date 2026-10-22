@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  COLUMN_DIM,
   COLUMN_GAP,
   type Mark,
   advance,
   easeToward,
   poissonDisc,
+  pointerCentre,
   ringAt,
   scatterParticles,
   seededRandom,
@@ -45,14 +47,18 @@ describe("poissonDisc", () => {
 });
 
 describe("scatterParticles", () => {
-  it("never places a particle within the gap around the text column", () => {
+  it("dims particles under the text column and keeps the margins at full strength", () => {
     const particles = scatterParticles(FIELD, 7);
-    expect(particles.length).toBeGreaterThan(0);
-    expect(particles.every((p) => Math.abs(p.x - FIELD.width / 2) > FIELD.column / 2 + COLUMN_GAP)).toBe(true);
+    const under = particles.filter((p) => Math.abs(p.x - FIELD.width / 2) <= FIELD.column / 2 + COLUMN_GAP);
+    expect(under.length).toBeGreaterThan(0);
+    expect(under.every((p) => p.visibility === COLUMN_DIM)).toBe(true);
+    expect(particles.some((p) => p.visibility === 1)).toBe(true);
   });
 
-  it("places no particles when the column fills the screen", () => {
-    expect(scatterParticles({ width: 390, height: 800, column: 390 }, 7)).toEqual([]);
+  it("still fills a phone screen, dimmed, when the column takes its whole width", () => {
+    const particles = scatterParticles({ width: 390, height: 800, column: 390 }, 7);
+    expect(particles.length).toBeGreaterThan(0);
+    expect(particles.every((p) => p.visibility === COLUMN_DIM)).toBe(true);
   });
 
   it("gives the same scatter for the same size and seed", () => {
@@ -71,6 +77,15 @@ describe("easeToward", () => {
   it("stays put with no time and arrives after a long time", () => {
     expect(easeToward([10, 10], [90, 90], 0, 0.45)).toEqual([10, 10]);
     expect(easeToward([10, 10], [90, 90], 60, 0.45)[0]).toBeCloseTo(90);
+  });
+});
+
+describe("pointerCentre", () => {
+  it("keeps the ring circling near a resting mouse", () => {
+    const a = pointerCentre([500, 400], FIELD, 0);
+    const b = pointerCentre([500, 400], FIELD, 2);
+    expect(a).not.toEqual(b);
+    expect(Math.hypot(a[0] - 500, a[1] - 400)).toBeLessThan(40);
   });
 });
 

@@ -347,6 +347,22 @@ A vertical chain of Paper nodes (8px radius, 1px Hairline border, Caption type, 
 ### Code Listing
 A panel with a head row above a Mono body at line-height 1.7. The head holds the file name in Mono Graphite and a "View file" link. Long lines wrap with a hanging indent under the code, so phones never scroll or clip a listing. Line numbers are generated, right-aligned in Graphite, and unselectable. Comments are Graphite.
 
+### Navbar
+A floating pill, fixed 0.875rem below the top edge so it never touches it, as wide as the column plus 2rem. It is translucent Paper (78%) with a 14px blur, a Hairline border and a soft shadow.
+- The brand "Denver" in Instrument Serif links to the top. Section links (Projects, Experience, Activity, Contact) are 0.875rem 500 Graphite pills that tint Panel on hover.
+- The section in view is marked: its heading has risen above 30% of the viewport. It gets `aria-current` and a Panel-hover fill. A section without a link, such as More projects, marks none.
+- Headings jumped to land 5.5rem down, clear of the bar. The page's top padding is 6.5rem.
+- On phones the links tighten. Below 23rem the brand hides and the links centre.
+
+### Activity (contribution graph)
+A GitHub-style contribution calendar for the last year, with the longest streak marked. It is `src/components/contribution-graph.tsx`.
+- **Data:** `scripts/fetch-contributions.mjs` reads the public GitHub contribution calendar into `src/data/contributions.json`, every day since 2022. It runs as `prebuild` on Vercel, so each deploy refreshes it; if GitHub can't be read, the build logs a warning and ships the committed snapshot. Locally, `npm run contributions` refreshes it. The file is validated before use.
+- **Head:** the year's total, and the longest streak (all-time, latest on a tie) with its dates.
+- **Chart:** week columns from Sunday, like GitHub, with month labels and Mon/Wed/Fri. Cells size to the column, so the full year fits from 390px up; the gap drops to 1px on phones. Each cell has a `title` with its count and date.
+- **Colour:** GitHub's light-theme greens (#9be9a8, #40c463, #30a14e, #216e39) on Panel for empty days. This is the one place the page leaves blue, because the owner asked for GitHub's look.
+- A green bracket under the streak's weeks reads "71-day streak". A Less–More legend and "From GitHub, through <date>" sit below.
+- The chart is `aria-hidden`; the figure's label states the total and the streak.
+
 ### Experience Timeline
 Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padding and no rules between rows.
 - **Layout:** from 40rem up, a 9rem Slate date column (short month range, tabular figures, right-aligned) sits left of the rail and the body sits right of it, 3rem apart. Below 40rem the rail runs down the left edge and the dates stack above the body.
@@ -395,15 +411,15 @@ Copyright on the left and the "Updated" month on the right, in Slate Caption typ
 A liquid field of grey dashes around the text column, in the spirit of Google Antigravity's hero. It is `src/components/dot-field.tsx`, with the pure logic in `src/lib/dot-field.ts` and `src/lib/noise.ts`.
 - **Particles:**
   - Poisson-disc spacing (22px minimum) from a fixed seed, on a fixed canvas, so the field stays put while the page scrolls under it.
-  - None within 16px of the text column. Past that they fade in over 110px. At 768px only a thin edge remains, and phones show none.
+  - They cover the whole screen, the text column included. Under the column and within 16px of it they are dimmed to 30% visibility, so they stay quiet behind the words, and they brighten to full over the next 110px. Phones get the dimmed field too.
 - **Ring:**
-  - A ring, 30% of the larger screen side in radius, trails the mouse with a 0.45s ease. That lag is what makes it feel liquid. With no mouse it wanders slowly around a point a little below the centre.
-  - Its radius breathes by 5%, and noise bends its edge in and out.
+  - A ring, 30% of the larger screen side in radius, trails the mouse with a 0.45s ease. That lag is what makes it feel liquid. It also circles a little (6% of its radius, 0.8 rad/s) around a resting mouse, so the field never stops. With no mouse it wanders widely around a point a little below the centre (±22% across, ±16% down).
+  - Its radius breathes by 9%, and noise bends its edge in and out.
 - **Particle size:**
   - On the ring's band, particles swell into dashes up to about 10px long that point away from the centre. They are pushed out up to 10px.
   - Inside the ring they are medium dashes. Outside it they are specks.
   - Sizes ease over 0.22s, so particles grow and shrink as the band sweeps across them.
-- **Drift:** 3D gradient noise moves every particle all the time, even when the mouse is still: a slow 12px flow plus a finer 2.5px ripple, and a slight wobble in each dash's angle.
+- **Drift:** 3D gradient noise moves every particle all the time, even when the mouse is still: a 15px flow plus a finer 2.5px ripple, both about twice the earlier speed so the field reads as alive even when nothing touches it, and a slight wobble in each dash's angle.
 - **Colour:** Ink, with opacity rising with size from about 0.28 for specks to 0.7 for the fullest dashes.
 - **Drawing:** marks are grouped by size and fade level into about 20 strokes a frame. The simulation takes under 1ms a frame at 1440×900.
 - **Behaviour:**

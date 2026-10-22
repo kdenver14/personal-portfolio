@@ -1,9 +1,11 @@
 import { FEATURED } from "@/content/featured";
 import { Contact } from "@/components/contact";
+import { ContributionGraph } from "@/components/contribution-graph";
 import { DotField } from "@/components/dot-field";
 import { Experience } from "@/components/experience";
 import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
+import { NavBar } from "@/components/nav-bar";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectDetail } from "@/components/project-detail";
 import { ProjectDialog } from "@/components/project-dialog";
@@ -14,6 +16,7 @@ export default function Home() {
   return (
     <>
       <DotField />
+      <NavBar />
       <div className="page">
       <main>
         <Intro />
@@ -29,6 +32,9 @@ export default function Home() {
         </Section>
         <Section id="experience" title="Experience">
           <Experience />
+        </Section>
+        <Section id="activity" title="Activity">
+          <ContributionGraph />
         </Section>
         <Section id="more-projects" title="More projects">
           <MoreProjects />

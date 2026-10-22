@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/fetch-contributions.mjs --vercel",
     "build": "next build",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "gesture-data": "node scripts/extract-gesture-samples.mjs"
+    "gesture-data": "node scripts/extract-gesture-samples.mjs",
+    "contributions": "node scripts/fetch-contributions.mjs"
   },
   "dependencies": {
     "next": "16.4.2",

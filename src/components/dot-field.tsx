@@ -9,6 +9,7 @@ import {
   advance,
   easeToward,
   idleCentre,
+  pointerCentre,
   ringAt,
   scatterParticles,
   seededRandom,
@@ -71,7 +72,7 @@ function createRenderer(context: CanvasRenderingContext2D, noise: Noise3) {
       const seconds = now / MS_PER_SECOND;
       const dt = last === null ? 0 : Math.min(MAX_STEP_SECONDS, seconds - last);
       last = seconds;
-      const target = pointer ?? idleCentre(scene.field, seconds);
+      const target = pointer ? pointerCentre(pointer, scene.field, seconds) : idleCentre(scene.field, seconds);
       centre = centre && dt > 0 ? easeToward(centre, target, dt, RING_SECONDS) : (centre ?? target);
       const ring = ringAt(centre, scene.field, seconds);
       const next = advance(scene.particles, scene.sizes, ring, seconds, dt, noise);
@@ -122,7 +123,7 @@ function runField(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, 
   };
 }
 
-/** Grey dashes drifting around the text column; a ring trailing the mouse swells them. Decorative only. */
+/** Grey dashes drifting across the page, quieter behind the text; a ring trailing the mouse swells them. Decorative only. */
 export function DotField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const columnRef = useRef<HTMLDivElement>(null);

@@ -48,25 +48,29 @@ export interface Stroke {
   readonly segments: readonly number[];
 }
 
-/** Particles never come closer than this to the text column. */
+/** Within this distance of the text column, and under it, particles stay dimmed. */
 export const COLUMN_GAP = 16;
-/** Past the gap, particles fade in over this distance. */
+/** Past the gap, particles brighten to full over this distance. */
 const COLUMN_FADE = 110;
+/** Visibility of particles under the text: present, so the field reads as one, but quiet behind the words. */
+export const COLUMN_DIM = 0.3;
 const SPACING = 22;
 const POISSON_TRIES = 20;
 const FULL_TURN = Math.PI * 2;
 const UINT32_RANGE = 2 ** 32;
 
 /** The ring's radius is a share of the larger screen side, so it reaches the margins from the column. */
-const RING = { share: 0.3, band: 0.22, breath: 0.05, breathRate: 0.6 };
-/** With no mouse, the ring wanders slowly around a point a little below the screen centre. */
-const IDLE = { x: 0.5, y: 0.55, swayX: 0.1, swayY: 0.08, rateX: 0.13, rateY: 0.11 };
+const RING = { share: 0.3, band: 0.22, breath: 0.09, breathRate: 1.1 };
+/** With no mouse, the ring wanders around a point a little below the screen centre. */
+const IDLE = { x: 0.5, y: 0.55, swayX: 0.22, swayY: 0.16, rateX: 0.42, rateY: 0.33 };
+/** With a mouse, the ring circles a little around it, so the field keeps moving while the mouse rests. */
+const ORBIT = { share: 0.06, rate: 0.8 };
 /** Noise layers: `scale` per px, `speed` per second, `offset` decorrelates layers sampled at one spot. */
-const FLOW = { scale: 0.004, speed: 0.18, amount: 12, offset: 31.7 };
-const RIPPLE = { scale: 0.03, speed: 0.4, amount: 2.5, offset: 5.1 };
-const EDGE = { scale: 0.008, speed: 0.3, amount: 0.12, offset: 9 };
-const GRAIN = { scale: 0.012, speed: 0.18, inside: 0.12, outside: 0.048, offset: 4 };
-const TILT = { scale: 0.02, speed: 0.5, amount: 0.35, offset: 17 };
+const FLOW = { scale: 0.004, speed: 0.38, amount: 15, offset: 31.7 };
+const RIPPLE = { scale: 0.03, speed: 0.9, amount: 2.5, offset: 5.1 };
+const EDGE = { scale: 0.008, speed: 0.6, amount: 0.12, offset: 9 };
+const GRAIN = { scale: 0.012, speed: 0.35, inside: 0.12, outside: 0.048, offset: 4 };
+const TILT = { scale: 0.02, speed: 0.9, amount: 0.35, offset: 17 };
 const INSIDE_SIZE = 0.32;
 const BAND_SHARPNESS = 2.2;
 /** Particles on the band are pushed this far (px) away from the ring centre. */
@@ -157,12 +161,13 @@ export function poissonDisc(width: number, height: number, spacing: number, rand
 
 const smoothstep = (t: number) => t * t * (3 - 2 * t);
 
-/** Particles over the whole field except a gap around the text column, fading in beyond it. */
+/** Particles over the whole field: dimmed under and beside the text column, brightening beyond it. */
 export function scatterParticles({ width, height, column }: Field, seed: number): Particle[] {
   const edge = column / 2 + COLUMN_GAP;
-  return poissonDisc(width, height, SPACING, seededRandom(seed)).flatMap(([x, y]) => {
+  return poissonDisc(width, height, SPACING, seededRandom(seed)).map(([x, y]) => {
     const beyond = Math.abs(x - width / 2) - edge;
-    return beyond > 0 ? [{ x, y, visibility: smoothstep(Math.min(1, beyond / COLUMN_FADE)) }] : [];
+    const clear = beyond > 0 ? smoothstep(Math.min(1, beyond / COLUMN_FADE)) : 0;
+    return { x, y, visibility: COLUMN_DIM + (1 - COLUMN_DIM) * clear };
   });
 }
 
@@ -184,7 +189,13 @@ export function idleCentre({ width, height }: Field, seconds: number): Point {
   ];
 }
 
-/** The ring around `centre`; its radius breathes slowly. */
+/** Where the ring heads with a mouse: a small circle around the pointer. */
+export function pointerCentre([x, y]: Point, { width, height }: Field, seconds: number): Point {
+  const radius = ORBIT.share * RING.share * Math.max(width, height);
+  return [x + radius * Math.cos(seconds * ORBIT.rate), y + radius * Math.sin(seconds * ORBIT.rate)];
+}
+
+/** The ring around `centre`; its radius breathes. */
 export function ringAt([x, y]: Point, { width, height }: Field, seconds: number): Ring {
   const base = RING.share * Math.max(width, height);
   const radius = base * (1 + RING.breath * Math.sin(seconds * RING.breathRate));
