@@ -178,6 +178,27 @@ export interface GestureBeat {
   readonly action: string;
 }
 
+/** One line of a C++ main: an expression on the Ints, the overloaded operator it calls, and what it prints. */
+export interface OperatorBeat {
+  readonly expression: string;
+  /** The operator's declaration, as written in the header. */
+  readonly signature: string;
+  /** The value the line prints. */
+  readonly result: string;
+  /** `a` afterwards, for a compound assignment. */
+  readonly a?: number;
+}
+
+/** Heap Ints freed by one variadic call that peels off a pointer per recursion. */
+export interface HeapRelease {
+  /** The value each pointer was allocated with, in argument order. */
+  readonly values: readonly number[];
+  /** The variadic template's declaration. */
+  readonly variadic: string;
+  /** The one-pointer overload the recursion ends on. */
+  readonly single: string;
+}
+
 interface DemoBase {
   /** What the demo shows, in a sentence or two: the text alternative to the animation. */
   readonly description: string;
@@ -187,6 +208,13 @@ interface DemoBase {
 export type Demo =
   | (DemoBase & { readonly kind: "requests"; readonly stops: readonly string[]; readonly requests: readonly DemoRequest[] })
   | (DemoBase & { readonly kind: "sort"; readonly runs: readonly SortRun[] })
+  | (DemoBase & {
+      readonly kind: "operators";
+      readonly a: number;
+      readonly b: number;
+      readonly beats: readonly OperatorBeat[];
+      readonly heap: HeapRelease;
+    })
   | (DemoBase & {
       readonly kind: "gesture";
       readonly stops: readonly string[];

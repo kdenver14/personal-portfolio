@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from "react";
 import type { Demo, DemoRequest, GestureBeat, GestureMode, SortRun } from "@/domain/datasheet";
-import { demoDuration, gestureAt, modeBefore, refusedAt, requestsAt } from "@/lib/demo";
+import { type OperatorFrame, demoDuration, gestureAt, modeBefore, operatorsAt, refusedAt, requestsAt } from "@/lib/demo";
 import { HAND_CONNECTIONS, type HandPoses, lerpPose, project, type Point } from "@/lib/landmarks";
 import { sortAt } from "@/lib/sort";
 import { useProjectOpen } from "./project-dialog";
@@ -145,6 +145,62 @@ function SortScreen({ runs, ms }: { runs: readonly SortRun[]; ms: number }) {
   );
 }
 
+type OperatorsDemo = Extract<Demo, { kind: "operators" }>;
+
+/** The heap pointers as main names them: ptr1, ptr2, … */
+const pointerNames = (count: number) => Array.from({ length: count }, (_, i) => `ptr${i + 1}`);
+
+/** The call on screen, its declaration, and the value it prints once it has run. */
+function currentLine(demo: OperatorsDemo, frame: OperatorFrame): { call: string; signature: string; result: string | null } {
+  const { step } = frame;
+  if (step.kind === "operator") {
+    const beat = demo.beats[step.index];
+    return { call: beat?.expression ?? "", signature: beat?.signature ?? "", result: frame.showResult ? (beat?.result ?? null) : null };
+  }
+  const pointers = pointerNames(demo.heap.values.length);
+  const last = step.call >= pointers.length - 1;
+  return { call: `ptr_deleter(${pointers.slice(step.call).join(", ")})`, signature: last ? demo.heap.single : demo.heap.variadic, result: null };
+}
+
+function IntCell({ name, value, changed = false }: { name: string; value: number; changed?: boolean }) {
+  return (
+    <span className="demo-int">
+      <code className="demo-int-name">Int {name}</code>
+      <code className={changed ? "demo-int-value is-changed" : "demo-int-value"}>{value}</code>
+    </span>
+  );
+}
+
+function OperatorsScreen({ demo, ms }: { demo: OperatorsDemo; ms: number }) {
+  const frame = operatorsAt(demo.a, demo.beats, demo.heap.values.length, ms);
+  const line = currentLine(demo, frame);
+  const values = demo.heap.values.map((value, i) => ({
+    text: !frame.allocated ? "" : i < frame.freed ? "deleted" : `new Int(${value})`,
+    stale: i < frame.freed,
+  }));
+  return (
+    <div className="demo-screen">
+      <div className="demo-ints">
+        <IntCell name="a" value={frame.a} changed={frame.changed} />
+        <IntCell name="b" value={demo.b} />
+      </div>
+      <div className="demo-head">
+        <p className="demo-head-line">
+          <code>{line.call}</code>
+          {line.result === null ? null : <code className="demo-result">{line.result}</code>}
+        </p>
+        <code className="demo-detail">{line.signature}</code>
+      </div>
+      <StopLine
+        stops={pointerNames(demo.heap.values.length)}
+        pulse={frame.pulse}
+        lit={(stop) => stop < frame.freed}
+        values={values}
+      />
+    </div>
+  );
+}
+
 /** What each stop reads for one beat: the frame, its landmarks, the gesture, the mode and the action. */
 function readings(beat: GestureBeat | undefined, before: GestureMode): string[] {
   if (!beat) {
@@ -200,6 +256,8 @@ function DemoScreen({ demo, hand, ms }: DemoProps & { ms: number }) {
       return <RequestsScreen stops={demo.stops} requests={demo.requests} ms={ms} />;
     case "sort":
       return <SortScreen runs={demo.runs} ms={ms} />;
+    case "operators":
+      return <OperatorsScreen demo={demo} ms={ms} />;
     case "gesture":
       if (!hand) {
         throw new Error("A gesture demo needs the recorded hand poses");

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { DemoRequest, GestureBeat } from "@/domain/datasheet";
-import { HOP_MS, gestureAt, modeBefore, pulseAt, refusedAt, requestPath, requestsAt, travelMs } from "./demo";
+import type { DemoRequest, GestureBeat, OperatorBeat } from "@/domain/datasheet";
+import { HOP_MS, gestureAt, modeBefore, operatorsAt, pulseAt, refusedAt, requestPath, requestsAt, travelMs } from "./demo";
 
 const created: DemoRequest = { method: "POST", path: "/monitors", visits: [0, 1, 2, 3, 4], answeredAt: 1, status: 201 };
 const refused: DemoRequest = { method: "POST", path: "/monitors", visits: [0, 1], answeredAt: 1, status: 400 };
@@ -66,5 +66,28 @@ describe("gestureAt", () => {
     expect(modeBefore(beats, 0, "DRAW")).toBe("DRAW");
     expect(modeBefore(beats, 1, "DRAW")).toBe("DRAW");
     expect(modeBefore([...beats, openHand], 2, "DRAW")).toBe("VOLUME");
+  });
+});
+
+describe("operatorsAt", () => {
+  const beats: OperatorBeat[] = [
+    { expression: "a + b", signature: "Int operator+(…)", result: "15" },
+    { expression: "a += b", signature: "Int& operator+=(…)", result: "15", a: 15 },
+  ];
+
+  it("shows a line before the value it prints", () => {
+    expect(operatorsAt(10, beats, 3, 0)).toMatchObject({ step: { kind: "operator", index: 0 }, showResult: false, a: 10 });
+    expect(operatorsAt(10, beats, 3, 400)).toMatchObject({ showResult: true, changed: false, a: 10 });
+  });
+
+  it("changes a only once a compound assignment has run", () => {
+    expect(operatorsAt(10, beats, 3, 750)).toMatchObject({ step: { kind: "operator", index: 1 }, a: 10, changed: false });
+    expect(operatorsAt(10, beats, 3, 1100)).toMatchObject({ a: 15, changed: true });
+  });
+
+  it("allocates the heap Ints, then frees one per recursive call", () => {
+    expect(operatorsAt(10, beats, 3, 1500)).toMatchObject({ allocated: true, freed: 0, step: { kind: "delete", call: 0 } });
+    expect(operatorsAt(10, beats, 3, 2200)).toMatchObject({ freed: 1, step: { kind: "delete", call: 0 } });
+    expect(operatorsAt(10, beats, 3, 60_000)).toMatchObject({ a: 15, freed: 3, pulse: null, step: { kind: "delete", call: 2 } });
   });
 });
