@@ -124,6 +124,12 @@
           "oklch(95.0% 0.011 256.7)"
         ]
       },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card",
+        "canonical": "#ffffff",
+        "tonalRamp": []
+      },
       "blue": {
         "role": "primary",
         "displayName": "Signal Blue",
@@ -179,7 +185,7 @@
       },
       "micro": {
         "displayName": "Micro",
-        "purpose": "Gesture labels, the globe's home label, code in captions."
+        "purpose": "Gesture labels, code in captions."
       },
       "mono": {
         "displayName": "Mono",
@@ -260,7 +266,7 @@
       "name": "Panel",
       "kind": "card",
       "refersTo": "panel",
-      "description": "The soft grey container for every project visual and the globe, with a centred Graphite caption.",
+      "description": "The soft grey container for every project visual and the badge, with a centred Graphite caption.",
       "html": "<figure class=\"ds-panel\"><div class=\"ds-panel-body\"></div><figcaption class=\"ds-panel-caption\">How a request moves through the code</figcaption></figure>",
       "css": ".ds-panel { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-panel-body { height: 6rem; } .ds-panel-caption { font-family: var(--font-sans); margin-top: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); text-align: center; }"
     },
@@ -305,12 +311,12 @@
       "css": ".ds-listing { margin: 0; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); } .ds-listing-head { font-family: var(--font-sans); display: flex; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.125rem 0; font-size: 0.8125rem; } .ds-listing-head code { font-family: var(--font-mono); color: var(--color-ink-2); } .ds-listing-head .ds-link { color: var(--color-ink); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); } .ds-listing-head .ds-link:hover { text-decoration-color: currentColor; } .ds-listing-body { --gutter-ch: 3.25ch; margin: 0; padding: 0.75rem 1.125rem 1.125rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; counter-reset: line; } .ds-line { display: block; padding-left: var(--gutter-ch); text-indent: calc(-1 * var(--gutter-ch)); } .ds-line::before { counter-increment: line; content: counter(line); display: inline-block; width: 2ch; margin-right: 1.25ch; color: var(--color-ink-2); text-align: right; text-indent: 0; user-select: none; } .ds-comment { color: var(--color-ink-2); }"
     },
     {
-      "name": "Globe",
+      "name": "Badge",
       "kind": "custom",
-      "refersTo": "globe-home",
-      "description": "A Panel under the tech strip: a slowly spinning orthographic dot globe (2,375 Natural Earth land dots) lit by the real sun, Ink dots at 30% by night to 75% by day, fading at the rim. Home (Antipolo) is a Signal Blue dot with a pulsing ring and a Paper label with its live time and day or night. Drag to turn it; it animates only on screen and stays still under reduced motion. A centred Graphite caption gives the place and local time.",
-      "html": "<figure class=\"ds-globe\"><div class=\"ds-globe-stage\"><span class=\"ds-sphere\"></span><span class=\"ds-home\"></span><span class=\"ds-pin\">Antipolo<small>1:13 AM · night</small></span></div><figcaption><strong>Antipolo, Philippines</strong> · it's 1:13 AM here (UTC+8). Lit by the real sun right now; drag to spin.</figcaption></figure>",
-      "css": ".ds-globe { margin: 0; padding: 1.25rem 1rem; border-radius: 14px; background: var(--color-panel); font-family: var(--font-sans); } .ds-globe-stage { position: relative; height: 20rem; } .ds-sphere { position: absolute; left: 50%; top: 50%; width: 17.6rem; height: 17.6rem; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--color-paper), #e1e6ed); box-shadow: inset 0 0 0 1px var(--color-line-strong); } .ds-home { position: absolute; left: 47%; top: 52%; width: 8px; height: 8px; border-radius: 50%; background: var(--color-blue); box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-blue) 20%, transparent); } .ds-pin { position: absolute; left: 50%; top: 47%; display: flex; flex-direction: column; padding: 0.25rem 0.5rem; border-radius: 0.375rem; background: var(--color-paper); font-size: 0.75rem; font-weight: 500; } .ds-pin small { font: 0.6875rem var(--font-mono); color: var(--color-ink-2); } .ds-globe figcaption { margin-top: 0.875rem; font-size: 0.8125rem; color: var(--color-ink-2); text-align: center; }"
+      "refersTo": "badge-card",
+      "description": "A Panel under the tech strip carrying the chip's facts as a printed ID badge on an 8px Signal Blue strap. The white Card has a Panel slot, the role in uppercase Mono Slate, the name in Instrument Serif 1.85rem (family name on its own line), and Home with live time, Writes, GitHub and Email as facts, with a Signal Blue availability band at the foot. A damped pendulum and spring (src/lib/lanyard.ts): it waits above the stage and drops in once 35% of it shows, at load or on scroll; drag swings and flings it, scrolling bobs it. It animates only while on screen and moving; under reduced motion it snaps back after a drag.",
+      "html": "<figure class=\"ds-badge\"><div class=\"ds-badge-stage\"><span class=\"ds-badge-strap\"></span><div class=\"ds-badge-card\"><span class=\"ds-badge-slot\"></span><p class=\"ds-badge-role\">Computer Science student</p><p class=\"ds-badge-name\">Kurt Denver<br>Chavez</p><dl class=\"ds-badge-facts\"><div><dt>Home</dt><dd>Antipolo, PH · 6:20 AM</dd></div><div><dt>Writes</dt><dd>C++ first · TypeScript daily · Python · C#</dd></div><div><dt>GitHub</dt><dd><a href=\"#\">kdenver14</a></dd></div></dl><p class=\"ds-badge-band\">Open to full-stack / backend roles.</p></div></div><figcaption>Drag the badge. It sways when you scroll, too.</figcaption></figure>",
+      "css": ".ds-badge { margin: 0; padding: 0 1rem 1.25rem; border-radius: 14px; background: var(--color-panel); font-family: var(--font-sans); } .ds-badge-stage { position: relative; padding: 56px 0 2.5rem; } .ds-badge-strap { position: absolute; top: 0; left: 50%; width: 8px; height: 70px; margin-left: -4px; border-radius: 4px; background: var(--color-blue); } .ds-badge-card { position: relative; width: min(17.5rem, 100%); margin: 0 auto; padding: 1.75rem 1.25rem 0; overflow: hidden; border: 1px solid var(--color-line); border-radius: 14px; background: #ffffff; box-shadow: 0 1px 2px rgb(23 23 23 / 0.06), 0 16px 32px -14px rgb(23 23 23 / 0.28); } .ds-badge-slot { position: absolute; top: 0.6rem; left: 50%; width: 2.5rem; height: 0.45rem; transform: translateX(-50%); border-radius: 999px; background: var(--color-panel); } .ds-badge-role, .ds-badge-facts dt { font: 500 0.625rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-3); } .ds-badge-name { margin: 0.5rem 0 0; font-family: var(--font-serif); font-size: 1.85rem; line-height: 1.02; } .ds-badge-facts { display: grid; gap: 0.5rem; margin: 1rem 0 0; } .ds-badge-facts div { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0.5rem; align-items: baseline; } .ds-badge-facts dd { margin: 0; font-size: 0.8125rem; } .ds-badge-band { margin: 1.1rem -1.25rem 0; padding: 0.65rem 1.25rem; background: var(--color-blue); color: #ffffff; font-size: 0.75rem; font-weight: 500; } .ds-badge figcaption { font-size: 0.8125rem; color: var(--color-ink-2); text-align: center; }"
     },
     {
       "name": "Experience Timeline",
@@ -355,7 +361,7 @@
   ],
   "narrative": {
     "northStar": "The Quiet Column",
-    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a dot globe, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThere is no signature figure; the owner retired the DIP-8 chip on 2026-10-23; a dot globe lit by the real sun holds its place. Light only, by design (`color-scheme: light`).",
+    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, an ID badge on a strap, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThe owner retired the DIP-8 chip on 2026-10-23; an ID badge on a blue strap now carries its facts (home and local time, languages, GitHub, email). This slot must stay a visual whose parts are the facts. Light only, by design (`color-scheme: light`).",
     "keyCharacteristics": [
       "Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.",
       "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",

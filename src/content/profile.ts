@@ -18,8 +18,6 @@ export const LINKEDIN_LABEL = "linkedin.com/in/kurt-chavez-952383290";
 export const LOCATION_SHORT = "Antipolo, PH";
 export const LOCATION = "Antipolo, Philippines";
 export const TIME_ZONE = "Asia/Manila";
-/** Where home sits on the intro's globe. */
-export const HOME = { name: "Antipolo", lon: 121.18, lat: 14.59 } as const;
 
 export const ROLE = "Computer Science student";
 export const DESCRIPTOR = `${ROLE} building full-stack TypeScript, C++ and Python`;
@@ -28,5 +26,8 @@ export const BIO: readonly string[] = [
   "I build full-stack web apps in TypeScript, small machine-learning tools in Python, and C++ that cares where its memory goes.",
   "I started on C++, so I still ask who owns a pointer before asking what it does. Several of these projects were written with and without AI, on purpose, as practice.",
 ];
+
+/** The languages line on the intro badge. */
+export const LANGUAGES = "C++ first · TypeScript daily · Python · C#";
 
 export const AVAILABILITY = "Open to full-stack / backend roles.";
