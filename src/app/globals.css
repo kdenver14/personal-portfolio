@@ -106,13 +106,6 @@
   }
 }
 
-/* Animatable radius for the corner dot ripple. */
-@property --ripple {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-
 @layer components {
   .tabular {
     font-variant-numeric: tabular-nums;
@@ -133,90 +126,58 @@
     padding: 4.5rem var(--gutter) 0;
   }
 
-  /* ---------- Corner dots (decorative) ---------- */
+  /* ---------- Dot frame (decorative) ---------- */
 
-  /* Each corner is the top-left art mirrored into place. The box tracks the side margin, so the dots
-     stay clear of the text column on wide screens and shrink to small accents above it on narrow ones. */
-  .corner {
-    --dot-idle: color-mix(in oklab, var(--color-blue) 26%, var(--color-paper));
-    --dot-lit: color-mix(in oklab, var(--color-blue) 90%, var(--color-paper));
-    position: absolute;
+  /* A band of grey dots around the screen edges. It is fixed, so it frames the screen as the page scrolls.
+     The side bands widen with the margin and end 2rem short of the text column; every band holds solid for
+     its first 35%, then fades. */
+  .frame {
+    --band-x: clamp(1.125rem, calc((100% - var(--measure)) / 2 - 2rem), 7rem);
+    --band-y: 2.25rem;
+    --hot-size: 15rem;
+    --dot-idle: color-mix(in oklab, var(--color-ink) 20%, var(--color-paper));
+    --dot-hot: color-mix(in oklab, var(--color-ink) 55%, var(--color-paper));
+    position: fixed;
+    inset: 0;
     z-index: 0;
-    width: clamp(8rem, calc((100% - var(--measure)) / 2 + 2rem), 30rem);
-    aspect-ratio: 1;
     overflow: hidden;
     pointer-events: none;
+    mask-image:
+      linear-gradient(to right, #000 calc(var(--band-x) * 0.35), transparent var(--band-x)),
+      linear-gradient(to left, #000 calc(var(--band-x) * 0.35), transparent var(--band-x)),
+      linear-gradient(to bottom, #000 calc(var(--band-y) * 0.35), transparent var(--band-y)),
+      linear-gradient(to top, #000 calc(var(--band-y) * 0.35), transparent var(--band-y));
   }
 
-  .corner-tl {
-    top: 0;
-    left: 0;
-  }
-
-  .corner-tr {
-    top: 0;
-    right: 0;
-    transform: scaleX(-1);
-  }
-
-  .corner-bl {
-    bottom: 0;
-    left: 0;
-    transform: scaleY(-1);
-  }
-
-  .corner-br {
-    bottom: 0;
-    right: 0;
-    transform: rotate(180deg);
-  }
-
-  /* Below this width the side margin is narrower than the dot field, so the bottom pair would run
-     under the footer text. The top pair still clears the name, which sits lower. */
-  @media (max-width: 51.99rem) {
-    .corner-bl,
-    .corner-br {
-      display: none;
-    }
-  }
-
-  /* A fixed 18px dot grid, fading out with distance from the corner. */
-  .dots {
+  /* An 18px grid anchored to the screen's top-left corner. */
+  .frame-dots {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, var(--dot-idle) 1.4px, transparent 1.9px);
-    background-position: 4px 4px;
+    background-image: radial-gradient(circle, var(--dot-idle) 1.3px, transparent 1.8px);
     background-size: 18px 18px;
-    mask-image: radial-gradient(circle at 0 0, #000 15%, transparent 72%);
   }
 
-  /* The same grid in full blue, shown only inside a ring that runs out of the corner. The ring pattern repeats
-     every 180px and one loop moves it by exactly that much, so the ripple has no seam. */
-  .dots-lit {
-    background-image: radial-gradient(circle, var(--dot-lit) 1.6px, transparent 2.1px);
-    mask-image:
-      radial-gradient(circle at 0 0, #000 10%, transparent 70%),
-      repeating-radial-gradient(
-        circle at 0 0,
-        transparent var(--ripple),
-        #000 calc(var(--ripple) + 36px),
-        transparent calc(var(--ripple) + 72px),
-        transparent calc(var(--ripple) + 180px)
-      );
-    mask-composite: intersect;
-    animation: dot-ripple 4.5s linear infinite;
+  /* Darker, larger dots in a soft circle centred on the cursor. Its background is shifted back by its own
+     position, so its dots sit exactly on the grid's. */
+  .frame-hot {
+    position: absolute;
+    top: var(--hot-y, 0);
+    left: var(--hot-x, 0);
+    width: var(--hot-size);
+    height: var(--hot-size);
+    margin: calc(var(--hot-size) / -2) 0 0 calc(var(--hot-size) / -2);
+    background-image: radial-gradient(circle, var(--dot-hot) 2px, transparent 2.5px);
+    background-position:
+      calc(var(--hot-size) / 2 - var(--hot-x, 0px))
+      calc(var(--hot-size) / 2 - var(--hot-y, 0px));
+    background-size: 18px 18px;
+    mask-image: radial-gradient(closest-side, #000, transparent);
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out);
   }
 
-  @keyframes dot-ripple {
-    to {
-      --ripple: 180px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dots-lit {
-      display: none;
-    }
+  .frame[data-hot] .frame-hot {
+    opacity: 1;
   }
 
   .panel {

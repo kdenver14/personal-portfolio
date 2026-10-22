@@ -1,6 +1,6 @@
 import { FEATURED } from "@/content/featured";
 import { Contact } from "@/components/contact";
-import { CornerDots } from "@/components/corner-dots";
+import { DotFrame } from "@/components/dot-frame";
 import { Experience } from "@/components/experience";
 import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
@@ -13,7 +13,7 @@ import { SiteFooter } from "@/components/site-footer";
 export default function Home() {
   return (
     <>
-      <CornerDots />
+      <DotFrame />
       <div className="page">
       <main>
         <Intro />

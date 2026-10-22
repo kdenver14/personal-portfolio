@@ -369,15 +369,19 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 ### Footer
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
-### Corner Dots (decoration)
-A fine dot grid in all four page corners, with a ring of lit dots rippling out of each corner. It is pure CSS in `src/components/corner-dots.tsx`.
-- **Grid:** 18px spacing, with dots of about 3px in Signal Blue mixed into Paper at 26%. A radial mask fades the grid out with distance from the corner.
-- **Ripple:**
-  - A second, full-blue grid (90%) shows only inside a 72px ring.
-  - The ring pattern repeats every 180px. One 4.5s loop moves it outward by exactly that much, so the ripple has no seam.
-  - Under reduced motion the ripple is removed.
-- **Size:** the corner box tracks the side margin, `clamp(8rem, (100% − measure) / 2 + 2rem, 30rem)` of the page width. The dots stay clear of the text column on wide screens and shrink to small accents above the name on narrow ones.
-- **Mirroring:** the top-left art is mirrored into the other three corners. Below 52rem the bottom pair is hidden, because the dot field would run under the footer text.
+### Dot Frame (decoration)
+A band of grey dots around all four screen edges that reacts to the mouse. It is `src/components/dot-frame.tsx`.
+- **Grid:** 18px spacing, anchored to the screen's top-left. Dots are about 3px, in Ink mixed into Paper at 20%.
+- **Bands:**
+  - The frame is fixed, so it frames the screen while the page scrolls under it.
+  - The side bands widen with the margin, `clamp(1.125rem, (100% − measure) / 2 − 2rem, 7rem)`, so they end 2rem short of the text column. On phones that leaves one column of dots.
+  - The top and bottom bands are 2.25rem.
+  - Every band holds solid for its first 35%, then fades toward the middle.
+- **Hover:**
+  - Within a soft 15rem circle around the mouse, dots darken to Ink at 55% and grow to about 4px.
+  - The circle fades in on the first mouse move and out when the cursor leaves the window, over 300ms.
+  - Only a mouse triggers it; touch and pen leave the frame static.
+  - The cursor position is written to CSS variables at most once per frame. The lit circle is a small layer whose background is shifted back by its own position, so its dots land exactly on the grid's.
 - **Behaviour:** decorative, so `aria-hidden` with no pointer events.
 
 ### DIP-8 Pin Figure (signature)
