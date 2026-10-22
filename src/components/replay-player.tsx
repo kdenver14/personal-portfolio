@@ -1,14 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import type { Replay, TerminalStep, WindowState, WindowStep } from "@/domain/datasheet";
 import { type WindowFocus, PONG, pongAt, replayDuration, terminalAt, windowAt } from "@/lib/replay";
 import { useProjectOpen } from "./project-dialog";
+import { CONTROL_LABEL, usePlayback } from "./use-playback";
 
-type Status = "playing" | "paused" | "done";
-
-const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
-const CONTROL_LABEL = { playing: "Pause", paused: "Play", done: "Replay" } as const satisfies Record<Status, string>;
 const PROMPT = { cmd: "$ ", note: "# ", out: "" } as const;
 /** Pong court in turtle units, y up; the SVG flips y. */
 const COURT = { width: 800, height: 600, paddle: { width: 20, height: 100 }, ball: 10, scoreX: 100, scoreY: 200 };
@@ -115,38 +111,7 @@ function Screen({ replay, ms }: { replay: Replay; ms: number }) {
 
 /** Plays a replay from the top, or shows its last frame when it shouldn't animate on its own. */
 function ReplayPlayer({ replay, autoplay }: { replay: Replay; autoplay: boolean }) {
-  const duration = replayDuration(replay);
-  const [status, setStatus] = useState<Status>(() =>
-    autoplay && !window.matchMedia(REDUCED_MOTION).matches ? "playing" : "done",
-  );
-  const [ms, setMs] = useState(status === "playing" ? 0 : duration);
-  const position = useRef(ms);
-
-  useEffect(() => {
-    if (status !== "playing") {
-      return;
-    }
-    const start = performance.now() - position.current;
-    let frame = requestAnimationFrame(function tick(now) {
-      position.current = Math.min(duration, now - start);
-      setMs(position.current);
-      if (position.current >= duration) {
-        setStatus("done");
-        return;
-      }
-      frame = requestAnimationFrame(tick);
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [status, duration]);
-
-  const control = () => {
-    if (status === "done") {
-      position.current = 0;
-      setMs(0);
-    }
-    setStatus(status === "playing" ? "paused" : "playing");
-  };
-
+  const { ms, status, toggle } = usePlayback(replayDuration(replay), autoplay);
   return (
     <figure className="replay">
       <div aria-hidden="true">
@@ -156,7 +121,7 @@ function ReplayPlayer({ replay, autoplay }: { replay: Replay; autoplay: boolean 
         <span>
           {replay.description} <span className="replay-note">A replay of the repo&apos;s code, with sample values.</span>
         </span>
-        <button type="button" className="replay-control" onClick={control}>
+        <button type="button" className="replay-control" onClick={toggle}>
           {CONTROL_LABEL[status]}
         </button>
       </figcaption>

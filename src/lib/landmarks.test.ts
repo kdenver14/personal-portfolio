@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { GestureSet } from "@/domain/datasheet";
-import { meanPose, parseGestureFile, project, sharedDomain } from "./landmarks";
+import { handPoses, lerpPose, meanPose, parseGestureFile, project, sharedDomain } from "./landmarks";
 
 const set = (samples: GestureSet["samples"]): GestureSet => ({ gesture: "t", recorded: samples.length, samples });
 
@@ -38,5 +38,18 @@ describe("parseGestureFile", () => {
   it("rejects a sample with a non-numeric coordinate", () => {
     const file = { gestures: [{ gesture: "fist", recorded: 1, samples: [[[0, "x"]]] }] };
     expect(() => parseGestureFile(file)).toThrow("malformed");
+  });
+});
+
+describe("lerpPose", () => {
+  it("blends each landmark between two poses", () => {
+    expect(lerpPose([[0, 0], [2, 2]], [[2, 4], [4, 2]], 0.5)).toEqual([[1, 2], [3, 2]]);
+  });
+});
+
+describe("handPoses", () => {
+  it("keys each gesture's mean pose by name", () => {
+    const sets = [{ gesture: "fist", recorded: 2, samples: [[[0, 0]], [[2, 2]]] as const }];
+    expect(handPoses(sets, 0)).toEqual({ domain: { xMin: 0, xMax: 2, yMin: 0, yMax: 2 }, poses: { fist: [[1, 1]] } });
   });
 });

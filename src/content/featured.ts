@@ -20,7 +20,41 @@ export const FEATURED: readonly FeaturedProject[] = [
       { label: "AI assistance", value: "None" },
     ],
     tags: ["TypeScript", "Express 5", "Prisma", "PostgreSQL", "Docker"],
-    flow: ["Route", "Controller", "Service", "Repository", "PostgreSQL 16"],
+    demo: {
+      kind: "requests",
+      description:
+        "Four requests travel the API's layers. A new monitor is created (201). One with a bad URL is refused by the controller's schema (400). Monitor 7 is looked up and not found (404). Monitor 1 is deleted (204).",
+      stops: ["Route", "Controller", "Service", "Repository", "PostgreSQL"],
+      requests: [
+        {
+          method: "POST",
+          path: "/api/v1/monitors",
+          body: '{"name":"Portfolio","url":"https://kdenver.vercel.app","isActive":true}',
+          visits: [0, 1, 2, 3, 4],
+          answeredAt: 1,
+          status: 201,
+          response: '{"message":"Successfully created monitor","data":{"id":1,"interval":60,…}}',
+        },
+        {
+          method: "POST",
+          path: "/api/v1/monitors",
+          body: '{"name":"Typo","url":"kdenver.vercel.app","isActive":true}',
+          visits: [0, 1],
+          answeredAt: 1,
+          status: 400,
+          response: '{"message":"Invalid monitor data","errors":[…]}',
+        },
+        {
+          method: "GET",
+          path: "/api/v1/monitors/7",
+          visits: [0, 1, 2, 3, 4],
+          answeredAt: 1,
+          status: 404,
+          response: '{"message":"Monitor 7 not found"}',
+        },
+        { method: "DELETE", path: "/api/v1/monitors/1", visits: [0, 1, 2, 3, 4], answeredAt: 1, status: 204 },
+      ],
+    },
   },
   {
     id: "hand-gesture-control",
@@ -40,7 +74,21 @@ export const FEATURED: readonly FeaturedProject[] = [
       { label: "GitHub stars", value: "17" },
     ],
     tags: ["Python", "MediaPipe", "Keras", "OpenCV"],
-    flow: ["Webcam", "MediaPipe Hands", "Keras classifier", "Mode machine", "Draw / Volume / Click"],
+    demo: {
+      kind: "gesture",
+      description:
+        "The mean pose of each recorded gesture, read the way the app reads a webcam frame. An open hand lifts the pen in DRAW mode and a pointed finger draws. A peace sign held 10 frames switches to VOLUME, and a fist switches to CLICK, where pointing moves the cursor and a pinch clicks.",
+      stops: ["Webcam", "MediaPipe Hands", "Keras classifier", "Mode machine", "Action"],
+      initialMode: "DRAW",
+      beats: [
+        { gesture: "open_hand", mode: "DRAW", action: "lift pen" },
+        { gesture: "point", mode: "DRAW", action: "draw" },
+        { gesture: "peace", mode: "VOLUME", action: "set volume" },
+        { gesture: "fist", mode: "CLICK", action: "move cursor" },
+        { gesture: "point", mode: "CLICK", action: "move cursor" },
+        { gesture: "pinch", mode: "CLICK", action: "click" },
+      ],
+    },
   },
   {
     id: "dsa",
@@ -59,6 +107,15 @@ export const FEATURED: readonly FeaturedProject[] = [
       { label: "Source files", value: "31 .cpp" },
     ],
     tags: ["C++", "Data structures", "Algorithms"],
+    demo: {
+      kind: "sort",
+      description:
+        "Bubble sort, then selection sort, on the array in each file's main: {6, 4, 2, 5, 1, 3}. Compared bars turn blue, swaps slide into place, and settled bars fade. Each ends on the line its program prints.",
+      runs: [
+        { algorithm: "bubble", file: "bubbleSort.cpp", values: [6, 4, 2, 5, 1, 3] },
+        { algorithm: "selection", file: "selectionSort.cpp", values: [6, 4, 2, 5, 1, 3] },
+      ],
+    },
     listing: {
       caption: "reverseLinkedList.cpp",
       language: "cpp",
@@ -97,6 +154,51 @@ export const FEATURED: readonly FeaturedProject[] = [
       { label: "AI assistance", value: "None" },
     ],
     tags: ["TypeScript", "Express 5", "Prisma", "PostgreSQL", "Zod"],
-    flow: ["Client", "Express router", "Auth + validation", "Controllers", "Services", "Prisma", "PostgreSQL"],
+    demo: {
+      kind: "requests",
+      description:
+        "Four requests travel the API's layers. A new user registers and gets a JWT (201). Adding a movie without a token is refused by the auth middleware (401). With the token it is added (201). Adding the same movie again is refused (400).",
+      stops: ["Router", "Auth", "Validation", "Controller", "Service", "PostgreSQL"],
+      requests: [
+        {
+          method: "POST",
+          path: "/auth/register",
+          body: '{"name":"Kurt","email":"kurt@example.com","password":"…"}',
+          visits: [0, 2, 3, 4, 5],
+          answeredAt: 3,
+          status: 201,
+          response: '{"status":"success","data":{"user":{…}},"token":"eyJhbGciOi…"}',
+        },
+        {
+          method: "POST",
+          path: "/watchlist",
+          body: '{"movieId":"9b2f…","status":"PLANNED","rating":9}',
+          visits: [0, 1],
+          answeredAt: 1,
+          status: 401,
+          response: '{"error":"Not authorized, no token provided"}',
+        },
+        {
+          method: "POST",
+          path: "/watchlist",
+          headers: ["Authorization: Bearer eyJhbGciOi…"],
+          body: '{"movieId":"9b2f…","status":"PLANNED","rating":9}',
+          visits: [0, 1, 2, 3, 4, 5],
+          answeredAt: 3,
+          status: 201,
+          response: '{"status":"Success","data":{"userId":"…","movieId":"9b2f…","status":"PLANNED",…}}',
+        },
+        {
+          method: "POST",
+          path: "/watchlist",
+          headers: ["Authorization: Bearer eyJhbGciOi…"],
+          body: '{"movieId":"9b2f…","status":"PLANNED","rating":9}',
+          visits: [0, 1, 2, 3, 5],
+          answeredAt: 3,
+          status: 400,
+          response: '{"error":"Movie already exists"}',
+        },
+      ],
+    },
   },
 ];

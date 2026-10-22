@@ -175,7 +175,7 @@
       },
       "caption": {
         "displayName": "Caption",
-        "purpose": "Panel and video captions, fact labels, flow nodes, footer."
+        "purpose": "Panel and video captions, fact labels, live-diagram stops, footer."
       },
       "micro": {
         "displayName": "Micro",
@@ -297,12 +297,12 @@
       "css": ".ds-strip { overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); } .ds-strip-track { display: flex; width: max-content; animation: ds-strip 45s linear infinite; } @keyframes ds-strip { to { transform: translateX(-50%); } } .ds-strip-list { display: flex; flex: none; align-items: center; list-style: none; margin: 0; padding: 0; } .ds-strip-list li { margin-right: 2.5rem; } .ds-logo { display: block; width: 1.75rem; height: 1.75rem; fill: var(--color-ink-3); transition: fill 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-logo:hover { fill: var(--color-ink); } @media (prefers-reduced-motion: reduce) { .ds-strip { mask-image: none; } .ds-strip-track { width: auto; animation: none; } .ds-strip-list { flex-wrap: wrap; row-gap: 1.25rem; } .ds-strip-list[aria-hidden] { display: none; } }"
     },
     {
-      "name": "Flow Diagram",
+      "name": "Live Diagram",
       "kind": "custom",
-      "refersTo": "flow-node",
-      "description": "A request path as Paper 8px nodes joined by hairline connectors, inside a panel.",
-      "html": "<figure class=\"ds-flow\"><ol class=\"ds-flow-steps\"><li>Route</li><li>Controller</li><li>Service</li><li>Repository</li></ol></figure>",
-      "css": ".ds-flow { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-flow-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 1.125rem; } .ds-flow-steps li { font-family: var(--font-sans); position: relative; min-width: 10rem; padding: 0.4rem 0.875rem; background: var(--color-paper); border: 1px solid var(--color-line); border-radius: 8px; font-size: 0.8125rem; line-height: 1.4; text-align: center; color: var(--color-ink); } .ds-flow-steps li + li::before { content: \"\"; position: absolute; left: 50%; bottom: 100%; width: 1px; height: 1.125rem; background: var(--color-line-strong); }"
+      "refersTo": "live-diagram",
+      "description": "A featured pop-up's mini demo, animated from the repo's code: the project's layers as stops on a line, with a Signal Blue pulse easing between them. Requests show their method, path, sample body, then a status pill and the real response body; DSA shows its bubble and selection sorts as bars; Hand Gesture eases between the recorded mean poses with a reading at each stop. Stops run down on phones, across from 40rem. It plays once on open with the replay's Pause/Play/Replay control and is still under reduced motion.",
+      "html": "<div class=\"ds-demo\"><p class=\"ds-demo-req\"><span class=\"ds-demo-method\">POST</span><code>/api/v1/monitors</code></p><ol class=\"ds-demo-stops\"><li class=\"is-lit\"><span></span>Route</li><li class=\"is-lit\"><span></span>Controller</li><li><span></span>Service</li><li><span></span>Repository</li><li><span></span>PostgreSQL</li></ol><p><span class=\"ds-demo-status\">201 Created</span> <code>{\"message\":\"Successfully created monitor\",…}</code></p></div>",
+      "css": ".ds-demo { display: flex; flex-direction: column; gap: 1.125rem; padding: 1.125rem 1.25rem; border-radius: 0.75rem; background: var(--color-panel); font: 0.8125rem/1.5 var(--font-sans); color: var(--color-ink-3); } .ds-demo code { font-family: var(--font-mono); font-size: 0.75rem; } .ds-demo-req { display: flex; gap: 0.5rem; align-items: baseline; margin: 0; color: var(--color-ink); } .ds-demo-method { padding: 0 0.375rem; border-radius: 0.3rem; background: var(--color-paper); font: 600 0.6875rem/1.6 var(--font-mono); color: var(--color-blue); } .ds-demo-stops { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); list-style: none; margin: 0; padding: 0; } .ds-demo-stops::before { content: ''; position: absolute; top: 5px; left: 10%; right: 10%; height: 1px; background: var(--color-line-strong); } .ds-demo-stops li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; } .ds-demo-stops span { width: 11px; height: 11px; border-radius: 50%; background: var(--color-paper); box-shadow: inset 0 0 0 1.5px var(--color-line-strong); } .ds-demo-stops .is-lit { color: var(--color-ink); } .ds-demo-stops .is-lit span { box-shadow: inset 0 0 0 1.5px var(--color-blue); } .ds-demo-status { padding: 0.0625rem 0.5rem; border-radius: 999px; background: color-mix(in oklab, var(--color-blue) 14%, var(--color-paper)); font: 500 0.75rem/1.5 var(--font-mono); color: var(--color-blue); }"
     },
     {
       "name": "Code Listing",
@@ -363,7 +363,7 @@
   ],
   "narrative": {
     "northStar": "The Quiet Column",
-    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a \"How it works\" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThe DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).",
+    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThe DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).",
     "keyCharacteristics": [
       "Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.",
       "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",
@@ -401,7 +401,7 @@
       },
       {
         "name": "The Summary And Story Rule",
-        "body": "The page carries a summary of each project. The full story (media, overview, figures, flow, facts and source) lives in that project's dialog, reachable by URL hash.",
+        "body": "The page carries a summary of each project. The full story (media, overview, live diagram, figures, facts and source) lives in that project's dialog, reachable by URL hash.",
         "section": "layout"
       },
       {

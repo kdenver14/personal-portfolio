@@ -48,6 +48,27 @@ export function meanPose(samples: GestureSet["samples"]): Point[] {
   });
 }
 
+/** Each gesture's mean pose, with one domain that fits every recorded sample. */
+export interface HandPoses {
+  readonly domain: Domain;
+  readonly poses: Readonly<Record<string, readonly Point[]>>;
+}
+
+export function handPoses(sets: readonly GestureSet[], padding: number): HandPoses {
+  return {
+    domain: sharedDomain(sets, padding),
+    poses: Object.fromEntries(sets.map((set) => [set.gesture, meanPose(set.samples)])),
+  };
+}
+
+/** The pose `t` of the way from `from` to `to`, landmark by landmark. */
+export function lerpPose(from: readonly Point[], to: readonly Point[], t: number): Point[] {
+  return to.map(([x, y], i) => {
+    const [fx, fy] = from[i] ?? [x, y];
+    return [fx + (x - fx) * t, fy + (y - fy) * t] as const;
+  });
+}
+
 /** Maps a data-space point into a width x height viewport (y already grows downward). */
 export function project(point: Point, domain: Domain, width: number, height: number): Point {
   const [x, y] = point;

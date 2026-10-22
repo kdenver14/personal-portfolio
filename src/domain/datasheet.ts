@@ -74,8 +74,8 @@ export interface FeaturedProject {
   overview: readonly string[];
   facts: readonly Fact[];
   tags: readonly string[];
-  /** Request path through the system, one entry per stage. */
-  flow?: readonly string[];
+  /** The animated mini demo in the project's pop-up. */
+  demo: Demo;
   video?: ProjectVideo;
   listing?: Listing;
 }
@@ -152,3 +152,54 @@ export type Replay =
   | (ReplayBase & { readonly kind: "terminal"; readonly steps: readonly TerminalStep[] })
   | (ReplayBase & { readonly kind: "window"; readonly initial: WindowState; readonly steps: readonly WindowStep[] })
   | (ReplayBase & { readonly kind: "pong"; readonly seconds: number; /** Game seconds per replay second. */ readonly speed: number });
+
+export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+/** One request through an API's layers, as the code handles it. Bodies are samples, shortened with …. */
+export interface DemoRequest {
+  readonly method: HttpMethod;
+  readonly path: string;
+  readonly headers?: readonly string[];
+  readonly body?: string;
+  /** The stops the request passes through, in order, by index into the demo's stops. */
+  readonly visits: readonly number[];
+  /** The stop that sends the response; the request travels back to it from the last visit. */
+  readonly answeredAt: number;
+  readonly status: number;
+  /** The response body as the code writes it; omitted when there is none. */
+  readonly response?: string;
+}
+
+export type SortAlgorithm = "bubble" | "selection";
+
+/** One sort from the repo, on the array in its own main(). */
+export interface SortRun {
+  readonly algorithm: SortAlgorithm;
+  readonly file: string;
+  readonly values: readonly number[];
+}
+
+export type GestureMode = "DRAW" | "VOLUME" | "CLICK";
+
+/** A hand pose held long enough to act on: the gesture it is read as, the mode it leaves, and what happens. */
+export interface GestureBeat {
+  readonly gesture: string;
+  readonly mode: GestureMode;
+  readonly action: string;
+}
+
+interface DemoBase {
+  /** What the demo shows, in a sentence or two: the text alternative to the animation. */
+  readonly description: string;
+}
+
+/** A featured project's animated mini demo, drawn from its repository's code. */
+export type Demo =
+  | (DemoBase & { readonly kind: "requests"; readonly stops: readonly string[]; readonly requests: readonly DemoRequest[] })
+  | (DemoBase & { readonly kind: "sort"; readonly runs: readonly SortRun[] })
+  | (DemoBase & {
+      readonly kind: "gesture";
+      readonly stops: readonly string[];
+      readonly initialMode: GestureMode;
+      readonly beats: readonly GestureBeat[];
+    });

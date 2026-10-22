@@ -166,12 +166,11 @@ components:
   tech-strip:
     textColor: "{colors.ink-3}"
     size: "1.75rem"
-  flow-node:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
+  live-diagram:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.ink-3}"
     typography: "{typography.caption}"
-    rounded: "{rounded.node}"
-    padding: "0.4rem 0.875rem"
+    padding: "1.125rem 1.25rem"
   code-listing:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.ink}"
@@ -198,7 +197,7 @@ components:
 
 One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.
 
-The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, gesture data or a code listing, a "How it works" flow, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
+The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
 The DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).
 
@@ -219,13 +218,13 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Signal Blue** (`blue`): the focus ring, the active pin's leg and name in the chip figure, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
-- **Paper** (`paper`): the page, the dialog surface, the Close pill, flow-diagram nodes and the theme colour.
+- **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
 - **Ink** (`ink`): the name, card and dialog titles, links, the availability line, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
 - **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, pin sublabels, the pin readout, captions inside panels, code-listing line numbers and comments, and gesture labels.
-- **Slate** (`ink-3`): section titles, dialog sub-headings ("How it works", "Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
-- **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule, flow-node borders and the Close pill's resting border.
-- **Hairline Strong** (`line-strong`): resting link underlines, connectors between flow nodes, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the chip panel, flow and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Slate** (`ink-3`): section titles, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
+- **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
+- **Hairline Strong** (`line-strong`): resting link underlines, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
+- **Panel** (`panel`): the fill of every project card, the chip panel, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
 - **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
@@ -250,7 +249,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Body List** (Sans 400, 0.9375rem, line-height 1.5): More projects rows (names at 500), Details facts (line-height 1.45) and the tech strip.
 - **Label** (Sans 500, 0.875rem, line-height 1.4, Slate, sentence case): section titles and dialog sub-headings. These are real headings, not kickers over another heading. "View project" and the Close pill use the same size and weight in Ink.
 - **Small** (Sans 400, 0.875rem): project meta, status and tags.
-- **Caption** (Sans 400, 0.8125rem, line-height 1.5): panel captions (centred, Graphite), the video caption (Slate), fact labels, flow nodes and the footer.
+- **Caption** (Sans 400, 0.8125rem, line-height 1.5): panel captions (centred, Graphite), the video caption (Slate), fact labels, live-diagram stops and the footer.
 - **Micro** (Sans 400, 0.75rem): pin sublabels, gesture labels, code inside panel captions.
 - **Mark** (Sans 700, 1rem, tracking 0.06em): KDC-14 on the chip body only.
 - **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. Pin names are Mono at 0.875rem. Chip numerals and the date code are 0.6875rem.
@@ -268,25 +267,25 @@ Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem an
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 
-The project dialog is up to 44rem wide (always 1rem clear of each viewport edge) and at most 90dvh tall (capped at 64rem). It scrolls inside itself. Its body has 1.5rem side padding, or 2.5rem from 40rem, and 1.75rem between blocks. "How it works" and Details sit side by side from 40rem with a 2rem gap, and stack below that. Below 40rem the dialog becomes a bottom sheet: full width, up to 92dvh, attached to the bottom edge. The page behind an open dialog does not scroll.
+The project dialog is up to 44rem wide (always 1rem clear of each viewport edge) and at most 90dvh tall (capped at 64rem). It scrolls inside itself. Its body has 1.5rem side padding, or 2.5rem from 40rem, and 1.75rem between blocks. Below 40rem the dialog becomes a bottom sheet: full width, up to 92dvh, attached to the bottom edge. The page behind an open dialog does not scroll.
 
-Rows that pair a name with a year (card head, dialog head, More projects rows) put the name left and the year right, aligned on the baseline. The breakpoints are 40rem (card grid, dialog sheet, detail grid, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
+Rows that pair a name with a year (card head, dialog head, More projects rows) put the name left and the year right, aligned on the baseline. The breakpoints are 40rem (card grid, dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
 
 ### Named Rules
 **The Space Groups Rule.** Group with whitespace and the panel fill. Hairlines are for lists only: More projects rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections or between cards.
 
-**The Summary And Story Rule.** The page carries a summary of each project. The full story (media, overview, figures, flow, facts and source) lives in that project's dialog, reachable by URL hash.
+**The Summary And Story Rule.** The page carries a summary of each project. The full story (media, overview, live diagram, figures, facts and source) lives in that project's dialog, reachable by URL hash.
 
 ## Elevation & Depth
 
-Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Paper flow nodes inside a panel where a diagram needs them. A hovered card darkens one notch to Panel Hover. The only lifted surface is the open dialog. It is Paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
+Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Paper stops inside the live diagram's panel. A hovered card darkens one notch to Panel Hover. The only lifted surface is the open dialog. It is Paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
 
 ### Named Rules
 **The One Lift Rule.** The modal dialog is the only element with a shadow and a backdrop. Cards, panels, the chip and buttons stay flat. Hover changes tone, never elevation.
 
 ## Shapes
 
-Soft and consistent. Cards, panels and the demo video share a 14px radius. The dialog is slightly rounder at 18px, and only its top corners round when it becomes a bottom sheet. Flow nodes and a card's video poster use 8px. The Close button is a full pill (999px), the only pill in the system. The focus ring rounds to 2px. Text, links, tags, lists and the footer have no frames.
+Soft and consistent. Cards, panels and the demo video share a 14px radius. The dialog is slightly rounder at 18px, and only its top corners round when it becomes a bottom sheet. A card's video poster uses 8px, and the live diagram 12px. The Close button is a full pill (999px), the only pill in the system. The focus ring rounds to 2px. Text, links, tags, lists and the footer have no frames.
 
 The chip figure draws its own hardware. The package body has 3px corners, the notch is a half-round cut, and the pin-1 dot is a circle. Pin legs are small rectangles open on the side that meets the package. These shapes and the chip's own greys (body, dot, legs, numerals, marking) are drawing material. They do not join the radius scale or the palette.
 
@@ -320,8 +319,9 @@ A native modal `<dialog>` opened from the URL hash. A direct link opens it, and 
 - the head: Headline serif name with status and year;
 - the video when present;
 - the Graphite overview;
+- the Live Diagram, with its caption and Pause/Play/Replay control;
 - the gesture panels or the code listing;
-- a two-up grid of "How it works" (Flow Diagram) and Details (Facts);
+- Details (Facts);
 - the foot: tags on the left and "Source on GitHub" on the right, under a hairline.
 
 ### Facts (Details)
@@ -341,8 +341,14 @@ A single line of monochrome technology logos, sliding right to left in a 45s lin
 ### Demo Video (slot)
 None is populated yet. When present, it leads the dialog at full width, with the 14px radius and a Panel fill before load, and its poster leads the card. It has native controls and never autoplays. A visible Slate caption sits 0.625rem below it as the text alternative.
 
-### Flow Diagram
-A vertical chain of Paper nodes (8px radius, 1px Hairline border, Caption type, centred, minimum 10rem wide) joined by 1px Hairline Strong connectors, centred in a panel. It appears under "How it works" in a dialog.
+### Live Diagram
+Each featured pop-up shows its project working, animated from the repo's code. The owner picked this quiet diagram over a terminal or a code walk-through (2026-10-22). It is a Panel block (12px radius, 1.125rem by 1.25rem padding) under the overview. Timelines are pure functions of time in `src/lib/demo.ts` and `src/lib/sort.ts`, and the data lives on each project in `featured.ts`.
+- **Stops:** the project's layers as 11px Paper dots on a 1px Hairline Strong line, in Caption type. They run down on phones and across from 40rem. A reached stop gets a Signal Blue ring and Ink text. A stop that turned a request away fills Ink.
+- **Pulse:** an 11px Signal Blue dot with a soft 4px halo. It eases between stops, takes longer to skip one, and comes back the way it went to the stop that answers.
+- **Requests** (uptime-monitor, Express-Full): the method in a Paper chip with the path, then the sample headers and body in Slate Mono. Once answered, the status shows in a pill (a blue tint for success, a Hairline Strong ring for an error) beside the response body the code writes. Room for two detail lines is reserved, so the line never jumps.
+- **Sort** (DSA): the repo's bubble and selection sorts on the array in each file's main. Bars are Hairline Strong, compared bars Signal Blue, selection's running minimum 55% blue and settled bars 28% blue. A 2px Panel outline keeps passing bars apart. The run ends on what the program prints.
+- **Gesture** (Hand Gesture Control): the mean pose of each recorded gesture eases into the next, in the gesture panels' blue bones. Beside it, the stops run down with a Mono reading each: the frame, 21 landmarks, the gesture, the mode (shown as `DRAW → VOLUME` when it switches) and the action. Readings from the previous beat stay in Slate until the pulse reaches them.
+- **Playback:** the same clock and control as the replays. It plays once from the top when the pop-up opens, shows the last frame when closed or under reduced motion, and runs requestAnimationFrame only while playing. The screen is hidden from assistive tech and the caption describes it.
 
 ### Code Listing
 A panel with a head row above a Mono body at line-height 1.7. The head holds the file name in Mono Graphite and a "View file" link. Long lines wrap with a hanging indent under the code, so phones never scroll or clip a listing. Line numbers are generated, right-aligned in Graphite, and unselectable. Comments are Graphite.
