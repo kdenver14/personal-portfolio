@@ -58,6 +58,7 @@ function PinLead({ pin, side, isActive, setActive }: PinLeadProps) {
       <a
         href={pin.href}
         className={className}
+        data-pin={pin.number}
         aria-label={label}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         {...pinHandlers(pin.number, setActive)}
@@ -70,6 +71,7 @@ function PinLead({ pin, side, isActive, setActive }: PinLeadProps) {
     <button
       type="button"
       className={className}
+      data-pin={pin.number}
       aria-label={label}
       onClick={() => setActive(pin.number)}
       {...pinHandlers(pin.number, setActive)}

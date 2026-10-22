@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { IDLE_BITS, clockBits, repeatToFill, uartBits, wavePath } from "./uart";
+import { BITS_PER_FRAME, IDLE_BITS, byteSpans, clockBits, flashStops, repeatToFill, uartBits, wavePath } from "./uart";
 
 describe("uartBits", () => {
   it("frames each byte with a start bit, LSB-first data and a stop bit", () => {
@@ -29,5 +29,34 @@ describe("wavePath", () => {
 describe("repeatToFill", () => {
   it("repeats the bits past the width by one whole cycle", () => {
     expect(repeatToFill([1, 0], 6, 20)).toHaveLength(2 * 3);
+  });
+});
+
+describe("byteSpans", () => {
+  it("covers each character's eight data bits, between its start and stop bits", () => {
+    expect(byteSpans("TS")).toEqual([
+      { char: "T", start: 1, end: 9 },
+      { char: "S", start: 1 + BITS_PER_FRAME, end: 9 + BITS_PER_FRAME },
+    ]);
+  });
+
+  it("lands on the data bits uartBits sends", () => {
+    const bits = uartBits("T");
+    const [span] = byteSpans("T");
+    expect(bits[(span?.start ?? 0) - 1]).toBe(0);
+    expect(bits[span?.end ?? 0]).toBe(1);
+  });
+});
+
+describe("flashStops", () => {
+  it("places each flash as a share of the cycle", () => {
+    expect(flashStops([0, 10], 40, 1)).toEqual([
+      { on: 0, off: 2.5 },
+      { on: 25, off: 27.5 },
+    ]);
+  });
+
+  it("never runs a flash past the end of the cycle", () => {
+    expect(flashStops([39], 40, 3)).toEqual([{ on: 97.5, off: 100 }]);
   });
 });

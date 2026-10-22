@@ -1,6 +1,9 @@
 /** Square-wave drawing for the chip's logic analyzer: UART frames and a clock, as bits and as SVG paths. */
 
 const BITS_PER_BYTE = 8;
+/** A start bit, the byte, a stop bit. */
+export const BITS_PER_FRAME = BITS_PER_BYTE + 2;
+const PERCENT = 100;
 const IDLE = 1;
 const START = 0;
 const STOP = 1;
@@ -42,4 +45,31 @@ export function repeatToFill(bits: readonly number[], bit: number, width: number
   const cycle = bits.length * bit;
   const copies = Math.ceil(width / cycle) + 1;
   return Array.from({ length: copies }, () => bits).flat();
+}
+
+/** One byte of a UART stream: the character, and its data bits as indexes [start, end) into the stream. */
+export interface ByteSpan {
+  readonly char: string;
+  readonly start: number;
+  readonly end: number;
+}
+
+/** Where each character's data bits sit in `uartBits(text)`, for a decoder to label them. */
+export function byteSpans(text: string): ByteSpan[] {
+  return [...text].map((char, i) => {
+    const start = i * BITS_PER_FRAME + 1;
+    return { char, start, end: start + BITS_PER_BYTE };
+  });
+}
+
+export interface FlashStop {
+  /** When the flash turns on and off, as a percentage of one cycle. */
+  readonly on: number;
+  readonly off: number;
+}
+
+/** A flash of `length` bits starting at each of the bit indexes `starts`, in a cycle of `cycle` bits. */
+export function flashStops(starts: readonly number[], cycle: number, length: number): FlashStop[] {
+  const percent = (bit: number) => +((bit / cycle) * PERCENT).toFixed(2);
+  return starts.map((bit) => ({ on: percent(bit), off: percent(Math.min(cycle, bit + length)) }));
 }
