@@ -278,10 +278,10 @@ Rows that pair a name with a year (card head, dialog head, More projects rows) p
 
 ## Elevation & Depth
 
-Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Paper stops inside the live diagram's panel. A hovered card darkens one notch to Panel Hover. The only lifted surface is the open dialog, apart from the 3D chip, which casts its own soft shadow on its panel. It is Paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
+Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Paper stops inside the live diagram's panel. A hovered card darkens one notch to Panel Hover. The only lifted surface is the open dialog. It is Paper over a 40% ink backdrop and carries a single soft, diffuse shadow (exact value in the sidecar). The dialog's sticky bar fades from paper to transparent so content scrolls under the Close pill. Focus is a 2px blue outline with a 3px offset, not a glow.
 
 ### Named Rules
-**The One Lift Rule.** The modal dialog is the only element with a shadow and a backdrop. Cards, panels and buttons stay flat, and hover changes tone, never elevation. The one exception is the 3D chip, a physical object, which the owner chose on 2026-10-22.
+**The One Lift Rule.** The modal dialog is the only element with a shadow and a backdrop. Cards, panels, the chip and buttons stay flat. Hover changes tone, never elevation.
 
 ## Shapes
 
@@ -437,13 +437,7 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - It is decorative, so it is `aria-hidden` and has no pointer events.
 
 ### DIP-8 Pin Figure (signature)
-The single signature, in a panel under the tech strip. The owner found the flat chip boring and picked this 3D version from a specimen (2026-10-22), over a cursor-tilt-only chip and a flat chip with signals.
-- **3D package:** the panel holds the chip in perspective (1100px), tilted back 22°. The package has 1rem-deep sides shaded as if lit from above, and each leg leaves the side halfway up and bends down into the board. A soft blurred shadow sits under it.
-- **Motion:** it sways ±6° on a 6s CSS loop, and tilts up to 14° by 18° toward the mouse through a 300ms transition, with a highlight that follows the mouse across the lid. Touch and reduced motion don't tilt; reduced motion stops the sway and the transitions.
-- **Lid:** hovering the figure, or picking a pin by hover, focus or tap, lifts the lid 4.5rem and fades it to 16%. Under it, in a dark cavity, the blue-grey silicon die is wired to a lead-frame finger at each leg. The picked pin's bond wire turns light blue with a signal flowing out to its leg. The die and wires are drawn from `src/lib/chip.ts`, which also sizes the figure through `--chip-*` properties, so they land on the legs at any zoom.
-- **Pointer:** the lid and the flat 3D wrappers take no pointer events. Only the pins do, so the tilted pins stay hoverable.
-
-The top of the package (the lid) is at least 16rem tall. It has a notch, a pin-1 dot and mono pin numbers. The KDC-14 mark (Sans 700, tracking 0.06em) is rotated to run along the body, with a mono date code. Four pins sit on each side. Each pin has a mono name over a Micro Graphite sublabel, and a grey leg. Hovering, focusing or tapping a pin turns its leg and name Signal Blue and its body number white. Its description appears in a centred Graphite readout below. The readout idles on "Me, as an 8-pin chip. Hover or tap a pin." The GH and MAIL pins are real links with underlined names. The CLK pin shows live Philippine time.
+The single signature, in a panel under the tech strip. The dark package body is drawn as a top view, at least 16rem tall. It has a notch, a pin-1 dot and mono pin numbers. The KDC-14 mark (Sans 700, tracking 0.06em) is rotated to run along the body, with a mono date code. Four pins sit on each side. Each pin has a mono name over a Micro Graphite sublabel, and a grey leg. Hovering, focusing or tapping a pin turns its leg and name Signal Blue and its body number white. Its description appears in a centred Graphite readout below. The readout idles on "Me, as an 8-pin chip. Hover or tap a pin." The GH and MAIL pins are real links with underlined names. The CLK pin shows live Philippine time.
 
 ### Gesture Panels
 Hand-landmark skeletons drawn from real training data. They appear only in the Hand Gesture Control dialog. Recorded landmarks are Ink dots at 0.3 opacity. Mean-pose bones are Signal Blue at 1.5px. Joints are Panel-filled with blue strokes. Each panel carries a Micro Graphite label: the gesture name in Mono Ink over the sample count.
