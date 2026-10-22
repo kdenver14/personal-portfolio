@@ -1,8 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { COLUMN_GAP, HOME, type Particle, floatOffset, poissonDisc, scatterDots, seededRandom, shadowAlpha, step } from "./dot-field";
+import {
+  COLUMN_GAP,
+  type Mark,
+  advance,
+  easeToward,
+  poissonDisc,
+  ringAt,
+  scatterParticles,
+  seededRandom,
+  sizeTarget,
+  toStrokes,
+} from "./dot-field";
+import { createNoise3 } from "./noise";
 
 const FIELD = { width: 1440, height: 900, column: 640 };
-const atHome = (): Particle[] => scatterDots(FIELD, 7).map((dot) => ({ dot, offset: HOME }));
+const still = () => 0;
 
 describe("seededRandom", () => {
   it("repeats the same sequence for the same seed", () => {
@@ -32,59 +44,94 @@ describe("poissonDisc", () => {
   });
 });
 
-describe("scatterDots", () => {
-  it("never places a dot within the gap around the text column", () => {
-    const dots = scatterDots(FIELD, 7);
-    expect(dots.length).toBeGreaterThan(0);
-    expect(dots.every((dot) => Math.abs(dot.x - FIELD.width / 2) > FIELD.column / 2 + COLUMN_GAP)).toBe(true);
+describe("scatterParticles", () => {
+  it("never places a particle within the gap around the text column", () => {
+    const particles = scatterParticles(FIELD, 7);
+    expect(particles.length).toBeGreaterThan(0);
+    expect(particles.every((p) => Math.abs(p.x - FIELD.width / 2) > FIELD.column / 2 + COLUMN_GAP)).toBe(true);
   });
 
-  it("places no dots when the column fills the screen", () => {
-    expect(scatterDots({ width: 390, height: 800, column: 350 }, 7)).toEqual([]);
+  it("places no particles when the column fills the screen", () => {
+    expect(scatterParticles({ width: 390, height: 800, column: 390 }, 7)).toEqual([]);
   });
 
   it("gives the same scatter for the same size and seed", () => {
-    expect(scatterDots(FIELD, 7)).toEqual(scatterDots(FIELD, 7));
+    expect(scatterParticles(FIELD, 7)).toEqual(scatterParticles(FIELD, 7));
   });
 });
 
-describe("floatOffset", () => {
-  const [dot] = scatterDots(FIELD, 7);
-  if (!dot) {
-    throw new Error("Expected at least one dot");
-  }
-
-  it("stays home with no pointer or a distant pointer", () => {
-    expect(floatOffset(dot, null, 1)).toEqual(HOME);
-    expect(floatOffset(dot, [dot.x + 500, dot.y], 1)).toEqual(HOME);
+describe("easeToward", () => {
+  it("covers the same ground in two half steps as in one full step", () => {
+    const once = easeToward([0, 0], [100, 50], 0.2, 0.45);
+    const twice = easeToward(easeToward([0, 0], [100, 50], 0.1, 0.45), [100, 50], 0.1, 0.45);
+    expect(twice[0]).toBeCloseTo(once[0]);
+    expect(twice[1]).toBeCloseTo(once[1]);
   });
 
-  it("lifts a dot under the pointer upward", () => {
-    expect(floatOffset(dot, [dot.x, dot.y], 1)[1]).toBeLessThan(0);
+  it("stays put with no time and arrives after a long time", () => {
+    expect(easeToward([10, 10], [90, 90], 0, 0.45)).toEqual([10, 10]);
+    expect(easeToward([10, 10], [90, 90], 60, 0.45)[0]).toBeCloseTo(90);
   });
 });
 
-describe("step", () => {
-  it("keeps moving while the pointer is over the dots", () => {
-    const [first] = scatterDots(FIELD, 7);
-    const pointer = first ? ([first.x, first.y] as const) : null;
-    expect(step(atHome(), pointer, 0, 1 / 60).moving).toBe(true);
-  });
+describe("sizeTarget", () => {
+  const ring = ringAt([720, 450], FIELD, 0);
 
-  it("settles every dot home once the pointer leaves", () => {
-    const [first] = scatterDots(FIELD, 7);
-    let state = step(atHome(), first ? [first.x, first.y] : null, 0, 0.5);
-    for (let frame = 0; frame < 120 && state.moving; frame++) {
-      state = step(state.particles, null, frame / 60, 1 / 60);
-    }
-    expect(state.moving).toBe(false);
+  it("is full on the ring, medium inside it and a speck far outside", () => {
+    expect(sizeTarget(ring.radius, ring, 0)).toBeCloseTo(1);
+    const inside = sizeTarget(ring.radius * 0.2, ring, 0);
+    expect(inside).toBeGreaterThan(0.3);
+    expect(inside).toBeLessThan(0.6);
+    expect(sizeTarget(ring.radius * 3, ring, 0)).toBeLessThan(1 / 6);
   });
 });
 
-describe("shadowAlpha", () => {
-  it("is zero for a dot at rest and capped for a high one", () => {
-    expect(shadowAlpha(0)).toBe(0);
-    expect(shadowAlpha(-1000)).toBeLessThanOrEqual(0.08);
-    expect(shadowAlpha(-4)).toBeGreaterThan(0);
+describe("advance", () => {
+  const ring = ringAt([720, 450], FIELD, 0);
+  const onRing = { x: 720 + ring.radius, y: 450, visibility: 1 };
+  const farOut = { x: 720 + ring.radius * 3, y: 450, visibility: 1 };
+
+  it("swells particles on the ring and leaves far ones as specks", () => {
+    const { sizes } = advance([onRing, farOut], [], ring, 0, 0, still);
+    expect(sizes[0]).toBeCloseTo(1);
+    expect(sizes[1]).toBeLessThan(1 / 6);
+  });
+
+  it("eases a size toward its target instead of jumping", () => {
+    const { sizes } = advance([onRing], [0], ring, 0, 1 / 60, still);
+    expect(sizes[0]).toBeGreaterThan(0);
+    expect(sizes[0]).toBeLessThan(0.2);
+  });
+
+  it("points each dash away from the ring centre", () => {
+    const { marks } = advance([onRing], [], ring, 0, 0, still);
+    expect(marks[0]?.angle).toBeCloseTo(0);
+  });
+
+  it("keeps particles drifting while the ring stays still", () => {
+    const noise = createNoise3(seededRandom(42));
+    const at = (seconds: number) => advance([farOut], [], ring, seconds, 0, noise).marks[0];
+    expect(at(0)?.x).not.toBeCloseTo(at(2)?.x ?? 0);
+  });
+});
+
+describe("toStrokes", () => {
+  const mark = (size: number, visibility = 1): Mark => ({ x: 10, y: 10, angle: 0, size, visibility });
+
+  it("draws marks of the same size and fade with one stroke", () => {
+    const strokes = toStrokes([mark(0.9), mark(0.95), mark(0.05)]);
+    expect(strokes).toHaveLength(2);
+    expect(strokes.map((s) => s.segments.length).sort()).toEqual([4, 8]);
+  });
+
+  it("skips marks that are fully faded", () => {
+    expect(toStrokes([mark(1, 0.1)])).toEqual([]);
+  });
+
+  it("makes bigger marks longer and bolder", () => {
+    const [small, big] = [toStrokes([mark(0.2)])[0], toStrokes([mark(0.99)])[0]];
+    const length = (s: typeof small) => (s ? (s.segments[2] ?? 0) - (s.segments[0] ?? 0) : 0);
+    expect(length(big)).toBeGreaterThan(length(small));
+    expect(big?.width).toBeGreaterThan(small?.width ?? Infinity);
   });
 });

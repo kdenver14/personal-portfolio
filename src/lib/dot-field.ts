@@ -1,23 +1,11 @@
-/** Grey dots scattered around the text column, and how each one floats up while the cursor is near. */
+/**
+ * A liquid field of grey dashes around the text column. A ring trails the cursor and swells the dashes it
+ * passes over, and smooth noise keeps every particle drifting. Pure: the component draws what this computes.
+ */
+
+import type { Noise3 } from "./noise";
 
 export type Point = readonly [number, number];
-export type Offset = readonly [number, number];
-
-export interface Dot {
-  readonly x: number;
-  readonly y: number;
-  readonly radius: number;
-  readonly alpha: number;
-  /** Where in its bob the dot starts, in radians, so neighbours never move in step. */
-  readonly phase: number;
-  /** Bob speed multiplier, so neighbours drift out of sync over time. */
-  readonly pace: number;
-}
-
-export interface Particle {
-  readonly dot: Dot;
-  readonly offset: Offset;
-}
 
 export interface Field {
   readonly width: number;
@@ -26,33 +14,70 @@ export interface Field {
   readonly column: number;
 }
 
-export const HOME: Offset = [0, 0];
-/** Dots never come closer than this to the text column. */
-export const COLUMN_GAP = 32;
-/** Past the gap, dots thin out over this distance, so the field fades in toward the edges. */
-const COLUMN_FADE = 160;
-const SPACING = 26;
-const POISSON_TRIES = 30;
+export interface Particle {
+  readonly x: number;
+  readonly y: number;
+  /** 0 beside the text column, rising to 1 well clear of it. */
+  readonly visibility: number;
+}
+
+export interface Ring {
+  readonly x: number;
+  readonly y: number;
+  readonly radius: number;
+  /** Width of the swollen band around the radius. */
+  readonly band: number;
+  /** How far noise bends the band's edge in or out. */
+  readonly wobble: number;
+}
+
+/** One particle as drawn this frame: a dash pointing away from the ring centre, or a speck when small. */
+export interface Mark {
+  readonly x: number;
+  readonly y: number;
+  readonly angle: number;
+  /** 0 is a speck, 1 a full dash on the ring. */
+  readonly size: number;
+  readonly visibility: number;
+}
+
+/** Marks sharing one width and opacity, as flat x1, y1, x2, y2 runs, so each is drawn with one stroke. */
+export interface Stroke {
+  readonly width: number;
+  readonly alpha: number;
+  readonly segments: readonly number[];
+}
+
+/** Particles never come closer than this to the text column. */
+export const COLUMN_GAP = 16;
+/** Past the gap, particles fade in over this distance. */
+const COLUMN_FADE = 110;
+const SPACING = 22;
+const POISSON_TRIES = 20;
 const FULL_TURN = Math.PI * 2;
-const RADIUS = { min: 0.9, spread: 1.1 };
-const ALPHA = { min: 0.16, spread: 0.16 };
-const PACE = { min: 0.6, spread: 0.8 };
-
-/** Cursor distance within which dots float. */
-const REACH = 130;
-const LIFT = 9;
-const SWAY = 3;
-const BOB = 3;
-const SWAY_RATE = 1.3;
-const BOB_RATE = 2;
-/** Seconds for a dot to cover about 63% of the way to its target; time-based, so frame rate doesn't matter. */
-const SETTLE_SECONDS = 0.12;
-/** Offsets smaller than this (px) count as home. */
-const REST = 0.05;
-const SHADOW_PER_PX = 0.01;
-const SHADOW_MAX = 0.08;
-
 const UINT32_RANGE = 2 ** 32;
+
+/** The ring's radius is a share of the larger screen side, so it reaches the margins from the column. */
+const RING = { share: 0.3, band: 0.22, breath: 0.05, breathRate: 0.6 };
+/** With no mouse, the ring wanders slowly around a point a little below the screen centre. */
+const IDLE = { x: 0.5, y: 0.55, swayX: 0.1, swayY: 0.08, rateX: 0.13, rateY: 0.11 };
+/** Noise layers: `scale` per px, `speed` per second, `offset` decorrelates layers sampled at one spot. */
+const FLOW = { scale: 0.004, speed: 0.18, amount: 12, offset: 31.7 };
+const RIPPLE = { scale: 0.03, speed: 0.4, amount: 2.5, offset: 5.1 };
+const EDGE = { scale: 0.008, speed: 0.3, amount: 0.12, offset: 9 };
+const GRAIN = { scale: 0.012, speed: 0.18, inside: 0.12, outside: 0.048, offset: 4 };
+const TILT = { scale: 0.02, speed: 0.5, amount: 0.35, offset: 17 };
+const INSIDE_SIZE = 0.32;
+const BAND_SHARPNESS = 2.2;
+/** Particles on the band are pushed this far (px) away from the ring centre. */
+const BAND_PUSH = 10;
+/** Seconds for a particle's size to cover about 63% of the way to its target. */
+const SIZE_SECONDS = 0.22;
+
+const SIZE_LEVELS = 6;
+const FADE_LEVELS = 4;
+const SPECK = { width: 1.1, alpha: 0.28, halfLength: 0.01 };
+const DASH = { width: 1.2, widthStep: 0.28, alpha: 0.3, alphaStep: 0.08, halfLength: 1, stretch: 4 };
 
 /** Mulberry32, a small seeded PRNG: the same seed gives the same scatter on every load. */
 export function seededRandom(seed: number): () => number {
@@ -115,7 +140,7 @@ export function poissonDisc(width: number, height: number, spacing: number, rand
   add([random() * width, random() * height]);
   while (active.length > 0) {
     const index = Math.floor(random() * active.length);
-    const origin = active[index] ?? HOME;
+    const origin = active[index] ?? [0, 0];
     let next: Point | undefined;
     for (let tries = 0; tries < POISSON_TRIES && !next; tries++) {
       const candidate = around(origin, spacing, random);
@@ -130,65 +155,127 @@ export function poissonDisc(width: number, height: number, spacing: number, rand
   return points;
 }
 
-/** Dots in the margins beside the column: none within the gap, thinning toward it, densest at the screen edges. */
-export function scatterDots({ width, height, column }: Field, seed: number): Dot[] {
-  const random = seededRandom(seed);
+const smoothstep = (t: number) => t * t * (3 - 2 * t);
+
+/** Particles over the whole field except a gap around the text column, fading in beyond it. */
+export function scatterParticles({ width, height, column }: Field, seed: number): Particle[] {
   const edge = column / 2 + COLUMN_GAP;
-  return poissonDisc(width, height, SPACING, random).flatMap(([x, y]) => {
+  return poissonDisc(width, height, SPACING, seededRandom(seed)).flatMap(([x, y]) => {
     const beyond = Math.abs(x - width / 2) - edge;
-    const keep = Math.min(1, beyond / COLUMN_FADE);
-    if (beyond <= 0 || random() > keep * keep) {
-      return [];
-    }
-    return [{
-      x,
-      y,
-      radius: RADIUS.min + random() * RADIUS.spread,
-      alpha: ALPHA.min + random() * ALPHA.spread,
-      phase: random() * FULL_TURN,
-      pace: PACE.min + random() * PACE.spread,
-    }];
+    return beyond > 0 ? [{ x, y, visibility: smoothstep(Math.min(1, beyond / COLUMN_FADE)) }] : [];
   });
 }
 
-/** Where a dot floats to at `seconds`: up and bobbing near the pointer, home beyond REACH or with no pointer. */
-export function floatOffset(dot: Dot, pointer: Point | null, seconds: number): Offset {
-  if (!pointer) {
-    return HOME;
-  }
-  const distance = Math.hypot(dot.x - pointer[0], dot.y - pointer[1]);
-  if (distance >= REACH) {
-    return HOME;
-  }
-  const near = 1 - distance / REACH;
-  const lift = near * near * (3 - 2 * near);
+/** Share of the way to a target covered in `dt` seconds; time-based, so the frame rate doesn't matter. */
+export function easing(dt: number, seconds: number): number {
+  return 1 - Math.exp(-dt / seconds);
+}
+
+export function easeToward(from: Point, to: Point, dt: number, seconds: number): Point {
+  const t = easing(dt, seconds);
+  return [from[0] + (to[0] - from[0]) * t, from[1] + (to[1] - from[1]) * t];
+}
+
+/** Where the ring heads with no mouse: a slow wander around a point a little below the centre. */
+export function idleCentre({ width, height }: Field, seconds: number): Point {
   return [
-    Math.cos(seconds * SWAY_RATE * dot.pace + dot.phase) * SWAY * lift,
-    -LIFT * lift + Math.sin(seconds * BOB_RATE * dot.pace + dot.phase) * BOB * lift,
+    width * (IDLE.x + IDLE.swayX * Math.sin(seconds * IDLE.rateX)),
+    height * (IDLE.y + IDLE.swayY * Math.cos(seconds * IDLE.rateY)),
   ];
 }
 
-const isHome = ([x, y]: Offset) => Math.abs(x) < REST && Math.abs(y) < REST;
-
-/** Eases every particle toward its float target over `dt` seconds; `moving` is false once all are home. */
-export function step(
-  particles: readonly Particle[],
-  pointer: Point | null,
-  seconds: number,
-  dt: number,
-): { particles: Particle[]; moving: boolean } {
-  const blend = 1 - Math.exp(-dt / SETTLE_SECONDS);
-  let moving = false;
-  const next = particles.map(({ dot, offset }) => {
-    const target = floatOffset(dot, pointer, seconds);
-    const eased: Offset = [offset[0] + (target[0] - offset[0]) * blend, offset[1] + (target[1] - offset[1]) * blend];
-    moving ||= !isHome(target) || !isHome(eased);
-    return { dot, offset: eased };
-  });
-  return { particles: next, moving };
+/** The ring around `centre`; its radius breathes slowly. */
+export function ringAt([x, y]: Point, { width, height }: Field, seconds: number): Ring {
+  const base = RING.share * Math.max(width, height);
+  const radius = base * (1 + RING.breath * Math.sin(seconds * RING.breathRate));
+  return { x, y, radius, band: RING.band * base, wobble: EDGE.amount * base };
 }
 
-/** Opacity of the faint shadow left under a dot lifted by `offsetY` (negative is up); zero when not lifted. */
-export function shadowAlpha(offsetY: number): number {
-  return offsetY < 0 ? Math.min(SHADOW_MAX, -offsetY * SHADOW_PER_PX) : 0;
+/** 1 on the ring's radius, falling off smoothly either side. */
+function bandStrength(distance: number, ring: Ring): number {
+  return Math.exp(-BAND_SHARPNESS * ((distance - ring.radius) / ring.band) ** 2);
+}
+
+/** How big a particle wants to be: full on the ring, medium inside it, a speck outside. `grain` is noise. */
+export function sizeTarget(distance: number, ring: Ring, grain: number): number {
+  const rest = distance < ring.radius ? INSIDE_SIZE + GRAIN.inside * (grain + 1) : GRAIN.outside * (grain + 1);
+  return Math.max(bandStrength(distance, ring), rest);
+}
+
+type Sampler = (layer: { scale: number; speed: number; offset: number }, shift?: number) => number;
+
+/** Noise for one particle at one moment, by layer; `shift` gives a second, independent channel. */
+function sampler(particle: Particle, seconds: number, noise: Noise3): Sampler {
+  return ({ scale, speed, offset }, shift = 0) =>
+    noise(particle.x * scale + offset + shift, particle.y * scale + offset, seconds * speed + offset);
+}
+
+/** The particle's home moved by slow flow plus a finer ripple. */
+function drift(particle: Particle, sample: Sampler): Point {
+  return [
+    particle.x + sample(FLOW) * FLOW.amount + sample(RIPPLE) * RIPPLE.amount,
+    particle.y + sample(FLOW, FLOW.offset) * FLOW.amount + sample(RIPPLE, RIPPLE.offset) * RIPPLE.amount,
+  ];
+}
+
+/**
+ * One frame: each particle drifts, eases its size toward the ring's pull and points away from the ring
+ * centre. `sizes` are last frame's (missing ones snap to target); a `dt` of 0 snaps every size.
+ */
+export function advance(
+  particles: readonly Particle[],
+  sizes: readonly number[],
+  ring: Ring,
+  seconds: number,
+  dt: number,
+  noise: Noise3,
+): { sizes: number[]; marks: Mark[] } {
+  const blend = dt > 0 ? easing(dt, SIZE_SECONDS) : 1;
+  const nextSizes: number[] = [];
+  const marks = particles.map((particle, i): Mark => {
+    const sample = sampler(particle, seconds, noise);
+    const [x, y] = drift(particle, sample);
+    const angle = Math.atan2(y - ring.y, x - ring.x);
+    const distance = Math.hypot(x - ring.x, y - ring.y) + sample(EDGE) * ring.wobble;
+    const target = sizeTarget(distance, ring, sample(GRAIN));
+    const previous = sizes[i] ?? target;
+    const size = previous + (target - previous) * blend;
+    nextSizes.push(size);
+    const push = bandStrength(distance, ring) * BAND_PUSH;
+    return {
+      x: x + Math.cos(angle) * push,
+      y: y + Math.sin(angle) * push,
+      angle: angle + sample(TILT) * TILT.amount,
+      size,
+      visibility: particle.visibility,
+    };
+  });
+  return { sizes: nextSizes, marks };
+}
+
+function strokeStyle(level: number, fade: number): Omit<Stroke, "segments"> {
+  const share = fade / FADE_LEVELS;
+  return level === 0
+    ? { width: SPECK.width, alpha: SPECK.alpha * share }
+    : { width: DASH.width + level * DASH.widthStep, alpha: (DASH.alpha + level * DASH.alphaStep) * share };
+}
+
+/** Groups marks into a few strokes by size and fade level, so a frame is a handful of draw calls. */
+export function toStrokes(marks: readonly Mark[]): Stroke[] {
+  const strokes = new Map<number, { width: number; alpha: number; segments: number[] }>();
+  for (const mark of marks) {
+    const fade = Math.min(FADE_LEVELS, Math.floor(mark.visibility * (FADE_LEVELS + 1)));
+    if (fade === 0) {
+      continue;
+    }
+    const level = Math.min(SIZE_LEVELS - 1, Math.floor(mark.size * SIZE_LEVELS));
+    const key = level * (FADE_LEVELS + 1) + fade;
+    const stroke = strokes.get(key) ?? { ...strokeStyle(level, fade), segments: [] };
+    strokes.set(key, stroke);
+    const half = level === 0 ? SPECK.halfLength : DASH.halfLength + mark.size * DASH.stretch;
+    const dx = Math.cos(mark.angle) * half;
+    const dy = Math.sin(mark.angle) * half;
+    stroke.segments.push(mark.x - dx, mark.y - dy, mark.x + dx, mark.y + dy);
+  }
+  return [...strokes.values()];
 }

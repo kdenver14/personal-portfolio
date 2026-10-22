@@ -1,101 +1,128 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { HOME, type Particle, type Point, scatterDots, shadowAlpha, step } from "@/lib/dot-field";
+import {
+  type Field,
+  type Particle,
+  type Point,
+  type Stroke,
+  advance,
+  easeToward,
+  idleCentre,
+  ringAt,
+  scatterParticles,
+  seededRandom,
+  toStrokes,
+} from "@/lib/dot-field";
+import { type Noise3, createNoise3 } from "@/lib/noise";
 
-/** Only a real mouse floats the dots; touch and pen moves usually mean scrolling or tapping. */
+/** Only a real mouse steers the ring; touch and pen moves usually mean scrolling or tapping. */
 const HOVER_POINTER = "mouse";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
-const SEED = 7;
-/** Caps one animation step, so a dropped or throttled frame can't make the dots jump. */
+const SCATTER_SEED = 7;
+const NOISE_SEED = 42;
+/** Seconds for the ring to cover about 63% of the way to the cursor: the lag that makes it feel liquid. */
+const RING_SECONDS = 0.45;
+/** Caps one animation step, so a dropped or throttled frame can't make the field jump. */
 const MAX_STEP_SECONDS = 0.1;
 const MS_PER_SECOND = 1000;
-const FULL_TURN = Math.PI * 2;
-const SHADOW = { drop: 2, width: 1.6, height: 0.7 };
 
 interface Scene {
+  readonly field: Field;
   readonly particles: Particle[];
-  readonly width: number;
-  readonly height: number;
+  readonly sizes: number[];
 }
 
-/** Sizes the canvas for the screen and scatters a fresh set of dots around the measured column. */
+/** Sizes the canvas for the screen and scatters particles around the measured column. */
 function layout(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, column: HTMLElement): Scene {
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const field = { width: canvas.clientWidth, height: canvas.clientHeight, column: column.offsetWidth };
   const ratio = window.devicePixelRatio;
-  canvas.width = Math.round(width * ratio);
-  canvas.height = Math.round(height * ratio);
+  canvas.width = Math.round(field.width * ratio);
+  canvas.height = Math.round(field.height * ratio);
   context.setTransform(ratio, 0, 0, ratio, 0, 0);
-  context.fillStyle = getComputedStyle(canvas).color;
-  const dots = scatterDots({ width, height, column: column.offsetWidth }, SEED);
-  return { particles: dots.map((dot) => ({ dot, offset: HOME })), width, height };
+  context.strokeStyle = getComputedStyle(canvas).color;
+  context.lineCap = "round";
+  return { field, particles: scatterParticles(field, SCATTER_SEED), sizes: [] };
 }
 
-function paint(context: CanvasRenderingContext2D, { particles, width, height }: Scene) {
+function paint(context: CanvasRenderingContext2D, strokes: readonly Stroke[], { width, height }: Field) {
   context.clearRect(0, 0, width, height);
-  for (const { dot, offset } of particles) {
-    const shadow = shadowAlpha(offset[1]);
-    if (shadow > 0) {
-      context.globalAlpha = shadow;
-      context.beginPath();
-      context.ellipse(dot.x, dot.y + SHADOW.drop, dot.radius * SHADOW.width, dot.radius * SHADOW.height, 0, 0, FULL_TURN);
-      context.fill();
-    }
-    context.globalAlpha = dot.alpha;
+  for (const { width: lineWidth, alpha, segments } of strokes) {
+    context.globalAlpha = alpha;
+    context.lineWidth = lineWidth;
     context.beginPath();
-    context.arc(dot.x + offset[0], dot.y + offset[1], dot.radius, 0, FULL_TURN);
-    context.fill();
+    for (let i = 0; i + 3 < segments.length; i += 4) {
+      context.moveTo(segments[i] ?? 0, segments[i + 1] ?? 0);
+      context.lineTo(segments[i + 2] ?? 0, segments[i + 3] ?? 0);
+    }
+    context.stroke();
   }
 }
 
-/** Draws the field and floats nearby dots while the mouse is over the page. Returns the cleanup. */
+/** Advances and draws one frame. The ring eases toward the mouse, or wanders when there is none. */
+function createRenderer(context: CanvasRenderingContext2D, noise: Noise3) {
+  let centre: Point | null = null;
+  let last: number | null = null;
+  return {
+    reset() {
+      last = null;
+    },
+    render(scene: Scene, pointer: Point | null, now: number): Scene {
+      const seconds = now / MS_PER_SECOND;
+      const dt = last === null ? 0 : Math.min(MAX_STEP_SECONDS, seconds - last);
+      last = seconds;
+      const target = pointer ?? idleCentre(scene.field, seconds);
+      centre = centre && dt > 0 ? easeToward(centre, target, dt, RING_SECONDS) : (centre ?? target);
+      const ring = ringAt(centre, scene.field, seconds);
+      const next = advance(scene.particles, scene.sizes, ring, seconds, dt, noise);
+      paint(context, toStrokes(next.marks), scene.field);
+      return { ...scene, sizes: next.sizes };
+    },
+  };
+}
+
+/** Runs the field: animates while motion is allowed and particles are visible, else draws one still frame. */
 function runField(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, column: HTMLElement): () => void {
   const reducedMotion = window.matchMedia(REDUCED_MOTION);
+  const renderer = createRenderer(context, createNoise3(seededRandom(NOISE_SEED)));
   let scene = layout(canvas, context, column);
   let pointer: Point | null = null;
   let frame = 0;
-  let last: number | null = null;
-  const tick = (now: number) => {
-    const dt = last === null ? 0 : Math.min(MAX_STEP_SECONDS, (now - last) / MS_PER_SECOND);
-    const next = step(scene.particles, pointer, now / MS_PER_SECOND, dt);
-    scene = { ...scene, particles: next.particles };
-    paint(context, scene);
-    last = next.moving ? now : null;
-    frame = next.moving ? requestAnimationFrame(tick) : 0;
+  const loop = (now: number) => {
+    scene = renderer.render(scene, pointer, now);
+    frame = requestAnimationFrame(loop);
   };
-  const wake = () => {
-    frame ||= requestAnimationFrame(tick);
+  const restart = () => {
+    cancelAnimationFrame(frame);
+    renderer.reset();
+    const still = reducedMotion.matches || scene.particles.length === 0;
+    scene = renderer.render(scene, still ? null : pointer, performance.now());
+    frame = still ? 0 : requestAnimationFrame(loop);
   };
   const onMove = (event: PointerEvent) => {
-    if (event.pointerType !== HOVER_POINTER) {
-      return;
-    }
-    pointer = reducedMotion.matches ? null : [event.clientX, event.clientY];
-    wake();
+    pointer = event.pointerType === HOVER_POINTER ? [event.clientX, event.clientY] : pointer;
   };
   const onLeave = () => {
     pointer = null;
-    wake();
   };
   const onResize = () => {
     scene = layout(canvas, context, column);
-    paint(context, scene);
+    restart();
   };
-  const root = document.documentElement;
-  window.addEventListener("pointermove", onMove, { passive: true });
-  root.addEventListener("pointerleave", onLeave);
-  window.addEventListener("resize", onResize);
-  paint(context, scene);
+  const listeners = new AbortController();
+  const { signal } = listeners;
+  window.addEventListener("pointermove", onMove, { passive: true, signal });
+  document.documentElement.addEventListener("pointerleave", onLeave, { signal });
+  window.addEventListener("resize", onResize, { signal });
+  reducedMotion.addEventListener("change", restart, { signal });
+  restart();
   return () => {
-    window.removeEventListener("pointermove", onMove);
-    root.removeEventListener("pointerleave", onLeave);
-    window.removeEventListener("resize", onResize);
+    listeners.abort();
     cancelAnimationFrame(frame);
   };
 }
 
-/** Grey dots scattered around the text column; the ones near the mouse float up and bob. Decorative only. */
+/** Grey dashes drifting around the text column; a ring trailing the mouse swells them. Decorative only. */
 export function DotField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const columnRef = useRef<HTMLDivElement>(null);

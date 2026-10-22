@@ -358,7 +358,7 @@ Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padd
 - **Rail:** 2px, Signal Blue mixed into Paper at 18%. It runs from the first role's dot to the last one's.
 - **Dots:** a 10px Paper dot per role with a 2px ring (Signal Blue at 55%), level with the first line of text.
 - **Glow:**
-  - A soft Signal Blue streak, 3.5rem long, runs down the rail one role per 1.5s slice.
+  - A soft Signal Blue streak, 3.5rem long, rises up the rail one role per 1.5s slice, starting from the oldest role at the bottom.
   - Each dot's ring turns full blue and gives off a small halo as the streak reaches it, then fades.
   - The cycle is one slice per role plus one slice of rest. With three roles that is 6s.
   - Under reduced motion the timeline is still.
@@ -370,20 +370,24 @@ A hairline list. There is a top rule on the first row, then each row has a 1px H
 Copyright on the left and the "Updated" month on the right, in Slate Caption type, under a single Hairline. Padding is 1.75rem above and 3rem below.
 
 ### Dot Field (decoration)
-Grey dots scattered around the text column that float up near the mouse. It is `src/components/dot-field.tsx`, with the pure logic in `src/lib/dot-field.ts`.
-- **Scatter:**
-  - Poisson-disc spacing (26px minimum) from a fixed seed, so the dots look natural but never clump or leave holes, and the pattern is the same on every load at a given screen size.
-  - Dots vary from about 2 to 4px across and from 16% to 32% Ink opacity, so they read as grey on Paper.
-- **Placement:**
-  - The canvas is fixed, so the dots stay put while the page scrolls under them.
-  - No dot comes within 32px of the text column. Past that, density ramps up over 160px, so the field is densest at the screen edges and fades in toward the text.
-  - The column width is measured from a hidden box sized to the measure. At 768px only a few stray dots remain, and phones show none.
-- **Hover:**
-  - Dots within 130px of the mouse float up to 9px and bob gently, each on its own phase and pace. A faint shadow stays at the home position while a dot is lifted.
-  - They ease back home when the cursor moves away or leaves the window. Easing is time-based, so it looks the same at any frame rate.
-  - Only a mouse triggers it; touch and pen leave the dots still. Under reduced motion the dots stay still.
-  - The canvas animates only while a dot is away from home or the mouse is near one, and is otherwise idle.
-- **Behaviour:** decorative, so `aria-hidden` with no pointer events.
+A liquid field of grey dashes around the text column, in the spirit of Google Antigravity's hero. It is `src/components/dot-field.tsx`, with the pure logic in `src/lib/dot-field.ts` and `src/lib/noise.ts`.
+- **Particles:**
+  - Poisson-disc spacing (22px minimum) from a fixed seed, on a fixed canvas, so the field stays put while the page scrolls under it.
+  - None within 16px of the text column. Past that they fade in over 110px. At 768px only a thin edge remains, and phones show none.
+- **Ring:**
+  - A ring, 30% of the larger screen side in radius, trails the mouse with a 0.45s ease. That lag is what makes it feel liquid. With no mouse it wanders slowly around a point a little below the centre.
+  - Its radius breathes by 5%, and noise bends its edge in and out.
+- **Particle size:**
+  - On the ring's band, particles swell into dashes up to about 10px long that point away from the centre. They are pushed out up to 10px.
+  - Inside the ring they are medium dashes. Outside it they are specks.
+  - Sizes ease over 0.22s, so particles grow and shrink as the band sweeps across them.
+- **Drift:** 3D gradient noise moves every particle all the time, even when the mouse is still: a slow 12px flow plus a finer 2.5px ripple, and a slight wobble in each dash's angle.
+- **Colour:** Ink, with opacity rising with size from about 0.28 for specks to 0.7 for the fullest dashes.
+- **Drawing:** marks are grouped by size and fade level into about 20 strokes a frame. The simulation takes under 1ms a frame at 1440×900.
+- **Behaviour:**
+  - Only a mouse steers the ring.
+  - Under reduced motion, and when no particle is visible, it draws one still frame and does not animate.
+  - It is decorative, so it is `aria-hidden` and has no pointer events.
 
 ### DIP-8 Pin Figure (signature)
 The single signature, in a panel under the tech strip. The dark package body is drawn as a top view, at least 16rem tall. It has a notch, a pin-1 dot and mono pin numbers. The KDC-14 mark (Sans 700, tracking 0.06em) is rotated to run along the body, with a mono date code. Four pins sit on each side. Each pin has a mono name over a Micro Graphite sublabel, and a grey leg. Hovering, focusing or tapping a pin turns its leg and name Signal Blue and its body number white. Its description appears in a centred Graphite readout below. The readout idles on "Me, as an 8-pin chip. Hover or tap a pin." The GH and MAIL pins are real links with underlined names. The CLK pin shows live Philippine time.

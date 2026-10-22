@@ -128,8 +128,8 @@
 
   /* ---------- Dot field (decorative) ---------- */
 
-  /* Grey dots scattered around the text column, drawn on a fixed canvas by DotField. The canvas takes its
-     ink from `color`; the hidden column box is measured so the dots keep clear of the text at any measure. */
+  /* A liquid field of grey dashes around the text column, drawn on a fixed canvas by DotField. The canvas
+     takes its ink from `color`; the hidden column box is measured so the field keeps clear of the text. */
   .field {
     position: fixed;
     inset: 0;
@@ -911,8 +911,8 @@
 
   /* ---------- Experience ---------- */
 
-  /* A timeline: a rail with a ring dot per role. A soft glow runs down the rail one role per slice, and each
-     dot pulses as the glow reaches it. The cycle rests for one slice before it repeats. */
+  /* A timeline: a rail with a ring dot per role. A soft glow rises up the rail from the oldest role, one role
+     per slice, and each dot pulses as the glow reaches it. The cycle rests for one slice before it repeats. */
   .roles {
     --rail-x: 0.3125rem;
     --dot-y: 1.95rem;
@@ -924,8 +924,9 @@
     --ring: color-mix(in oklab, var(--color-blue) 55%, var(--color-paper));
   }
 
+  /* Roles are listed newest first, so the oldest (last) pulses first and the newest last. */
   .role {
-    --delay: calc(var(--i) * var(--slice));
+    --delay: calc((var(--count) - 1 - var(--i)) * var(--slice));
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -948,7 +949,8 @@
     animation: role-dot var(--cycle) ease-out var(--delay) infinite;
   }
 
-  /* The rail from this dot to the next is the role's own height, since every dot sits at the same offset. */
+  /* The rail from this dot to the next is the role's own height, since every dot sits at the same offset.
+     The glow climbs it in the slice before this dot pulses, starting as the dot below pulses. */
   .role:not(:last-child)::after {
     content: "";
     position: absolute;
@@ -960,7 +962,7 @@
       linear-gradient(transparent, color-mix(in oklab, var(--color-blue) 75%, transparent), transparent) no-repeat 0
         calc(-1 * var(--streak)) / 100% var(--streak),
       var(--rail);
-    animation: role-streak var(--cycle) linear var(--delay) infinite;
+    animation: role-streak var(--cycle) linear calc(var(--delay) - var(--slice)) infinite;
   }
 
   @keyframes role-dot {
@@ -980,18 +982,18 @@
     }
   }
 
-  /* Moves count + 1 rail-crossings per cycle, so the glow crosses its rail in one slice and spends the
-     rest of the loop below it, out of sight. */
+  /* Starts just below the rail and moves count + 1 rail-crossings up per cycle, so the glow crosses its rail
+     in one slice and spends the rest of the loop above it, out of sight. */
   @keyframes role-streak {
     from {
       background-position:
-        0 calc(-1 * var(--streak)),
+        0 calc(100% + var(--streak)),
         0 0;
     }
 
     to {
       background-position:
-        0 calc(-1 * var(--streak) + (100% + 2 * var(--streak)) * (var(--count) + 1)),
+        0 calc(100% + var(--streak) - (100% + 2 * var(--streak)) * (var(--count) + 1)),
         0 0;
     }
   }
