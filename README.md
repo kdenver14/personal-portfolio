@@ -24,7 +24,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | To change | Edit |
 | --- | --- |
 | Name, contact, bio | `src/content/profile.ts` |
-| "How I write code" excerpts and their notes | `src/content/code-samples.ts` |
+| Home on the intro globe (place, time zone, coordinates) | `src/content/profile.ts`; land dots from `node scripts/land-dots.mjs` |
 | A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
 | A featured project: card line, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |

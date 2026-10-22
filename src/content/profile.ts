@@ -16,6 +16,10 @@ export const LINKEDIN_URL = "https://www.linkedin.com/in/kurt-chavez-952383290/"
 export const LINKEDIN_LABEL = "linkedin.com/in/kurt-chavez-952383290";
 
 export const LOCATION_SHORT = "Antipolo, PH";
+export const LOCATION = "Antipolo, Philippines";
+export const TIME_ZONE = "Asia/Manila";
+/** Where home sits on the intro's globe. */
+export const HOME = { name: "Antipolo", lon: 121.18, lat: 14.59 } as const;
 
 export const ROLE = "Computer Science student";
 export const DESCRIPTOR = `${ROLE} building full-stack TypeScript, C++ and Python`;

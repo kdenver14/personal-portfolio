@@ -1,7 +1,6 @@
 import type { CodeLanguage } from "@/domain/datasheet";
 
 const COMMENT_MARKER: Record<CodeLanguage, string> = {
-  typescript: "//",
   python: "#",
   cpp: "//",
 };

@@ -1,6 +1,6 @@
 ---
 name: Denver
-description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and an annotated "How I write code" block.
+description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and a dot globe lit by the real sun.
 colors:
   paper: "#f5f7fa"
   ink: "#171717"
@@ -85,7 +85,7 @@ spacing:
   section: "6.5rem"
   section-title-gap: "1.75rem"
   strip-top: "2.5rem"
-  tour-top: "3rem"
+  globe-top: "3rem"
   card-gap: "1rem"
   card-padding: "1.25rem 1.25rem 1.125rem"
   dialog-block-gap: "1.75rem"
@@ -171,9 +171,8 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.body-list}"
     padding: "0.75rem 0"
-  code-note:
+  globe-home:
     backgroundColor: "{colors.blue}"
-    textColor: "{colors.paper}"
     rounded: "{rounded.pill}"
   footer:
     textColor: "{colors.ink-3}"
@@ -187,11 +186,11 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a "How I write code" panel, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a dot globe, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
-There is no signature figure. The owner retired the DIP-8 chip on 2026-10-23 after three redesigns, and its place under the tech strip went to the "How I write code" block. Light only, by design (`color-scheme: light`).
+There is no signature figure. The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block, which the owner rejected the same day because they wanted a visual. It now holds a dot globe. Light only, by design (`color-scheme: light`).
 
 **Key Characteristics:**
 - Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.
@@ -207,16 +206,16 @@ There is no signature figure. The owner retired the DIP-8 chip on 2026-10-23 aft
 A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, the note numbers in "How I write code", the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
+- **Signal Blue** (`blue`): the focus ring, home's dot and pulse on the globe, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
 - **Ink** (`ink`): the name, card and dialog titles, links, the availability line, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
-- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the code tabs and notes, code-listing line numbers and comments, and gesture labels.
+- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the globe's caption and home label time, code-listing line numbers and comments, and gesture labels.
 - **Slate** (`ink-3`): section titles, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
 - **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
 - **Hairline Strong** (`line-strong`): resting link underlines, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the code-tour panel, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Panel** (`panel`): the fill of every project card, the globe panel, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
 - **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
@@ -243,7 +242,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Small** (Sans 400, 0.875rem): project meta, status and tags.
 - **Caption** (Sans 400, 0.8125rem, line-height 1.5): panel captions (centred, Graphite), the video caption (Slate), fact labels, live-diagram stops and the footer.
 - **Micro** (Sans 400, 0.75rem): pin sublabels, gesture labels, code inside panel captions.
-- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. Code-tour lines are Mono at 0.75rem, or 0.6875rem on phones.
+- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. The globe's home label time is Mono at 0.6875rem.
 
 ### Named Rules
 **The Serif Names Rule.** Instrument Serif sets names only: the person, a card title and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.
@@ -254,7 +253,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 
 One centred column, max width 40rem plus a 1.25rem gutter each side, at every viewport. There is no header bar and no navigation. The page starts 4.5rem from the top, or 7.5rem at 48rem and up, with the name first and nothing above it.
 
-Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the link row sits 1.5rem below the bio, the tech strip 2.5rem below the links, and the "How I write code" panel 3rem below the strip. The footer sits 6rem below the last section.
+Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the link row sits 1.5rem below the bio, the tech strip 2.5rem below the links, and the globe panel 3rem below the strip. The footer sits 6rem below the last section.
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 
@@ -276,7 +275,7 @@ Nearly flat. The page has one tonal step: blue-gray Panel on cool Paper, with Pa
 
 ## Shapes
 
-Soft and consistent. Cards, panels and the demo video share a 14px radius. The dialog is slightly rounder at 18px, and only its top corners round when it becomes a bottom sheet. A card's video poster uses 8px, and the live diagram 12px. The Close button, the replay control and the code tabs are full pills (999px). The focus ring rounds to 2px. Text, links, tags, lists and the footer have no frames.
+Soft and consistent. Cards, panels and the demo video share a 14px radius. The dialog is slightly rounder at 18px, and only its top corners round when it becomes a bottom sheet. A card's video poster uses 8px, and the live diagram 12px. The Close button and the replay control are full pills (999px). The focus ring rounds to 2px. Text, links, tags, lists and the footer have no frames.
 
 ## Components
 
@@ -425,13 +424,14 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - Under reduced motion, and when no particle is visible, it draws one still frame and does not animate.
   - It is decorative, so it is `aria-hidden` and has no pointer events.
 
-### How I Write Code
-A Panel under the tech strip, 3rem below it, where the chip used to be. It shows a real excerpt in each of the owner's main languages, from repos on the page, with numbered notes on the decisions in it. The owner picked it over a "Now" card and a language breakdown (2026-10-23), because nothing else on the page shows how they think about code.
-- **Head:** "How I write code" (Sans 500, 0.875rem, Graphite) on the left. On the right are ARIA tabs for TypeScript, Python and C++: pills with a Hairline Strong ring and Paper fill when selected. Arrow keys, Home and End move between them.
-- **Code:** Paper, 10px radius, Mono 0.75rem (0.6875rem on phones) at line-height 1.7. Lines show the file's own line numbers in Slate. A line where a note starts shows the note's number instead, in an 18px Signal Blue circle. Long lines wrap with a hanging indent. Comments are Graphite.
-- **Notes:** beside the code from 40rem, below it on phones. Each is numbered to match the margin, in Graphite 0.875rem. Hovering a note gives it a Paper fill and tints its lines 12% blue. The numbers in the margin are hidden from assistive tech, because the list says the same.
-- **Foot:** the repo and path in Slate Mono, and "View on GitHub", which links to the excerpt's exact line range.
-- **Content:** in `src/content/code-samples.ts`. The source is verbatim apart from the shared leading indentation, and a test keeps every note inside its excerpt.
+### Globe
+A Panel under the tech strip, 3rem below it, where the chip used to be. The owner wanted a visual figure, and picked this from a live specimen (globe, constellation, orbits) on 2026-10-23.
+- **Globe:** a 20rem-tall stage holding an orthographic dot globe at 44% of the smaller side. Its sphere is a radial gradient from Paper to Panel Hover with a Hairline Strong rim.
+- **Land:** 2,375 dots on a Fibonacci sphere, kept where they fall on land in Natural Earth's 1:110m outlines (public domain, via world-atlas). Antarctica is left out. `scripts/land-dots.mjs` regenerates `src/data/land-dots.json`.
+- **Sun:** dots are Ink, at 30% alpha by night up to 75% by day, using the sun's real position right now (`src/lib/globe.ts`), with a soft twilight band. They shrink and fade toward the rim.
+- **Home:** Antipolo is a 4px Signal Blue dot with a ring pulsing out over 2s. A small Paper label beside it gives "Antipolo" and the live time and day or night there in Mono. It fades out when home turns to the back.
+- **Motion:** the globe turns 6° a second and opens with the Philippines centre right. Dragging sideways turns it; on touch, a vertical drag still scrolls the page. It animates only while on screen. Under reduced motion it stays still, with no pulse, and redraws only when dragged.
+- **Caption:** centred Graphite 0.8125rem: "**Antipolo, Philippines** · it's 1:13 AM here (UTC+8). Lit by the real sun right now; drag to spin." The drawing is `aria-hidden`; the caption carries the place and time. The time is filled in on the client, so the static build never freezes one.
 
 ### Gesture Panels
 Hand-landmark skeletons drawn from real training data. They appear only in the Hand Gesture Control dialog. Recorded landmarks are Ink dots at 0.3 opacity. Mean-pose bones are Signal Blue at 1.5px. Joints are Panel-filled with blue strokes. Each panel carries a Micro Graphite label: the gesture name in Mono Ink over the sample count.

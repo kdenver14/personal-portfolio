@@ -8,7 +8,7 @@ export interface Fact {
 }
 
 /** Languages the code blocks can show; each has its own comment marker. */
-export type CodeLanguage = "typescript" | "python" | "cpp";
+export type CodeLanguage = "python" | "cpp";
 
 export interface Listing {
   caption: string;
@@ -244,25 +244,3 @@ export type Demo =
       readonly initialMode: GestureMode;
       readonly beats: readonly GestureBeat[];
     });
-
-/** A note on a run of lines in a code sample. Lines count from 1 at the top of the excerpt. */
-export interface CodeNote {
-  readonly from: number;
-  readonly to: number;
-  readonly text: string;
-}
-
-/** An excerpt from one of the owner's repositories, with notes on why it is written that way. */
-export interface CodeSample {
-  /** The tab's name. */
-  readonly label: string;
-  readonly language: CodeLanguage;
-  readonly repo: string;
-  /** Path of the file inside the repository. */
-  readonly path: string;
-  /** The file's line number of the excerpt's first line. */
-  readonly firstLine: number;
-  /** Verbatim from the file, with only the shared leading indentation removed. */
-  readonly source: string;
-  readonly notes: readonly CodeNote[];
-}
