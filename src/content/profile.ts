@@ -3,7 +3,6 @@ export const SITE_URL = "https://kdenver.vercel.app";
 export const NAME = "Kurt Denver Chavez";
 /** What the browser tab and link previews call the site. */
 export const SITE_TITLE = "Denver";
-export const PART_NUMBER = "KDC-14";
 export const LAST_REVISED = "2026-10";
 
 export const GITHUB_URL = `https://github.com/${OWNER}`;
@@ -16,8 +15,6 @@ export const EMAIL_URL = `mailto:${EMAIL}`;
 export const LINKEDIN_URL = "https://www.linkedin.com/in/kurt-chavez-952383290/";
 export const LINKEDIN_LABEL = "linkedin.com/in/kurt-chavez-952383290";
 
-export const TIME_ZONE = "Asia/Manila";
-export const LOCATION = "Antipolo City, Rizal, Philippines";
 export const LOCATION_SHORT = "Antipolo, PH";
 
 export const ROLE = "Computer Science student";

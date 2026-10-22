@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-19T18:40:58Z",
-  "title": "Design System: KDC-14",
+  "title": "Design System: Denver",
   "extensions": {
     "colorMeta": {
       "paper": {
@@ -179,19 +179,11 @@
       },
       "micro": {
         "displayName": "Micro",
-        "purpose": "Pin sublabels, gesture labels, code in captions."
-      },
-      "mark": {
-        "displayName": "Mark",
-        "purpose": "KDC-14 on the chip body only; Instrument Sans 700, tracking 0.06em."
+        "purpose": "Gesture labels, code tabs and notes, code in captions."
       },
       "mono": {
         "displayName": "Mono",
         "purpose": "Code listings, file names and code values in Details."
-      },
-      "mono-pin": {
-        "displayName": "Mono Pin",
-        "purpose": "Pin names in the chip figure."
       }
     },
     "shadows": [
@@ -215,7 +207,7 @@
       {
         "name": "t-fast",
         "value": "160ms",
-        "purpose": "Link underline, card fill, pin leg and pin name colour changes. Reduced to 0.01ms under prefers-reduced-motion."
+        "purpose": "Link underline, card fill, code-tab and note colour changes. Reduced to 0.01ms under prefers-reduced-motion."
       },
       {
         "name": "dialog-in",
@@ -268,7 +260,7 @@
       "name": "Panel",
       "kind": "card",
       "refersTo": "panel",
-      "description": "The soft grey container for every project visual and the chip, with a centred Graphite caption.",
+      "description": "The soft grey container for every project visual and the code tour, with a centred Graphite caption.",
       "html": "<figure class=\"ds-panel\"><div class=\"ds-panel-body\"></div><figcaption class=\"ds-panel-caption\">How a request moves through the code</figcaption></figure>",
       "css": ".ds-panel { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-panel-body { height: 6rem; } .ds-panel-caption { font-family: var(--font-sans); margin-top: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); text-align: center; }"
     },
@@ -313,6 +305,14 @@
       "css": ".ds-listing { margin: 0; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); } .ds-listing-head { font-family: var(--font-sans); display: flex; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.125rem 0; font-size: 0.8125rem; } .ds-listing-head code { font-family: var(--font-mono); color: var(--color-ink-2); } .ds-listing-head .ds-link { color: var(--color-ink); text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; text-decoration-color: var(--color-line-strong); } .ds-listing-head .ds-link:hover { text-decoration-color: currentColor; } .ds-listing-body { --gutter-ch: 3.25ch; margin: 0; padding: 0.75rem 1.125rem 1.125rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; counter-reset: line; } .ds-line { display: block; padding-left: var(--gutter-ch); text-indent: calc(-1 * var(--gutter-ch)); } .ds-line::before { counter-increment: line; content: counter(line); display: inline-block; width: 2ch; margin-right: 1.25ch; color: var(--color-ink-2); text-align: right; text-indent: 0; user-select: none; } .ds-comment { color: var(--color-ink-2); }"
     },
     {
+      "name": "How I Write Code",
+      "kind": "custom",
+      "refersTo": "code-tour",
+      "description": "A Panel under the tech strip: real excerpts in TypeScript, Python and C++ from repos on the page, behind ARIA pill tabs. The file's own line numbers run down the margin, except where a note starts, which shows the note's number in a Signal Blue circle. Numbered notes sit beside the code (below on phones); hovering one tints its lines blue. The foot gives the repo path and a View on GitHub link to the exact lines.",
+      "html": "<figure class=\"ds-tour\"><div class=\"ds-tour-head\"><span>How I write code</span><span class=\"ds-tabs\"><b>TypeScript</b><i>Python</i><i>C++</i></span></div><div class=\"ds-tour-body\"><pre class=\"ds-tour-code\"><span>33 export const createMonitor = async (req, res) =&gt; {</span><span><em>1</em> const result = createMonitorSchema.safeParse(req.body);</span></pre><ol class=\"ds-tour-notes\"><li><em>1</em>Zod checks the body at the edge, so the service only ever sees valid input.</li></ol></div></figure>",
+      "css": ".ds-tour { margin: 0; padding: 1.375rem 1.25rem 1.125rem; border-radius: 14px; background: var(--color-panel); font-family: var(--font-sans); color: var(--color-ink-2); } .ds-tour-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.125rem; font-size: 0.875rem; font-weight: 500; } .ds-tabs { display: flex; gap: 0.25rem; font-size: 0.8125rem; } .ds-tabs b, .ds-tabs i { padding: 0.3rem 0.75rem; border-radius: 999px; font-style: normal; font-weight: 500; } .ds-tabs b { background: var(--color-paper); box-shadow: inset 0 0 0 1px var(--color-line-strong); color: var(--color-ink); } .ds-tour-body { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1rem; } .ds-tour-code { margin: 0; padding: 0.75rem 0.875rem; border-radius: 10px; background: var(--color-paper); font: 0.75rem/1.7 var(--font-mono); color: var(--color-ink); white-space: pre-wrap; } .ds-tour-code span { display: block; } .ds-tour-code em, .ds-tour-notes em { display: inline-grid; place-items: center; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--color-blue); color: var(--color-paper); font: 600 0.625rem/1 var(--font-sans); font-style: normal; } .ds-tour-notes { margin: 0; padding: 0; list-style: none; font-size: 0.875rem; line-height: 1.5; } .ds-tour-notes li { display: grid; grid-template-columns: 1.125rem 1fr; gap: 0.625rem; padding: 0.5rem 0.625rem; }"
+    },
+    {
       "name": "Experience Timeline",
       "kind": "custom",
       "refersTo": "list-row",
@@ -340,17 +340,9 @@
       "name": "Replay Screen",
       "kind": "custom",
       "refersTo": "more-project-popup",
-      "description": "In a More project's compact pop-up: a scripted replay built from the repo's code. Terminal (dark like the chip, mono 0.75rem, $ prompt; output is only what the program prints, off-screen events are muted # comments) or a light mock app window. It plays once on open and has one Pause/Play/Replay button. It is aria-hidden, with a caption describing it.",
+      "description": "In a More project's compact pop-up: a scripted replay built from the repo's code. Terminal (dark #1d2024, mono 0.75rem, $ prompt; output is only what the program prints, off-screen events are muted # comments) or a light mock app window. It plays once on open and has one Pause/Play/Replay button. It is aria-hidden, with a caption describing it.",
       "html": "<figure class=\"ds-replay\"><div class=\"ds-replay-screen\" aria-hidden=\"true\"><p class=\"ds-replay-bar\">auto_reply.py</p><div class=\"ds-replay-lines\"><p>$ python auto_reply.py</p><p>👂 Listening for messages... (Press Ctrl+C to stop)</p><p class=\"ds-note\"># a classmate posts “Roll call!” in the group</p><p class=\"ds-ok\">[2026-01-12 08:00:18] ✅ Sent 'Here' to the group</p></div></div><figcaption class=\"ds-replay-caption\"><span>Replies “Here” to a roll call. <span class=\"ds-muted\">A replay of the repo's code, with sample values.</span></span><button type=\"button\" class=\"ds-replay-control\">Replay</button></figcaption></figure>",
       "css": ".ds-replay { margin: 0; font-family: var(--font-sans); } .ds-replay-screen { overflow: hidden; border-radius: 0.75rem; background: #1d2024; } .ds-replay-bar { margin: 0; padding: 0.5rem 0.875rem; border-bottom: 1px solid #2c3137; font-family: var(--font-mono); font-size: 0.75rem; color: #9aa1a9; } .ds-replay-lines { padding: 0.75rem 0.875rem; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.55; color: #e2e5e9; } .ds-replay-lines p { margin: 0; white-space: pre-wrap; } .ds-note { color: #8b929a; font-style: italic; } .ds-ok { color: #8fb4f0; } .ds-replay-caption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.625rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); } .ds-muted { color: var(--color-ink-3); } .ds-replay-control { flex: none; padding: 0.3rem 0.75rem; border: 1px solid var(--color-line); border-radius: 999px; background: var(--color-paper); font: inherit; font-weight: 500; color: var(--color-ink); }"
-    },
-    {
-      "name": "DIP-8 Pin Figure",
-      "kind": "custom",
-      "refersTo": "pin-active",
-      "description": "The single signature: a dark DIP-8 package in a panel; the active pin lights its leg and name blue. Under it, a logic analyzer: a lane per pin scrolling a square wave, each pin really sending its name as UART bytes, CLK at 1 Hz, GND at 0 V; the picked lane turns blue and shows its decoded text. A decoder bubble labels each byte's character under its wave, and each pin's leg flashes blue as its bytes go out.",
-      "html": "<figure class=\"ds-pinout\"><div class=\"ds-pinout-grid\"><div class=\"ds-col\"><a class=\"ds-pin ds-pin-left\" href=\"#\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">GND</span><span class=\"ds-pin-sub\">Antipolo, PH</span></span><span class=\"ds-pin-leg\"></span></a><span class=\"ds-pin ds-pin-left is-active\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">CPP</span><span class=\"ds-pin-sub\">C++</span></span><span class=\"ds-pin-leg\"></span></span></div><div class=\"ds-package\"><span class=\"ds-notch\"></span><span class=\"ds-dot\"></span><span class=\"ds-mark\"><span class=\"ds-mark-text\">KDC-14</span><span class=\"ds-date\">2246 PH</span></span></div><div class=\"ds-col\"><span class=\"ds-pin ds-pin-right\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">MAIL</span><span class=\"ds-pin-sub\">Email</span></span><span class=\"ds-pin-leg\"></span></span><span class=\"ds-pin ds-pin-right\"><span class=\"ds-pin-text\"><span class=\"ds-pin-name\">GH</span><span class=\"ds-pin-sub\">GitHub</span></span><span class=\"ds-pin-leg\"></span></span></div></div><p class=\"ds-readout\"><span class=\"ds-readout-key\">CPP</span> First language; still how I think about memory.</p></figure>",
-      "css": ".ds-pinout { font-family: var(--font-sans); margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); } .ds-pinout-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); max-width: 22.5rem; margin-inline: auto; } .ds-col { display: flex; flex-direction: column; justify-content: space-around; padding-block: 1.1rem; } .ds-pin { display: flex; align-items: center; gap: 0.6rem; min-height: 3.5rem; color: var(--color-ink); text-decoration: none; cursor: pointer; } .ds-pin-left { justify-content: flex-end; text-align: right; } .ds-pin-right { flex-direction: row-reverse; justify-content: flex-end; text-align: left; } .ds-pin-text { display: flex; flex-direction: column; line-height: 1.2; } .ds-pin-name { font-family: var(--font-mono); font-size: 0.875rem; transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1); } a.ds-pin .ds-pin-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--color-line-strong); } .ds-pin-sub { white-space: nowrap; font-size: 0.75rem; color: var(--color-ink-2); } .ds-pin-leg { flex: none; width: 1.35rem; height: 0.8rem; background: #d4d7db; border: 1px solid #a3a9b0; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pin-left .ds-pin-leg { border-right: 0; } .ds-pin-right .ds-pin-leg { border-left: 0; } .ds-pin.is-active .ds-pin-leg, .ds-pin:hover .ds-pin-leg, .ds-pin:focus-visible .ds-pin-leg { background: var(--color-blue); border-color: var(--color-blue); } .ds-pin.is-active .ds-pin-name, .ds-pin:hover .ds-pin-name, .ds-pin:focus-visible .ds-pin-name { color: var(--color-blue); } .ds-pin:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-package { position: relative; width: 7.5rem; min-height: 16rem; background: #1d2024; border-radius: 3px; } .ds-notch { position: absolute; top: -1px; left: 50%; width: 1.75rem; height: 0.875rem; transform: translateX(-50%); background: var(--color-panel); border-radius: 0 0 1rem 1rem; } .ds-dot { position: absolute; top: 0.85rem; left: 0.85rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #33383e; } .ds-mark { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: #e2e5e9; transform: rotate(-90deg); pointer-events: none; } .ds-mark-text { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; } .ds-date { font-family: var(--font-mono); font-size: 0.6875rem; color: #9aa1a9; } .ds-readout { margin: 1rem 0 0; min-height: 2.9em; font-size: 0.8125rem; line-height: 1.45; color: var(--color-ink-2); text-align: center; } .ds-readout-key { font-family: var(--font-mono); color: var(--color-ink); }"
     },
     {
       "name": "Dot Field",
@@ -363,7 +355,7 @@
   ],
   "narrative": {
     "northStar": "The Quiet Column",
-    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, the chip, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code, a file name or a chip marking.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThe DIP-8 chip figure is the only signature and the only place the old datasheet idea survives. Light only, by design (`color-scheme: light`).",
+    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a \"How I write code\" panel, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nThere is no signature figure; the owner retired the DIP-8 chip on 2026-10-23 for the \"How I write code\" panel. Light only, by design (`color-scheme: light`).",
     "keyCharacteristics": [
       "Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.",
       "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",
@@ -391,7 +383,7 @@
       },
       {
         "name": "The Literal Mono Rule",
-        "body": "JetBrains Mono is for text that is literally code, a file name, a gesture name, a pin name or a chip marking (numerals, date code, readout key). It is always weight 400 and never used for prose, labels or headings. The KDC-14 mark is sans, not mono.",
+        "body": "JetBrains Mono is for text that is literally code, a file name or a gesture name. It is always weight 400 and never used for prose, labels or headings.",
         "section": "typography"
       },
       {
@@ -406,7 +398,7 @@
       },
       {
         "name": "The One Lift Rule",
-        "body": "The modal dialog is the only element with a shadow and a backdrop. Cards, panels, the chip and buttons stay flat. Hover changes tone, never elevation.",
+        "body": "The modal dialog is the only element with a shadow and a backdrop. Cards, panels and buttons stay flat. Hover changes tone, never elevation.",
         "section": "elevation"
       }
     ],
@@ -415,7 +407,7 @@
       "Do keep the open dialog the only lifted surface: Paper, 18px radius, one soft shadow, 40% ink backdrop, a bottom sheet below 40rem.",
       "Do make links Ink with a Hairline Strong underline that darkens on hover over 160ms.",
       "Do separate sections and cards with space (5rem to 6.5rem between sections), and keep hairlines for lists.",
-      "Do set names in Instrument Serif 400, code, file names and pin names in JetBrains Mono 400, and everything else in Instrument Sans.",
+      "Do set names in Instrument Serif 400, code and file names in JetBrains Mono 400, and everything else in Instrument Sans.",
       "Do keep Slate text on Paper and use Graphite or Ink inside panels and cards.",
       "Do keep motion to 160ms colour changes, the 200ms dialog rise and the pausable tech strip, and turn the rise and the strip off under `prefers-reduced-motion`."
     ],
@@ -427,7 +419,6 @@
       "Don't add a dark mode; the system is light only by design.",
       "Don't put a label, kicker or eyebrow above the name, a section title, a card title or a dialog title.",
       "Don't set sans text larger than 1rem or use the serif for anything but names.",
-      "Don't add a second signature figure or extend the chip's hardware styling to other components.",
       "Don't add page-load or scroll-triggered entrance animations, or autoplaying media."
     ]
   }

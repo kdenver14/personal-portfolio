@@ -1,18 +1,5 @@
 export type ProjectStatus = "active" | "preview" | "complete";
 
-export interface Pin {
-  number: number;
-  name: string;
-  description: string;
-  href?: string;
-}
-
-/** What a pin sends on the chip's logic analyzer: its name as UART bytes, a 1 Hz clock, or nothing at 0 V. */
-export type PinSignal =
-  | { readonly kind: "uart"; readonly text: string }
-  | { readonly kind: "clock" }
-  | { readonly kind: "ground" };
-
 export interface Fact {
   label: string;
   value: string;
@@ -20,9 +7,12 @@ export interface Fact {
   code?: true;
 }
 
+/** Languages the code blocks can show; each has its own comment marker. */
+export type CodeLanguage = "typescript" | "python" | "cpp";
+
 export interface Listing {
   caption: string;
-  language: "python" | "cpp";
+  language: CodeLanguage;
   source: string;
   href: string;
 }
@@ -254,3 +244,25 @@ export type Demo =
       readonly initialMode: GestureMode;
       readonly beats: readonly GestureBeat[];
     });
+
+/** A note on a run of lines in a code sample. Lines count from 1 at the top of the excerpt. */
+export interface CodeNote {
+  readonly from: number;
+  readonly to: number;
+  readonly text: string;
+}
+
+/** An excerpt from one of the owner's repositories, with notes on why it is written that way. */
+export interface CodeSample {
+  /** The tab's name. */
+  readonly label: string;
+  readonly language: CodeLanguage;
+  readonly repo: string;
+  /** Path of the file inside the repository. */
+  readonly path: string;
+  /** The file's line number of the excerpt's first line. */
+  readonly firstLine: number;
+  /** Verbatim from the file, with only the shared leading indentation removed. */
+  readonly source: string;
+  readonly notes: readonly CodeNote[];
+}

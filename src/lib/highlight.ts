@@ -1,6 +1,7 @@
-export type ListingLanguage = "python" | "cpp";
+import type { CodeLanguage } from "@/domain/datasheet";
 
-const COMMENT_MARKER: Record<ListingLanguage, string> = {
+const COMMENT_MARKER: Record<CodeLanguage, string> = {
+  typescript: "//",
   python: "#",
   cpp: "//",
 };
@@ -13,7 +14,7 @@ export interface SplitLine {
 }
 
 /** Splits a source line into code and trailing comment, ignoring markers inside string literals. */
-export function splitComment(line: string, language: ListingLanguage): SplitLine {
+export function splitComment(line: string, language: CodeLanguage): SplitLine {
   const marker = COMMENT_MARKER[language];
   let quote: string | null = null;
   for (let i = 0; i < line.length; i++) {
