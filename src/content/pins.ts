@@ -1,5 +1,5 @@
-import type { Pin } from "@/domain/datasheet";
-import { EMAIL, EMAIL_URL, GITHUB_LABEL, GITHUB_URL, LOCATION, LOCATION_SHORT } from "./profile";
+import type { Pin, PinSignal } from "@/domain/datasheet";
+import { EMAIL, EMAIL_URL, GITHUB_LABEL, GITHUB_URL, LOCATION, LOCATION_SHORT, OWNER } from "./profile";
 
 /** DIP-8, numbered counter-clockwise from the notch: 1–4 down the left, 5–8 up the right. */
 export const PINS: readonly Pin[] = [
@@ -21,4 +21,16 @@ export const PIN_SUBLABELS: Readonly<Record<string, string>> = {
   CS: "C#",
   GH: "GitHub",
   MAIL: "Email",
+};
+
+/** Each pin's lane on the logic analyzer under the chip. */
+export const PIN_SIGNALS: Readonly<Record<string, PinSignal>> = {
+  GND: { kind: "ground" },
+  CPP: { kind: "uart", text: "C++" },
+  TS: { kind: "uart", text: "TS" },
+  PY: { kind: "uart", text: "PY" },
+  CS: { kind: "uart", text: "C#" },
+  CLK: { kind: "clock" },
+  GH: { kind: "uart", text: OWNER },
+  MAIL: { kind: "uart", text: "hi!" },
 };

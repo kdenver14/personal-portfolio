@@ -1,23 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import type { Pin } from "@/domain/datasheet";
 import { PIN_SUBLABELS, PINS } from "@/content/pins";
 import { PART_NUMBER } from "@/content/profile";
+import { release } from "@/lib/pick";
 import { LocalClock } from "./local-clock";
+import { LogicAnalyzer } from "./logic-analyzer";
 
 const PINS_PER_SIDE = 4;
 const DATE_CODE = "2246 PH";
 const IDLE_READOUT = "Me, as an 8-pin chip. Hover or tap a pin.";
 
-type SetActive = (pin: number | null) => void;
+type SetActive = Dispatch<SetStateAction<number | null>>;
 
 function pinHandlers(pin: number, setActive: SetActive) {
   return {
     onMouseEnter: () => setActive(pin),
-    onMouseLeave: () => setActive(null),
+    onMouseLeave: () => setActive(release(pin)),
     onFocus: () => setActive(pin),
-    onBlur: () => setActive(null),
+    onBlur: () => setActive(release(pin)),
   };
 }
 
@@ -132,6 +134,7 @@ export function PinFigure() {
         <PackageBody left={left} right={right} active={active} />
         {column(right, "right")}
       </div>
+      <LogicAnalyzer active={active} setActive={setActive} />
       <Readout active={active} />
     </figure>
   );

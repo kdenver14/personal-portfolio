@@ -438,6 +438,13 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
 
 ### DIP-8 Pin Figure (signature)
 The single signature, in a panel under the tech strip. The dark package body is drawn as a top view, at least 16rem tall. It has a notch, a pin-1 dot and mono pin numbers. The KDC-14 mark (Sans 700, tracking 0.06em) is rotated to run along the body, with a mono date code. Four pins sit on each side. Each pin has a mono name over a Micro Graphite sublabel, and a grey leg. Hovering, focusing or tapping a pin turns its leg and name Signal Blue and its body number white. Its description appears in a centred Graphite readout below. The readout idles on "Me, as an 8-pin chip. Hover or tap a pin." The GH and MAIL pins are real links with underlined names. The CLK pin shows live Philippine time.
+- **Logic analyzer:** the owner found the bare chip boring. They rejected a 3D chip with a lifting lid ("so bad"), and from a flat specimen (analyzer, schematic, serial console) they picked this, on 2026-10-23.
+  - It is a Paper strip under the chip with a Hairline ring and a lane per pin. Each lane has a Mono name, a square wave in Slate, and the decoded value on the right.
+  - Every pin really sends its own name as 8N1 UART bytes, least significant bit first: CPP "C++", TS, PY, C#, GH "kdenver14", MAIL "hi!". CLK is a 1 Hz square wave, and GND is flat at 0 V.
+  - Waves scroll left at 60px a second, so a 10-bit clock period lasts 1s. This is a CSS loop of one signal cycle, with no JavaScript per frame, and the lane edges fade through a mask.
+  - Picking a pin, or hovering its lane, turns that lane Signal Blue with its decoded text and dims the others to Hairline Strong. Leaving clears only the pin being left.
+  - The strip is decorative (`aria-hidden`), because the pins carry the same information. Under reduced motion the waves stand still.
+  - The bits come from `src/lib/uart.ts` and the signals from `PIN_SIGNALS` in `src/content/pins.ts`.
 
 ### Gesture Panels
 Hand-landmark skeletons drawn from real training data. They appear only in the Hand Gesture Control dialog. Recorded landmarks are Ink dots at 0.3 opacity. Mean-pose bones are Signal Blue at 1.5px. Joints are Panel-filled with blue strokes. Each panel carries a Micro Graphite label: the gesture name in Mono Ink over the sample count.

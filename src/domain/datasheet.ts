@@ -7,6 +7,12 @@ export interface Pin {
   href?: string;
 }
 
+/** What a pin sends on the chip's logic analyzer: its name as UART bytes, a 1 Hz clock, or nothing at 0 V. */
+export type PinSignal =
+  | { readonly kind: "uart"; readonly text: string }
+  | { readonly kind: "clock" }
+  | { readonly kind: "ground" };
+
 export interface Fact {
   label: string;
   value: string;
