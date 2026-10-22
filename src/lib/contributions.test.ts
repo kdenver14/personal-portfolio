@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type ContributionDay, formatDay, lastYear, longestStreak, monthLabels, parseContributions, toWeeks, weekOf } from "./contributions";
+import { type ContributionDay, formatDay, longestStreak, monthLabels, parseContributions, toWeeks } from "./contributions";
 
 const day = (date: string, count: number): ContributionDay => ({ date, count, level: count > 0 ? 1 : 0 });
 
@@ -18,15 +18,6 @@ describe("longestStreak", () => {
   });
 });
 
-describe("lastYear", () => {
-  it("starts on the Sunday on or before a year ago, like GitHub", () => {
-    const days = Array.from({ length: 430 }, (_, i) => day(new Date(Date.UTC(2025, 8, 1) + i * 86_400_000).toISOString().slice(0, 10), 0));
-    const window = lastYear(days, "2026-10-22");
-    expect(window[0]?.date).toBe("2025-10-19");
-    expect(window.at(-1)?.date).toBe("2026-10-22");
-  });
-});
-
 describe("toWeeks", () => {
   it("pads the first week so each column runs Sunday to Saturday", () => {
     const weeks = toWeeks([day("2026-10-21", 1), day("2026-10-22", 2)]);
@@ -40,13 +31,6 @@ describe("monthLabels", () => {
   it("labels the first week of each month and drops one that would crowd the next", () => {
     const days = Array.from({ length: 70 }, (_, i) => day(new Date(Date.UTC(2026, 0, 25) + i * 86_400_000).toISOString().slice(0, 10), 0));
     expect(monthLabels(toWeeks(days)).map((m) => m.label)).toEqual(["Feb", "Mar"]);
-  });
-});
-
-describe("weekOf", () => {
-  it("counts week columns from the first day shown", () => {
-    expect(weekOf("2025-10-19", "2025-10-19")).toBe(0);
-    expect(weekOf("2025-10-26", "2025-10-19")).toBe(1);
   });
 });
 

@@ -3,24 +3,18 @@ import data from "@/data/contributions.json";
 import { GITHUB_URL } from "@/content/profile";
 import {
   type ContributionDay,
+  type Streak,
   formatDay,
-  lastYear,
   longestStreak,
   monthLabels,
   parseContributions,
   toWeeks,
-  weekOf,
 } from "@/lib/contributions";
 
 type CSSVars = CSSProperties & Record<`--${string}`, string>;
 
 const FILE = parseContributions(data);
-const WINDOW = lastYear(FILE.days, FILE.through);
-const WEEKS = toWeeks(WINDOW);
-const MONTHS = monthLabels(WEEKS);
 const STREAK = longestStreak(FILE.days);
-const TOTAL = WINDOW.reduce((sum, day) => sum + day.count, 0);
-const FIRST_SHOWN = WINDOW[0]?.date ?? FILE.through;
 /** GitHub labels every other weekday row. */
 const WEEKDAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
 const LEVELS = [0, 1, 2, 3, 4];
@@ -30,30 +24,16 @@ const LABEL_SPAN = 3;
 const count = (n: number, word: string) => `${n.toLocaleString("en-US")} ${word}${n === 1 ? "" : "s"}`;
 
 function dayTitle(day: ContributionDay): string {
-  return `${day.count === 0 ? "No contributions" : count(day.count, "contribution")} on ${formatDay(day.date)}`;
+  return `${count(day.count, "contribution")} on ${formatDay(day.date)}`;
 }
 
-/** The bracket under the longest streak, when it falls inside the year shown. */
-function StreakRange() {
-  if (!STREAK || STREAK.end < FIRST_SHOWN) {
-    return null;
-  }
-  const start = Math.max(0, weekOf(STREAK.start, FIRST_SHOWN));
-  const end = weekOf(STREAK.end, FIRST_SHOWN);
+/** Just the streak's days, laid out in GitHub's week columns. */
+function Chart({ days }: { days: readonly ContributionDay[] }) {
+  const weeks = toWeeks(days);
   return (
-    <div className="streak-under">
-      <span className="streak-range" style={{ gridColumn: `${start + 1} / ${end + 2}` }}>
-        {STREAK.days}-day streak
-      </span>
-    </div>
-  );
-}
-
-function Chart() {
-  return (
-    <div className="streak-chart" aria-hidden="true" style={{ "--weeks": String(WEEKS.length) } as CSSVars}>
+    <div className="streak-chart" aria-hidden="true" style={{ "--weeks": String(weeks.length) } as CSSVars}>
       <div className="streak-months">
-        {MONTHS.map((month) => (
+        {monthLabels(weeks).map((month) => (
           <span key={month.week} style={{ gridColumn: `${month.week + 1} / span ${LABEL_SPAN}` }}>
             {month.label}
           </span>
@@ -63,7 +43,7 @@ function Chart() {
         {WEEKDAY_LABELS.map((label, i) => <span key={i}>{label}</span>)}
       </div>
       <div className="streak-grid">
-        {WEEKS.flatMap((week, w) =>
+        {weeks.flatMap((week, w) =>
           week.map((day, d) =>
             day ? (
               <span key={day.date} className="streak-cell" data-level={day.level} title={dayTitle(day)} />
@@ -73,39 +53,34 @@ function Chart() {
           ),
         )}
       </div>
-      <StreakRange />
     </div>
   );
 }
 
-/** A GitHub-style contribution calendar for the last year, with the longest streak marked. */
-export function ContributionGraph() {
-  const summary = STREAK
-    ? `${count(TOTAL, "contribution")} in the last year. Longest streak: ${STREAK.days} days, ${formatDay(STREAK.start)} to ${formatDay(STREAK.end)}.`
-    : `${count(TOTAL, "contribution")} in the last year.`;
+function StreakFigure({ streak }: { streak: Streak }) {
+  const days = FILE.days.filter((day) => day.date >= streak.start && day.date <= streak.end);
+  const total = days.reduce((sum, day) => sum + day.count, 0);
+  const range = `${formatDay(streak.start)} – ${formatDay(streak.end)}`;
   return (
-    <figure className="streak" aria-label={summary}>
+    <figure
+      className="streak"
+      aria-label={`Longest coding streak: ${streak.days} days in a row, ${range}, with ${count(total, "contribution")}.`}
+    >
       <div className="streak-head">
         <p>
-          <strong className="tabular">{TOTAL.toLocaleString("en-US")}</strong> contributions in the last year
+          Longest streak <strong className="tabular">{streak.days} days</strong> in a row
         </p>
-        {STREAK ? (
-          <p>
-            Longest streak <strong className="tabular">{STREAK.days} days</strong>
-            <span className="streak-dates">
-              {formatDay(STREAK.start)} – {formatDay(STREAK.end)}
-            </span>
-          </p>
-        ) : null}
+        <p className="streak-dates">
+          {range} · {count(total, "contribution")}
+        </p>
       </div>
-      <Chart />
+      <Chart days={days} />
       <figcaption className="streak-foot">
         <span>
           From{" "}
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
-          , through {formatDay(FILE.through)}
         </span>
         <span className="streak-legend" aria-hidden="true">
           Less
@@ -115,4 +90,9 @@ export function ContributionGraph() {
       </figcaption>
     </figure>
   );
+}
+
+/** The longest run of days with GitHub contributions, drawn as GitHub draws its calendar. */
+export function ContributionGraph() {
+  return STREAK ? <StreakFigure streak={STREAK} /> : <p className="detail-text">No contribution streak yet.</p>;
 }

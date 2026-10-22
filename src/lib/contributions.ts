@@ -1,4 +1,4 @@
-/** GitHub contribution days: the last-year window GitHub draws, its week columns, and the longest streak. */
+/** GitHub contribution days: the longest streak, and GitHub's week-column layout for drawing it. */
 
 export interface ContributionDay {
   /** "YYYY-MM-DD". */
@@ -21,13 +21,11 @@ export interface MonthLabel {
 
 const MS_PER_DAY = 86_400_000;
 const DAYS_PER_WEEK = 7;
-const DAYS_PER_YEAR = 365;
 /** A month label needs this many week columns of room before the next one. */
 const MIN_LABEL_WEEKS = 3;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
 
 const toTime = (date: string) => Date.parse(`${date}T00:00:00Z`);
-const toDate = (time: number) => new Date(time).toISOString().slice(0, 10);
 const weekday = (date: string) => new Date(toTime(date)).getUTCDay();
 
 /** "Dec 5, 2025". */
@@ -56,13 +54,6 @@ export function longestStreak(days: readonly ContributionDay[]): Streak | null {
   return best;
 }
 
-/** GitHub's last-year view: from the Sunday on or before a year ago, through `through`. */
-export function lastYear(days: readonly ContributionDay[], through: string): ContributionDay[] {
-  const yearAgo = toDate(toTime(through) - DAYS_PER_YEAR * MS_PER_DAY);
-  const start = toDate(toTime(yearAgo) - weekday(yearAgo) * MS_PER_DAY);
-  return days.filter((day) => day.date >= start && day.date <= through);
-}
-
 /** Week columns, Sunday first; days missing before the start or after the end are null. */
 export function toWeeks(days: readonly ContributionDay[]): (ContributionDay | null)[][] {
   const first = days[0];
@@ -85,11 +76,6 @@ export function monthLabels(weeks: readonly (readonly (ContributionDay | null)[]
     return changed && month !== null ? [{ week: index, label: MONTHS[month] ?? "" }] : [];
   });
   return starts.filter((start, i) => (starts[i + 1]?.week ?? Infinity) - start.week >= MIN_LABEL_WEEKS);
-}
-
-/** Which week column holds `date`, given the first day shown. */
-export function weekOf(date: string, first: string): number {
-  return Math.floor(((toTime(date) - toTime(first)) / MS_PER_DAY + weekday(first)) / DAYS_PER_WEEK);
 }
 
 export interface ContributionFile {

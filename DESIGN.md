@@ -354,14 +354,14 @@ A floating pill, fixed 0.875rem below the top edge so it never touches it, as wi
 - Headings jumped to land 5.5rem down, clear of the bar. The page's top padding is 6.5rem.
 - On phones the links tighten. Below 23rem the brand hides and the links centre.
 
-### Activity (contribution graph)
-A GitHub-style contribution calendar for the last year, with the longest streak marked. It is `src/components/contribution-graph.tsx`.
+### Activity (longest streak)
+Only the longest coding streak, drawn like GitHub's contribution calendar but just for the streak's own weeks. The owner asked for the streak, not the whole year. It is `src/components/contribution-graph.tsx`.
 - **Data:** `scripts/fetch-contributions.mjs` reads the public GitHub contribution calendar into `src/data/contributions.json`, every day since 2022. It runs as `prebuild` on Vercel, so each deploy refreshes it; if GitHub can't be read, the build logs a warning and ships the committed snapshot. Locally, `npm run contributions` refreshes it. The file is validated before use.
-- **Head:** the year's total, and the longest streak (all-time, latest on a tie) with its dates.
-- **Chart:** week columns from Sunday, like GitHub, with month labels and Mon/Wed/Fri. Cells size to the column, so the full year fits from 390px up; the gap drops to 1px on phones. Each cell has a `title` with its count and date.
-- **Colour:** GitHub's light-theme greens (#9be9a8, #40c463, #30a14e, #216e39) on Panel for empty days. This is the one place the page leaves blue, because the owner asked for GitHub's look.
-- A green bracket under the streak's weeks reads "71-day streak". A Less–More legend and "From GitHub, through <date>" sit below.
-- The chart is `aria-hidden`; the figure's label states the total and the streak.
+- **Numbers (left):** "Longest streak **71 days** in a row", with the count in Instrument Serif at 2.25rem. The dates and the streak's total contributions sit below in Slate. The streak is all-time, and the latest one wins a tie.
+- **Chart (right):** the streak's days in week columns from Sunday, with month labels and Mon/Wed/Fri. Cells are a fixed 14px with 3px gaps and a 3px radius. Days outside the streak in its first and last weeks are blank. Each cell has a `title` with its count and date.
+- **Colour:** GitHub's light-theme greens (#9be9a8, #40c463, #30a14e, #216e39). This is the one place the page leaves blue, because the owner asked for GitHub's look.
+- "From GitHub" and a Less–More legend run along the bottom. On phones the chart wraps under the numbers.
+- The chart is `aria-hidden`; the figure's label states the streak, its dates and its total.
 
 ### Experience Timeline
 Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padding and no rules between rows.

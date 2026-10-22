@@ -1415,53 +1415,58 @@
 
   /* ---------- Activity ---------- */
 
-  /* A GitHub-style contribution calendar. GitHub's light-theme greens are the one place the page leaves its
-     blue: the owner asked for the familiar look. Cells size to the column, so the whole year always fits. */
+  /* The longest contribution streak, drawn like GitHub's calendar but only for the streak's own weeks, beside
+     its numbers. GitHub's light-theme greens are the one place the page leaves its blue: the owner asked for
+     the familiar look. */
   .streak {
     --contrib-0: var(--color-panel);
     --contrib-1: #9be9a8;
     --contrib-2: #40c463;
     --contrib-3: #30a14e;
     --contrib-4: #216e39;
-    --cell-gap: 2px;
+    --cell: 0.875rem;
+    --cell-gap: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
   }
 
   .streak-head {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.25rem 1.5rem;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
     font-size: 0.9375rem;
     color: var(--color-ink-2);
   }
 
   .streak-head strong {
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    line-height: 1;
+    font-weight: 400;
     color: var(--color-ink);
   }
 
   .streak-dates {
-    margin-left: 0.5rem;
     font-size: 0.8125rem;
     color: var(--color-ink-3);
   }
 
   .streak-chart {
     display: grid;
-    grid-template-columns: 1.75rem minmax(0, 1fr);
+    grid-template-columns: 1.75rem auto;
     column-gap: 0.375rem;
     font-size: 0.6875rem;
     color: var(--color-ink-3);
   }
 
   .streak-months,
-  .streak-grid,
-  .streak-under {
+  .streak-grid {
     display: grid;
     grid-column: 2;
-    grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--weeks), var(--cell));
     gap: var(--cell-gap);
   }
 
@@ -1472,20 +1477,19 @@
 
   .streak-weekdays {
     display: grid;
-    grid-template-rows: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(7, var(--cell));
     gap: var(--cell-gap);
     align-items: center;
     line-height: 1;
   }
 
   .streak-grid {
-    grid-template-rows: repeat(7, auto);
+    grid-template-rows: repeat(7, var(--cell));
     grid-auto-flow: column;
   }
 
   .streak-cell {
-    aspect-ratio: 1;
-    border-radius: 2px;
+    border-radius: 3px;
     background: var(--contrib-0);
   }
 
@@ -1509,31 +1513,13 @@
     background: var(--contrib-4);
   }
 
-  /* A bracket under the weeks of the longest streak, with its length beneath. */
-  .streak-under {
-    margin-top: 0.375rem;
-  }
-
-  .streak-range {
-    padding-top: 0.5rem;
-    border: 1.5px solid var(--contrib-3);
-    border-bottom: 0;
-    border-radius: 2px 2px 0 0;
-    height: 0;
-    overflow: visible;
-    text-align: center;
-    white-space: nowrap;
-    color: var(--contrib-4);
-    font-weight: 500;
-  }
-
   .streak-foot {
     display: flex;
+    flex-basis: 100%;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem 1.5rem;
-    margin-top: 1.75rem;
     font-size: 0.8125rem;
     color: var(--color-ink-3);
   }
@@ -1546,6 +1532,7 @@
 
   .streak-legend .streak-cell {
     width: 0.625rem;
+    height: 0.625rem;
   }
 
   .streak-legend .streak-cell:first-child {
@@ -1554,17 +1541,6 @@
 
   .streak-legend .streak-cell:last-of-type {
     margin-right: 0.25rem;
-  }
-
-  @media (max-width: 39.99rem) {
-    .streak {
-      --cell-gap: 1px;
-    }
-
-    .streak-chart {
-      grid-template-columns: 1.5rem minmax(0, 1fr);
-      font-size: 0.625rem;
-    }
   }
 
   /* ---------- More projects ---------- */
