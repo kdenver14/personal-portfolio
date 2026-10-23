@@ -12,7 +12,7 @@ function subscribeClock(onChange: () => void): () => void {
 }
 
 /** Home's local time, then `suffix`; nothing on the server, so the static build never freezes a time into the page. */
-export function HomeTime({ prefix, suffix }: { prefix: string; suffix: string }) {
+export function HomeTime({ prefix = "", suffix = "" }: { prefix?: string; suffix?: string }) {
   const time = useSyncExternalStore(subscribeClock, () => formatTime.format(new Date()), () => null);
   return time ? <span className="tabular">{`${prefix}${time}${suffix}`}</span> : null;
 }

@@ -1,6 +1,6 @@
 ---
 name: Denver
-description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and an at-a-glance panel with a bar of the real code share.
+description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and a language line: home and four languages as stops on one blue line.
 colors:
   paper: "#f5f7fa"
   ink: "#171717"
@@ -85,7 +85,7 @@ spacing:
   section: "6.5rem"
   section-title-gap: "1.75rem"
   strip-top: "2.5rem"
-  glance-top: "3rem"
+  route-top: "3rem"
   card-gap: "1rem"
   card-padding: "1.25rem 1.25rem 1.125rem"
   dialog-block-gap: "1.75rem"
@@ -171,13 +171,13 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.body-list}"
     padding: "0.75rem 0"
-  glance:
+  route:
     backgroundColor: "{colors.panel}"
     rounded: "{rounded.panel}"
-    padding: "1.5rem 1.25rem 1.25rem"
-  glance-bar:
+    padding: "1.25rem 1.25rem 1rem"
+  route-rail:
     backgroundColor: "{colors.blue}"
-    height: "0.75rem"
+    height: "6px"
   footer:
     textColor: "{colors.ink-3}"
     typography: "{typography.caption}"
@@ -190,11 +190,11 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, an at-a-glance panel, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a language line, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
-The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block (rejected: no visual) and then a dot globe (rejected: "just a globe", no facts). What the owner liked in the chip was a visual whose parts are facts about them. An ID badge on a swinging strap followed and was rejected too: the owner had to wait for it to stop moving to read it. Then three parody formats (a food label, a receipt, an index card with a stamp) were rejected as corny. The slot now holds "At a glance", picked from a live specimen the same day. Rules for this slot: write it for someone hiring; make it a visual whose parts are the facts; keep every fact readable at load, with no motion before reading; use plain copy that would work on a résumé, with no puns or parody props. Light only, by design (`color-scheme: light`).
+The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block (rejected: no visual) and then a dot globe (rejected: "just a globe", no facts). What the owner liked in the chip was a visual whose parts are facts about them. An ID badge on a swinging strap followed and was rejected too: the owner had to wait for it to stop moving to read it. Then three parody formats (a food label, a receipt, an index card with a stamp) were rejected as corny. "At a glance", a summary panel with a code-share bar, came next and was dropped the same day for repeating the page: the availability line, the projects, the pull request, the streak and the links all appear elsewhere. The slot now holds the language line, picked from a live specimen (transit line, sticker sheet, topographic map). Rules for this slot: a simple, playful visual whose parts are facts found nowhere else on the page (home, local time, the languages); every fact readable at load, with no motion before reading; plain copy that would work on a résumé, with no puns or parody props. Light only, by design (`color-scheme: light`).
 
 **Key Characteristics:**
 - Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.
@@ -210,16 +210,16 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, the TypeScript share in the at-a-glance bar, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
+- **Signal Blue** (`blue`): the focus ring, the language line's rail, stop rings and caption share, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
 - **Ink** (`ink`): the name, card and dialog titles, links, the availability line, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
-- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the at-a-glance place line and language notes, code-listing line numbers and comments, and gesture labels.
-- **Slate** (`ink-3`): section titles, the at-a-glance kicker and source note, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
+- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the language line's caption, code-listing line numbers and comments, and gesture labels.
+- **Slate** (`ink-3`): section titles, the language line's time and shares, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
 - **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
-- **Hairline Strong** (`line-strong`): resting link underlines, the at-a-glance HTML/CSS/JS segment and rule, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the at-a-glance panel, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Hairline Strong** (`line-strong`): resting link underlines, the rule above the language line's caption, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
+- **Panel** (`panel`): the fill of every project card, the language line, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
 - **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
@@ -246,7 +246,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Small** (Sans 400, 0.875rem): project meta, status and tags.
 - **Caption** (Sans 400, 0.8125rem, line-height 1.5): panel captions (centred, Graphite), the video caption (Slate), fact labels, live-diagram stops and the footer.
 - **Micro** (Sans 400, 0.75rem): pin sublabels, gesture labels, code inside panel captions.
-- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. The at-a-glance kicker is uppercase Mono at 0.6875rem.
+- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. The language line's time and shares are Mono at 0.6875rem.
 
 ### Named Rules
 **The Serif Names Rule.** Instrument Serif sets names only: the person, a card title and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.
@@ -257,7 +257,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 
 One centred column, max width 40rem plus a 1.25rem gutter each side, at every viewport. There is no header bar and no navigation. The page starts 4.5rem from the top, or 7.5rem at 48rem and up, with the name first and nothing above it.
 
-Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the link row sits 1.5rem below the bio, the tech strip 2.5rem below the links, and the at-a-glance panel 3rem below the strip. The footer sits 6rem below the last section.
+Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the link row sits 1.5rem below the bio, the tech strip 2.5rem below the links, and the language line 3rem below the strip. The footer sits 6rem below the last section.
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 
@@ -428,14 +428,11 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - Under reduced motion, and when no particle is visible, it draws one still frame and does not animate.
   - It is decorative, so it is `aria-hidden` and has no pointer events.
 
-### At a Glance
-A Panel under the tech strip, 3rem below it, where the chip used to be. It is written for someone hiring. The owner picked it from a live specimen (language bar, stack diagram) on 2026-10-23.
-- **Head:** "At a glance" in uppercase Mono Slate, the availability line in Instrument Serif at 1.6rem, then the place, `UTC+8` and the live time there in Graphite.
-- **Bar:** a 0.75rem GitHub-style bar of the real code share across 18 public repos (`src/content/glance.ts`), with 3px gaps and pill ends. TypeScript is Signal Blue; Python, C++ and C# step from dark to light grey; HTML, CSS and JS are Hairline Strong. It is `aria-hidden`, because the columns carry the same numbers.
-- **Languages:** four columns (two below 40rem), one per language. Each has a swatch, the name (Sans 600), its share, one Caption line on what it's used for, and the projects that prove it. A project with a pop-up on this page links to its hash and opens it; Game Store links to GitHub with ↗.
-- **Focus:** pointing at or tabbing into a language dims every other language and segment to 30%. This is the only motion.
-- **Source:** a Slate Micro line names the HTML/CSS/JS share and where the shares come from.
-- **Foot:** above a Hairline Strong rule: the react-hook-form pull request, the longest streak (computed from the contribution data refreshed at each build), "Building: uptime-monitor", then Email, GitHub and LinkedIn.
+### Language Line
+A Panel under the tech strip, 3rem below it. Home and the four languages are stops on one 6px Signal Blue line. The owner picked it from a live specimen (transit line, sticker sheet, topographic map) on 2026-10-23. It carries only facts found nowhere else on the page.
+- **Stops:** five equal-width stops (`src/content/languages.ts`): Antipolo, PH as the terminus (an Ink-ringed pill), then C++, Python, C# and TypeScript. Each language stop is a Paper ring with a 4px Signal Blue border, with its diameter growing with its share of code (`src/lib/transit.ts`). Under each is the name in Sans 600 and, in Slate Mono, the share, or for home the live local time.
+- **Train:** a 22×10 Ink capsule above the line. Pointing at, focusing or tapping a stop glides it there over 700ms and enlarges that stop slightly. The train stays where it was sent. Only a mouse picks on hover, while a tap or keyboard focus picks on its own.
+- **Caption:** below a Hairline Strong rule, a Graphite line explains the sizing until a stop is picked. Then it gives the language's share in Signal Blue Mono and one line on what it's used for, or home with its time and `UTC+8`. It reserves its tallest height (three lines below 40rem), so the page never jumps.
 - **Time:** filled in on the client, so the static build never freezes one.
 
 ### Gesture Panels
