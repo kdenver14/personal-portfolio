@@ -1,20 +1,10 @@
 import type { CSSProperties } from "react";
-import data from "@/data/contributions.json";
+import { CONTRIBUTIONS, LONGEST_STREAK } from "@/content/activity";
 import { GITHUB_URL } from "@/content/profile";
-import {
-  type ContributionDay,
-  type Streak,
-  formatDay,
-  longestStreak,
-  monthLabels,
-  parseContributions,
-  toWeeks,
-} from "@/lib/contributions";
+import { type ContributionDay, type Streak, formatDay, monthLabels, toWeeks } from "@/lib/contributions";
 
 type CSSVars = CSSProperties & Record<`--${string}`, string>;
 
-const FILE = parseContributions(data);
-const STREAK = longestStreak(FILE.days);
 /** GitHub labels every other weekday row. */
 const WEEKDAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
 const LEVELS = [0, 1, 2, 3, 4];
@@ -58,7 +48,7 @@ function Chart({ days }: { days: readonly ContributionDay[] }) {
 }
 
 function StreakFigure({ streak }: { streak: Streak }) {
-  const days = FILE.days.filter((day) => day.date >= streak.start && day.date <= streak.end);
+  const days = CONTRIBUTIONS.days.filter((day) => day.date >= streak.start && day.date <= streak.end);
   const total = days.reduce((sum, day) => sum + day.count, 0);
   const range = `${formatDay(streak.start)} – ${formatDay(streak.end)}`;
   return (
@@ -94,5 +84,5 @@ function StreakFigure({ streak }: { streak: Streak }) {
 
 /** The longest run of days with GitHub contributions, drawn as GitHub draws its calendar. */
 export function ContributionGraph() {
-  return STREAK ? <StreakFigure streak={STREAK} /> : <p className="detail-text">No contribution streak yet.</p>;
+  return LONGEST_STREAK ? <StreakFigure streak={LONGEST_STREAK} /> : <p className="detail-text">No contribution streak yet.</p>;
 }

@@ -24,7 +24,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | To change | Edit |
 | --- | --- |
 | Name, contact, bio | `src/content/profile.ts` |
-| The intro badge (home, time zone, languages line, availability) | `src/content/profile.ts`; its swing physics in `src/lib/lanyard.ts` |
+| The intro's at-a-glance panel (language shares, proof projects, open-source link) | `src/content/glance.ts`; place, time zone and availability in `src/content/profile.ts` |
 | A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
 | A featured project: card line, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |

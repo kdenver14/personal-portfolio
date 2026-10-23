@@ -1,5 +1,5 @@
 import { AVAILABILITY, BIO, EMAIL_URL, GITHUB_URL, LINKEDIN_URL, LOCATION_SHORT, NAME, ROLE } from "@/content/profile";
-import { Badge } from "./badge";
+import { AtAGlance } from "./at-a-glance";
 import { TechMarquee } from "./tech-marquee";
 
 export function Intro() {
@@ -31,7 +31,7 @@ export function Intro() {
         </li>
       </ul>
       <TechMarquee />
-      <Badge />
+      <AtAGlance />
     </section>
   );
 }

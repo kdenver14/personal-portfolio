@@ -14,8 +14,6 @@
   --color-line-strong: #c3cbd5;
   --color-panel: #eaeef3;
   --color-panel-hover: #e1e6ed;
-  /* The intro badge's card: plain white, so it lifts off the Panel behind it. */
-  --color-card: #ffffff;
   --color-blue: #0a5bd3;
 
   --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
@@ -1334,94 +1332,17 @@
     color: var(--color-ink-2);
   }
 
-  /* ---------- Badge ---------- */
+  /* ---------- At a glance ---------- */
 
-  /* An ID badge on a blue strap under the tech strip, carrying the chip's facts. It drops in when first reached,
-     swings when dragged and bobs when the page scrolls; vertical drags still scroll on touch. The stage's top
-     padding is the strap length, set inline from STRAP_LENGTH so the physics and the layout agree. */
-  .badge {
+  /* The intro's summary for someone hiring, under the tech strip: a lead line, place and live time, a GitHub-style
+     bar of the real code share, each language with the projects that prove it, then proof and links. Everything is
+     readable at load; the only motion is the hover dim. */
+  .glance {
     margin-top: 3rem;
-    padding: 0 1rem 1.25rem;
+    padding: 1.5rem 1.25rem 1.25rem;
   }
 
-  .badge-stage {
-    position: relative;
-    padding-bottom: 2.5rem;
-    overflow: hidden;
-  }
-
-  /* Until scripts place it, the card and strap wait hidden, so the first frame shows the badge out of sight above
-     the stage, ready to drop, rather than at rest. Without scripts, under reduced motion, or in a browser without
-     the scripting query, the badge simply hangs at rest. */
-  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    .badge-stage:not([data-live]) .badge-card,
-    .badge-stage:not([data-live]) .badge-strap {
-      visibility: hidden;
-    }
-  }
-
-  .badge-anchor {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2.75rem;
-    height: 0.4rem;
-    border-radius: 0 0 0.25rem 0.25rem;
-    background: var(--color-line-strong);
-    transform: translateX(-50%);
-  }
-
-  .badge-strap {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .badge-strap line {
-    stroke: var(--color-blue);
-    stroke-width: 8;
-    stroke-linecap: round;
-  }
-
-  .badge-card {
-    position: relative;
-    width: min(17.5rem, 100%);
-    margin: 0 auto;
-    padding: 1.75rem 1.25rem 0;
-    overflow: hidden;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius);
-    background: var(--color-card);
-    box-shadow:
-      0 1px 2px rgb(23 23 23 / 0.06),
-      0 16px 32px -14px rgb(23 23 23 / 0.28);
-    transform-origin: 50% 0;
-    touch-action: pan-y;
-    cursor: grab;
-    user-select: none;
-    will-change: transform;
-  }
-
-  .badge-card:active {
-    cursor: grabbing;
-  }
-
-  .badge-slot {
-    position: absolute;
-    top: 0.6rem;
-    left: 50%;
-    width: 2.5rem;
-    height: 0.45rem;
-    border-radius: 999px;
-    background: var(--color-panel);
-    box-shadow: inset 0 1px 1px rgb(23 23 23 / 0.14);
-    transform: translateX(-50%);
-  }
-
-  .badge-role {
+  .glance-kicker {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
@@ -1431,64 +1352,159 @@
     color: var(--color-ink-3);
   }
 
-  .badge-name {
-    margin-top: 0.5rem;
+  .glance-lead {
+    margin-top: 0.6rem;
     font-family: var(--font-serif);
-    font-size: 1.85rem;
-    line-height: 1.02;
+    font-size: 1.6rem;
+    line-height: 1.15;
   }
 
-  .badge-facts {
+  .glance-meta {
+    margin-top: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--color-ink-2);
+  }
+
+  .glance-bar {
+    display: flex;
+    gap: 3px;
+    height: 0.75rem;
+    margin-top: 1.4rem;
+  }
+
+  .glance-segment {
+    border-radius: 2px;
+  }
+
+  .glance-segment:first-child {
+    border-radius: 999px 2px 2px 999px;
+  }
+
+  .glance-segment:last-child {
+    border-radius: 2px 999px 999px 2px;
+  }
+
+  /* Tones follow LANGUAGE_SHARES order, largest first: Signal Blue for the daily driver, then darker to lighter
+     greys, and Hairline Strong for the HTML, CSS and JS remainder. */
+  .glance-segment:nth-child(1),
+  .glance-language:nth-child(1) .glance-swatch {
+    background: var(--color-blue);
+  }
+
+  .glance-segment:nth-child(2),
+  .glance-language:nth-child(2) .glance-swatch {
+    background: color-mix(in oklab, var(--color-ink) 78%, var(--color-panel));
+  }
+
+  .glance-segment:nth-child(3),
+  .glance-language:nth-child(3) .glance-swatch {
+    background: color-mix(in oklab, var(--color-ink) 52%, var(--color-panel));
+  }
+
+  .glance-segment:nth-child(4),
+  .glance-language:nth-child(4) .glance-swatch {
+    background: color-mix(in oklab, var(--color-ink) 30%, var(--color-panel));
+  }
+
+  .glance-segment:last-child,
+  .glance-source .glance-swatch {
+    background: var(--color-line-strong);
+  }
+
+  .glance-languages {
     display: grid;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.1rem;
   }
 
-  .badge-facts div {
-    display: grid;
-    grid-template-columns: 3.5rem minmax(0, 1fr);
-    gap: 0.5rem;
-    align-items: baseline;
+  .glance-segment,
+  .glance-language {
+    transition: opacity var(--t-fast) var(--ease-out);
   }
 
-  .badge-facts dt {
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
+  .glance-board[data-focus] [data-lang]:not([data-on]),
+  .glance-board[data-focus] .glance-segment:not([data-lang]) {
+    opacity: 0.3;
+  }
+
+  .glance-language-name {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .glance-swatch {
+    flex: none;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 2px;
+  }
+
+  .glance-share {
+    margin-left: auto;
     font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    color: var(--color-ink-2);
+  }
+
+  .glance-use {
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-ink-2);
+  }
+
+  .glance-proof {
+    margin-top: 0.6rem;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+  }
+
+  .glance-source {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.1rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
     color: var(--color-ink-3);
   }
 
-  .badge-facts dd {
+  .glance-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-line-strong);
     font-size: 0.8125rem;
-    line-height: 1.35;
+    color: var(--color-ink-2);
   }
 
-  .badge-facts a {
-    user-select: text;
+  .glance-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.1rem;
   }
 
-  .badge-time {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-  }
-
-  .badge-band {
-    margin: 1.1rem -1.25rem 0;
-    padding: 0.65rem 1.25rem;
-    background: var(--color-blue);
-    color: var(--color-card);
-    font-size: 0.75rem;
+  .glance-links {
+    display: flex;
+    gap: 1rem;
     font-weight: 500;
   }
 
-  .badge-note {
-    font-size: 0.8125rem;
-    line-height: 1.45;
-    color: var(--color-ink-2);
-    text-align: center;
+  @media (max-width: 39.99rem) {
+    .glance-languages {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 1.4rem;
+    }
+
+    .glance-share {
+      margin-left: 0.25rem;
+    }
   }
 
   /* ---------- Experience ---------- */
