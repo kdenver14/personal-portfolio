@@ -19,6 +19,8 @@ export const TIME_ZONE = "Asia/Manila";
 export const TIME_ZONE_LABEL = "UTC+8";
 
 export const ROLE = "Computer Science student";
+export const DEGREE = "BS Computer Science";
+export const SCHOOL = "STI College Ortigas-Cainta";
 export const DESCRIPTOR = `${ROLE} building full-stack TypeScript, C++ and Python`;
 
 export const BIO: readonly string[] = [
@@ -26,4 +28,5 @@ export const BIO: readonly string[] = [
   "I started on C++, so I still ask who owns a pointer before asking what it does. Several of these projects were written with and without AI, on purpose, as practice.",
 ];
 
-export const AVAILABILITY = "Open to full-stack / backend roles.";
+export const OPEN_TO = "Full-stack and backend roles";
+export const OPEN_TO_LEVEL = "Internship or junior";

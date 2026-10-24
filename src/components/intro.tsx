@@ -1,5 +1,5 @@
-import { AVAILABILITY, BIO, EMAIL_URL, GITHUB_URL, LINKEDIN_URL, LOCATION_SHORT, NAME, ROLE } from "@/content/profile";
-import { LanguageLine } from "./language-line";
+import { BIO, LOCATION_SHORT, NAME, ROLE } from "@/content/profile";
+import { IntroFacts } from "./intro-facts";
 import { TechMarquee } from "./tech-marquee";
 
 export function Intro() {
@@ -13,25 +13,9 @@ export function Intro() {
       </p>
       <div className="intro-bio">
         {BIO.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        <p className="intro-availability">{AVAILABILITY}</p>
       </div>
-      <ul className="link-row">
-        <li>
-          <a href={EMAIL_URL}>Email</a>
-        </li>
-        <li>
-          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-        </li>
-      </ul>
       <TechMarquee />
-      <LanguageLine />
+      <IntroFacts />
     </section>
   );
 }

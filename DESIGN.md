@@ -1,6 +1,6 @@
 ---
 name: Denver
-description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and a language line: home and four languages as stops on one blue line.
+description: The one-page portfolio of Kurt Denver Chavez, a calm light column with a serif name, soft-panel project cards that open into dialogs, and a facts card for someone hiring: where they study, what they're open to, and their local time.
 colors:
   paper: "#f5f7fa"
   ink: "#171717"
@@ -85,7 +85,7 @@ spacing:
   section: "6.5rem"
   section-title-gap: "1.75rem"
   strip-top: "2.5rem"
-  route-top: "3rem"
+  facts-top: "3rem"
   card-gap: "1rem"
   card-padding: "1.25rem 1.25rem 1.125rem"
   dialog-block-gap: "1.75rem"
@@ -171,13 +171,10 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.body-list}"
     padding: "0.75rem 0"
-  route:
+  facts:
     backgroundColor: "{colors.panel}"
     rounded: "{rounded.panel}"
-    padding: "1.25rem 1.25rem 1rem"
-  route-rail:
-    backgroundColor: "{colors.blue}"
-    height: "6px"
+    padding: "1.125rem 1.25rem"
   footer:
     textColor: "{colors.ink-3}"
     typography: "{typography.caption}"
@@ -190,11 +187,11 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a language line, a Technologies section listing every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a sliding strip of technology logos, a facts card (studying, open to, local time), a Technologies section listing every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
-The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block (rejected: no visual) and then a dot globe (rejected: "just a globe", no facts). What the owner liked in the chip was a visual whose parts are facts about them. An ID badge on a swinging strap followed and was rejected too: the owner had to wait for it to stop moving to read it. Then three parody formats (a food label, a receipt, an index card with a stamp) were rejected as corny. "At a glance", a summary panel with a code-share bar, came next and was dropped the same day for repeating the page: the availability line, the projects, the pull request, the streak and the links all appear elsewhere. The slot now holds the language line, picked from a live specimen (transit line, sticker sheet, topographic map). Rules for this slot: a simple, playful visual whose parts are facts found nowhere else on the page (home, local time, the languages); every fact readable at load, with no motion before reading; plain copy that would work on a résumé, with no puns or parody props. Light only, by design (`color-scheme: light`).
+The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block (rejected: no visual) and then a dot globe (rejected: "just a globe", no facts). What the owner liked in the chip was a visual whose parts are facts about them. An ID badge on a swinging strap followed and was rejected too: the owner had to wait for it to stop moving to read it. Then three parody formats (a food label, a receipt, an index card with a stamp) were rejected as corny. "At a glance", a summary panel with a code-share bar, came next and was dropped the same day for repeating the page: the availability line, the projects, the pull request, the streak and the links all appear elsewhere. A language line (home and four languages as transit stops) followed, then lost its notes to the Technologies section. On 2026-10-24 the owner asked what a large company's recruiter wants, and the slot became a facts card: where they study, what they're open to, and their local time. The intro's Email/GitHub/LinkedIn row went too, since Contact carries them. Rules for this slot: only facts found nowhere else on the page, readable at load, in plain copy that would work on a résumé. Light only, by design (`color-scheme: light`).
 
 **Key Characteristics:**
 - Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.
@@ -210,16 +207,16 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, Contact's "Copied" confirmation, the language line's rail, stop rings and caption share, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
+- **Signal Blue** (`blue`): the focus ring, Contact's "Copied" confirmation, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
-- **Ink** (`ink`): the name, card and dialog titles, links, the availability line, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
-- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the language line's caption, code-listing line numbers and comments, and gesture labels.
-- **Slate** (`ink-3`): section titles, the language line's time and shares, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
+- **Ink** (`ink`): the name, card and dialog titles, links, the facts card's values, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
+- **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the facts card's details, code-listing line numbers and comments, and gesture labels.
+- **Slate** (`ink-3`): section titles, the facts card's labels, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
 - **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
-- **Hairline Strong** (`line-strong`): resting link underlines, the rule above the language line's caption, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the language line, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Hairline Strong** (`line-strong`): resting link underlines, the facts card's dividers, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
+- **Panel** (`panel`): the fill of every project card, the facts card, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
 - **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
@@ -246,7 +243,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Small** (Sans 400, 0.875rem): project meta, status and tags.
 - **Caption** (Sans 400, 0.8125rem, line-height 1.5): panel captions (centred, Graphite), the video caption (Slate), fact labels, live-diagram stops and the footer.
 - **Micro** (Sans 400, 0.75rem): pin sublabels, gesture labels, code inside panel captions.
-- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details. The language line's time and shares are Mono at 0.6875rem.
+- **Mono** (400, 0.8125rem, line-height 1.7): code listings, file names and code values in Details.
 
 ### Named Rules
 **The Serif Names Rule.** Instrument Serif sets names only: the person, a card title and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.
@@ -257,7 +254,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 
 One centred column, max width 40rem plus a 1.25rem gutter each side, at every viewport. There is no header bar and no navigation. The page starts 4.5rem from the top, or 7.5rem at 48rem and up, with the name first and nothing above it.
 
-Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the link row sits 1.5rem below the bio, the tech strip 2.5rem below the links, and the language line 3rem below the strip. The footer sits 6rem below the last section.
+Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the tech strip sits 2.5rem below the bio and the facts card 3rem below the strip. The footer sits 6rem below the last section.
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 
@@ -286,7 +283,7 @@ Soft and consistent. Cards, panels and the demo video share a 14px radius. The d
 ### Links
 Quiet, underlined, ink.
 - **Default:** Ink text with a 1px Hairline Strong underline, offset 0.25em. The underline turns to the text colour on hover over 160ms.
-- **Link row** (intro Email and GitHub, contact links, "Source on GitHub"): weight 500. Intro links run inline with 1.5rem gaps. Contact's GitHub and LinkedIn run inline with 1.5rem gaps, each with a ↗ that nudges up and right on hover.
+- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub and LinkedIn run inline with 1.5rem gaps, each with a ↗ that nudges up and right on hover.
 - **List name** (More projects only): weight 500 with no underline at rest. The underline appears on hover.
 - **Focus:** a 2px Signal Blue outline, 3px offset, 2px radius, everywhere.
 
@@ -435,12 +432,13 @@ The first section, above Projects, titled "Technologies" (`#technologies`), with
 - **Notes:** pointing at, focusing or tapping a pill turns it Ink with Paper text. The Graphite caption under the rows then reads "Name. What I use it for." Otherwise it reads "Point at or tap a technology to see what I use it for." The caption reserves its height (two lines below 40rem), so nothing below moves. Below 40rem a picked note becomes a Paper card that sticks to the bottom of the screen, so it stays in view in the tall section.
 - **Screen readers:** each pill's name includes its note, so the caption is `aria-hidden`.
 
-### Language Line
-A Panel under the tech strip, 3rem below it. Home and the four languages are stops on one 6px Signal Blue line. The owner picked it from a live specimen (transit line, sticker sheet, topographic map) on 2026-10-23. It carries only facts found nowhere else on the page.
-- **Stops:** five equal-width stops (`src/content/languages.ts`): Antipolo, PH as the terminus (an Ink-ringed pill), then C++, Python, C# and TypeScript. Each language stop is a Paper ring with a 4px Signal Blue border, with its diameter growing with its share of code (`src/lib/transit.ts`). Under each is the name in Sans 600 and, in Slate Mono, the share, or for home the live local time.
-- **Train:** a 22×10 Ink capsule above the line. Pointing at, focusing or tapping a stop glides it there over 700ms and enlarges that stop slightly. The train stays where it was sent. Only a mouse picks on hover, while a tap or keyboard focus picks on its own.
-- **Caption:** below a Hairline Strong rule, a Graphite line explains the sizing until a stop is picked. Then it gives the language's share in Signal Blue Mono and one line on what it's used for, or home with its time and `UTC+8`. It reserves its tallest height (three lines below 40rem), so the page never jumps.
-- **Time:** filled in on the client, so the static build never freezes one.
+### Intro Facts
+A Panel under the tech strip, 3rem below it, with what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns divided by Hairline Strong rules, stacked with rules between them below 40rem.
+- **Studying:** BS Computer Science, STI College Ortigas-Cainta.
+- **Open to:** full-stack and backend roles, internship or junior.
+- **Local time:** the live time in Antipolo, then "Antipolo, Philippines · UTC+8". The time is filled in on the client, so the static build never freezes one, and its line is reserved so nothing shifts.
+- **Type:** a Slate label at 0.75rem 500, the value in Ink Sans 600 at 0.9375rem, the detail in Graphite at 0.8125rem. There is no motion.
+- **Content:** degree, school and roles live in `src/content/profile.ts`. A résumé download belongs here once there is a PDF.
 
 ### Gesture Panels
 Hand-landmark skeletons drawn from real training data. They appear only in the Hand Gesture Control dialog. Recorded landmarks are Ink dots at 0.3 opacity. Mean-pose bones are Signal Blue at 1.5px. Joints are Panel-filled with blue strokes. Each panel carries a Micro Graphite label: the gesture name in Mono Ink over the sample count.
