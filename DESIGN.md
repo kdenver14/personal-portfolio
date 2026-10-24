@@ -210,7 +210,7 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, the language line's rail, stop rings and caption share, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
+- **Signal Blue** (`blue`): the focus ring, Contact's "Copied" confirmation, the language line's rail, stop rings and caption share, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
@@ -239,7 +239,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Display** (Serif 400, 2.5rem, line-height 1.05, tracking -0.01em): the name, once per page.
 - **Headline** (Serif 400, 2.25rem, line-height 1.05): the project name at the top of its dialog.
 - **Title** (Serif 400, 1.625rem, line-height 1.1): card titles.
-- **Body** (Sans 400, 1rem, line-height 1.65): bio, dialog overview, contact line. The 40rem column holds lines near 75ch.
+- **Body** (Sans 400, 1rem, line-height 1.65): bio, dialog overview, contact line. Contact's email address is Instrument Serif at 1.6rem to 2.25rem (scaling with the viewport), line-height 1.1, with a Copy pill beside it (Hairline Strong border on Paper, Sans 500 0.8125rem). After a copy it reads "Copied" in Signal Blue for 1.6s. The 40rem column holds lines near 75ch.
 - **Summary** (Sans 400, 0.9375rem, line-height 1.55): the one-line summary on a card.
 - **Body List** (Sans 400, 0.9375rem, line-height 1.5): More projects rows (names at 500), Details facts (line-height 1.45) and the tech strip.
 - **Label** (Sans 500, 0.875rem, line-height 1.4, Slate, sentence case): section titles and dialog sub-headings. These are real headings, not kickers over another heading. "View project" and the Close pill use the same size and weight in Ink.
@@ -286,7 +286,7 @@ Soft and consistent. Cards, panels and the demo video share a 14px radius. The d
 ### Links
 Quiet, underlined, ink.
 - **Default:** Ink text with a 1px Hairline Strong underline, offset 0.25em. The underline turns to the text colour on hover over 160ms.
-- **Link row** (intro Email and GitHub, contact links, "Source on GitHub"): weight 500. Intro links run inline with 1.5rem gaps. Contact links stack with 0.375rem gaps.
+- **Link row** (intro Email and GitHub, contact links, "Source on GitHub"): weight 500. Intro links run inline with 1.5rem gaps. Contact's GitHub and LinkedIn run inline with 1.5rem gaps, each with a ↗ that nudges up and right on hover.
 - **List name** (More projects only): weight 500 with no underline at rest. The underline appears on hover.
 - **Focus:** a 2px Signal Blue outline, 3px offset, 2px radius, everywhere.
 

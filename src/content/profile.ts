@@ -7,13 +7,11 @@ export const LAST_REVISED = "2026-10";
 
 export const GITHUB_URL = `https://github.com/${OWNER}`;
 export const GITHUB_REPOS_URL = `${GITHUB_URL}?tab=repositories`;
-export const GITHUB_LABEL = `github.com/${OWNER}`;
 export const EMAIL_USER = "kurtdenverchavez2005";
 export const EMAIL_DOMAIN = "gmail.com";
 export const EMAIL = `${EMAIL_USER}@${EMAIL_DOMAIN}`;
 export const EMAIL_URL = `mailto:${EMAIL}`;
 export const LINKEDIN_URL = "https://www.linkedin.com/in/kurt-chavez-952383290/";
-export const LINKEDIN_LABEL = "linkedin.com/in/kurt-chavez-952383290";
 
 export const LOCATION_SHORT = "Antipolo, PH";
 export const LOCATION = "Antipolo, Philippines";
