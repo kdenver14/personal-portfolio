@@ -1602,6 +1602,12 @@
     color: var(--color-ink-2);
   }
 
+  /* The one link left in the intro: what a recruiter forwards. */
+  .intro-resume {
+    margin-top: 1.5rem;
+    font-weight: 500;
+  }
+
   @media (max-width: 39.99rem) {
     .facts {
       grid-template-columns: minmax(0, 1fr);
@@ -2085,18 +2091,19 @@
 
   .contact-links {
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
     margin-top: 1.25rem;
     font-weight: 500;
   }
 
-  .contact-arrow {
+  .link-arrow {
     display: inline-block;
     margin-left: 0.2em;
     transition: transform var(--t-fast) var(--ease-out);
   }
 
-  .contact-links a:hover .contact-arrow {
+  a:hover > .link-arrow {
     transform: translate(2px, -2px);
   }
 

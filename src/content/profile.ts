@@ -21,6 +21,9 @@ export const TIME_ZONE_LABEL = "UTC+8";
 export const ROLE = "Computer Science student";
 export const DEGREE = "BS Computer Science";
 export const SCHOOL = "STI College Ortigas-Cainta";
+export const GRADUATION = "Class of 2027";
+/** Published without a phone number: anything on the site is public. */
+export const RESUME_URL = "/kurt-denver-chavez-resume.pdf";
 export const DESCRIPTOR = `${ROLE} building full-stack TypeScript, C++ and Python`;
 
 export const BIO: readonly string[] = [

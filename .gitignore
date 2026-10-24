@@ -46,3 +46,6 @@ next-env.d.ts
 
 # cloned project repos for screen recording (each is its own git repo)
 /all-projects-repo-for-vid-rec/
+
+# Résumé drafts dropped in the project root; the published copy, without a phone number, is in public/
+/*.pdf

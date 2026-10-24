@@ -1,15 +1,8 @@
-import { EMAIL_DOMAIN, EMAIL_URL, EMAIL_USER, GITHUB_URL, LINKEDIN_URL } from "@/content/profile";
+import { EMAIL_DOMAIN, EMAIL_URL, EMAIL_USER, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/content/profile";
 import { CopyEmail } from "./copy-email";
+import { LinkArrow } from "./link-arrow";
 
 const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" } as const;
-
-function Arrow() {
-  return (
-    <span className="contact-arrow" aria-hidden="true">
-      ↗
-    </span>
-  );
-}
 
 export function Contact() {
   return (
@@ -27,13 +20,19 @@ export function Contact() {
         <li>
           <a href={GITHUB_URL} {...EXTERNAL}>
             GitHub
-            <Arrow />
+            <LinkArrow />
           </a>
         </li>
         <li>
           <a href={LINKEDIN_URL} {...EXTERNAL}>
             LinkedIn
-            <Arrow />
+            <LinkArrow />
+          </a>
+        </li>
+        <li>
+          <a href={RESUME_URL} {...EXTERNAL}>
+            Résumé (PDF)
+            <LinkArrow />
           </a>
         </li>
       </ul>

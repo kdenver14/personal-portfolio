@@ -283,7 +283,7 @@ Soft and consistent. Cards, panels and the demo video share a 14px radius. The d
 ### Links
 Quiet, underlined, ink.
 - **Default:** Ink text with a 1px Hairline Strong underline, offset 0.25em. The underline turns to the text colour on hover over 160ms.
-- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub and LinkedIn run inline with 1.5rem gaps, each with a ↗ that nudges up and right on hover.
+- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub, LinkedIn and Résumé (PDF) run inline with 1.5rem gaps (wrapping on narrow phones), each with a ↗ that nudges up and right on hover.
 - **List name** (More projects only): weight 500 with no underline at rest. The underline appears on hover.
 - **Focus:** a 2px Signal Blue outline, 3px offset, 2px radius, everywhere.
 
@@ -438,11 +438,12 @@ The first section, above Projects, titled "Technologies" (`#technologies`), with
 
 ### Intro Facts
 Part of the page under the bio, not a card: no fill, one Hairline above, 2.5rem below the bio. It holds what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns 1.5rem apart, stacked below 40rem. The owner asked for it to blend in after a Panel version stood out as a box.
-- **Studying:** BS Computer Science, STI College Ortigas-Cainta.
+- **Studying:** BS Computer Science, then STI College Ortigas-Cainta and "Class of 2027" on their own lines.
 - **Open to:** full-stack and backend, internship or junior roles.
 - **Local time:** the live time in Antipolo, then "Antipolo, Philippines · UTC+8". The time is filled in on the client, so the static build never freezes one, and its line is reserved so nothing shifts.
 - **Type:** a Slate label at 0.8125rem, the value in Ink Sans 500 at 0.9375rem, the detail in Graphite at 0.875rem. There is no motion.
-- **Content:** degree, school and roles live in `src/content/profile.ts`. A résumé download belongs here once there is a PDF.
+- **Résumé:** a "Résumé (PDF) ↗" link (Sans 500) sits 1.5rem below the facts, the one link left in the intro, opening `public/kurt-denver-chavez-resume.pdf` in a new tab. That copy carries no phone number, since anything on the site is public.
+- **Content:** degree, school, graduation, roles and the résumé path live in `src/content/profile.ts`.
 
 ### Gesture Panels
 Hand-landmark skeletons drawn from real training data. They appear only in the Hand Gesture Control dialog. Recorded landmarks are Ink dots at 0.3 opacity. Mean-pose bones are Signal Blue at 1.5px. Joints are Panel-filled with blue strokes. Each panel carries a Micro Graphite label: the gesture name in Mono Ink over the sample count.
