@@ -27,7 +27,9 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | The intro's language line (each language's share of code and one-line note) | `src/content/languages.ts`; home and time zone in `src/content/profile.ts` |
 | A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
 | A featured project: card line, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
+| The Stack section (every technology, its group and one-line note) | `src/content/stack.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |
+| A technology logo (shared by the strip and Stack) | `src/content/logos.ts` |
 
 Bump `LAST_REVISED` in `profile.ts` when you publish a change; the footer shows it.
 

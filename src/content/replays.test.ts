@@ -4,7 +4,7 @@ import { FEATURED } from "./featured";
 import { PROJECTS } from "./projects";
 import { REPLAYS, replayFor } from "./replays";
 
-const SECTION_IDS = ["projects", "experience", "activity", "more-projects", "contact"];
+const SECTION_IDS = ["stack", "projects", "experience", "activity", "more-projects", "contact"];
 const featured = new Set(FEATURED.map((project) => project.repo));
 const more = PROJECTS.filter((project) => !featured.has(project.repo)).map((project) => project.repo);
 

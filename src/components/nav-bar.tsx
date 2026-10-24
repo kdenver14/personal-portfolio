@@ -10,7 +10,7 @@ const LINKS = [
   { id: "contact", label: "Contact" },
 ] as const;
 /** Every section heading in page order, including ones without a link, so a section between links lights none. */
-const SECTIONS = ["projects", "experience", "activity", "more-projects", "contact"];
+const SECTIONS = ["stack", "projects", "experience", "activity", "more-projects", "contact"];
 /** A section counts as current once its heading rises above this share of the viewport. */
 const ACTIVE_LINE = 0.3;
 const TOP_ID = "intro-name";

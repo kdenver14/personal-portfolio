@@ -11,6 +11,7 @@ import { ProjectDetail } from "@/components/project-detail";
 import { ProjectDialog } from "@/components/project-dialog";
 import { Section } from "@/components/section";
 import { SiteFooter } from "@/components/site-footer";
+import { Stack } from "@/components/stack";
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
       <div className="page">
       <main>
         <Intro />
+        <Section id="stack" title="Stack">
+          <Stack />
+        </Section>
         <Section id="projects" title="Projects">
           <div className="cards">
             {FEATURED.map((project) => <ProjectCard key={project.id} project={project} />)}

@@ -190,7 +190,7 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a language line, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, short bio, availability, three links (Email, GitHub, LinkedIn), a sliding strip of technology logos, a language line, a Stack section of every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
@@ -323,7 +323,7 @@ A hairline definition list. There is a top rule on the list, then each fact has 
 Plain text at 0.875rem in Graphite, on cards and in the dialog foot. Middle dots trail each tag, so a wrapped line never starts with a dot. There are no boxes, pills or fills.
 
 ### Tech Strip
-A single line of 35 monochrome technology logos from the public repos, sliding right to left in a linear loop of 2.5s per logo (about 88s), so adding logos lengthens the loop without speeding it up. They run from the web front end through the back end, data, Python and machine learning, C++ and C#, to tooling.
+A single line of 18 monochrome logos for the main technologies, sliding right to left in a linear loop of 2.5s per logo (45s), so adding logos lengthens the loop without speeding it up. It is a short accent; the Stack section carries the full list. Every logo path lives in `src/content/logos.ts`, shared with Stack.
 - **Logos:** 1.75rem square, Slate fill turning Ink on hover, 2.5rem apart. Each is one SVG path: Simple Icons (CC0), or Devicon (MIT) for C#.
 - **Names:** each logo carries its name as an accessible label and a native tooltip.
 - **Loop:** the list is drawn twice so the loop has no seam, and the copy is hidden from assistive tech. Both edges fade out through a 12% mask.
@@ -427,6 +427,13 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - Only a mouse steers the ring.
   - Under reduced motion, and when no particle is visible, it draws one still frame and does not animate.
   - It is decorative, so it is `aria-hidden` and has no pointer events.
+
+### Stack
+The first section, above Projects, titled "Stack". It lists all 37 technologies from the public repos (`src/content/stack.ts`) in six groups: Languages, Frontend, Backend, Data, ML and automation, Tools. The owner picked it from a live specimen (grouped list, logo grid, tabs) on 2026-10-24.
+- **Rows:** one per group between Hairline rules. The group name is Slate Sans 500 at 0.8125rem in an 8.5rem column (stacked above the pills below 40rem), followed by wrapping pills.
+- **Pills:** Panel fill, full radius, a 1rem Slate logo and the name in Ink Sans 500 at 0.8125rem. A technology with no single-colour logo (Zustand, EF Core) gets a two-letter Mono monogram on a Slate square.
+- **Notes:** pointing at, focusing or tapping a pill turns it Ink with Paper text. The Graphite caption under the rows then reads "Name. What I use it for." Otherwise it reads "Point at or tap a technology to see what I use it for." The caption reserves its height (two lines below 40rem), so nothing below moves. Below 40rem a picked note becomes a Paper card that sticks to the bottom of the screen, so it stays in view in the tall section.
+- **Screen readers:** each pill's name includes its note, so the caption is `aria-hidden`.
 
 ### Language Line
 A Panel under the tech strip, 3rem below it. Home and the four languages are stops on one 6px Signal Blue line. The owner picked it from a live specimen (transit line, sticker sheet, topographic map) on 2026-10-23. It carries only facts found nowhere else on the page.

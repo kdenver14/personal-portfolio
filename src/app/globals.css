@@ -1220,6 +1220,143 @@
     }
   }
 
+  /* ---------- Stack ---------- */
+
+  /* Every technology in the public repos, one row per group: the group's name, then pills with a logo and a name.
+     Pointing at, focusing or tapping a pill shows what I use it for in the caption below. */
+  .stack-group {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 0.5rem 1rem;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .stack-group:last-of-type {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .stack-group-name {
+    padding-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-ink-3);
+  }
+
+  .stack-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack-tile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.65rem 0.35rem 0.5rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-panel);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-ink);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--t-fast) var(--ease-out),
+      color var(--t-fast) var(--ease-out);
+  }
+
+  .stack-tile:focus-visible {
+    border-radius: 999px;
+  }
+
+  .stack-logo {
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    fill: var(--color-ink-3);
+    transition: fill var(--t-fast) var(--ease-out);
+  }
+
+  /* Stands in for a technology with no single-colour logo. */
+  .stack-monogram {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 3px;
+    background: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-panel);
+  }
+
+  .stack-tile[data-on] {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .stack-tile[data-on] .stack-logo {
+    fill: var(--color-paper);
+  }
+
+  .stack-tile[data-on] .stack-monogram {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  /* Room for the longest note, so the page below never jumps as it changes. */
+  .stack-caption {
+    min-height: calc(1.45em * var(--caption-lines, 1));
+    box-sizing: content-box;
+    margin-top: 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-ink-2);
+  }
+
+  .stack-caption b {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  @media (max-width: 39.99rem) {
+    .stack-group {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stack-group-name {
+      padding-top: 0;
+    }
+
+    /* On a phone the section is taller than the screen, so a picked note rides at the bottom of the view.
+       The padding is the same in both states and the inline bleed doesn't add height, so nothing shifts. */
+    .stack-caption {
+      --caption-lines: 2;
+      padding-block: 0.6rem;
+    }
+
+    .stack-caption.is-active {
+      position: sticky;
+      bottom: 1rem;
+      margin-inline: -0.85rem;
+      padding-inline: 0.85rem;
+      border-radius: 0.75rem;
+      background: var(--color-paper);
+      box-shadow:
+        0 0 0 1px var(--color-line),
+        0 6px 20px rgb(16 24 40 / 0.1);
+    }
+  }
+
   /* ---------- Project visuals ---------- */
 
   .media-video {
