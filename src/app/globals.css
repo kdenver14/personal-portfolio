@@ -131,8 +131,7 @@
   }
 
   /* Headings jumped to from the floating navbar land below it, not under it. */
-  .section-title,
-  .intro-name {
+  .section-title {
     scroll-margin-top: 5.5rem;
   }
 

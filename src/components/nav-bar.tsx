@@ -14,7 +14,8 @@ const LINKS = [
 const SECTIONS = ["technologies", "projects", "experience", "activity", "more-projects", "contact"];
 /** A section counts as current once its heading rises above this share of the viewport. */
 const ACTIVE_LINE = 0.3;
-const TOP_ID = "intro-name";
+/** No element has this id, so the browser scrolls to the very top: the intro alone, as on a first visit. */
+const TOP_HASH = "#top";
 
 function subscribe(onChange: () => void): () => void {
   window.addEventListener("scroll", onChange, { passive: true });
@@ -43,7 +44,7 @@ export function NavBar() {
   const current = useSyncExternalStore(subscribe, currentSection, () => null);
   return (
     <nav className="navbar" aria-label="Sections">
-      <a className="navbar-brand" href={`#${TOP_ID}`}>
+      <a className="navbar-brand" href={TOP_HASH}>
         {SITE_TITLE}
       </a>
       <ul className="navbar-links">
