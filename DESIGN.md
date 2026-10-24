@@ -254,7 +254,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 
 One centred column, max width 40rem plus a 1.25rem gutter each side, at every viewport. There is no header bar and no navigation. The page starts 4.5rem from the top, or 7.5rem at 48rem and up, with the name first and nothing above it.
 
-Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the facts card sits 2.5rem below the bio. The tech strip leads the Technologies section, 1.75rem above its groups. The footer sits 6rem below the last section.
+Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. The intro fills the first screen on its own (at least the viewport height less the 6.5rem page top), with its content set a little above centre, so every section the navbar links to starts below the fold. In the intro, the facts sit 2.5rem below the bio. The tech strip leads the Technologies section, 1.75rem above its groups. The footer sits 6rem below the last section.
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 

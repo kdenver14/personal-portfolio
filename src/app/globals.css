@@ -24,6 +24,7 @@
 :root {
   color-scheme: light;
   --measure: 40rem;
+  --page-top: 6.5rem;
   --gutter: 1.25rem;
   --radius: 0.875rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -125,7 +126,7 @@
     z-index: 1;
     max-width: calc(var(--measure) + 2 * var(--gutter));
     margin-inline: auto;
-    padding: 6.5rem var(--gutter) 0;
+    padding: var(--page-top) var(--gutter) 0;
   }
 
   /* Headings jumped to from the floating navbar land below it, not under it. */
@@ -289,6 +290,16 @@
   }
 
   /* ---------- Intro ---------- */
+
+  /* The intro fills the first screen on its own, so every section the navbar links to starts below the fold.
+     The bottom padding sets the content a little above centre. */
+  .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - var(--page-top));
+    padding-bottom: 4rem;
+  }
 
   .intro-name {
     font-family: var(--font-serif);
