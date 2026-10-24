@@ -10,9 +10,8 @@ export const FEATURED: readonly FeaturedProject[] = [
     status: "preview",
     summary: "A backend that watches websites and records whether they're up, like UptimeRobot, built from scratch without AI.",
     overview: [
-      "A backend that watches websites and reports whether they're up: the same idea as UptimeRobot or Better Stack, built from scratch and without AI to practise the backend work a junior engineer meets on the job.",
-      "Monitor CRUD runs through every layer. Routes map URLs, controllers handle HTTP and validate with Zod, services hold the rules, and repositories are the only code that touches PostgreSQL. Dependencies point inward, so the worker will reuse the same service without an HTTP request. A checker that records each site's status code and response time, with a 10-second timeout, is written but not pushed yet.",
-      "Next: a CheckResult table, a Redis and BullMQ worker scheduled per monitor interval, auth, and email or Discord alerts when a site goes down, then Docker and deployment. This is also the project where I am learning Docker.",
+      "A backend that watches websites and reports whether they're up, like UptimeRobot, built from scratch without AI to practise junior backend work.",
+      "Monitor CRUD runs through routes, controllers, services and repositories, with Zod validation and PostgreSQL in Docker. A checker that records status codes and response times is written but not pushed yet; a BullMQ worker, scheduling and alerts come next.",
     ],
     facts: [
       { label: "Stack", value: "Express 5.2, TypeScript 7 (strict, ESM)" },
@@ -27,7 +26,7 @@ export const FEATURED: readonly FeaturedProject[] = [
     demo: {
       kind: "pipeline",
       description:
-        "A monitor for this site is created through the API (201) and saved in PostgreSQL with the default 60 s interval. Then it runs the pipeline as planned: a scheduler queues a check every 60 s, a worker hands it to the checker, and a site that's down triggers an alert. The first check finds the site up; the next one times out after 10 s. Dashed stops aren't built yet, the checker isn't pushed yet, and the check values are samples.",
+        "A monitor for this site is created through the API (201) and saved in PostgreSQL. Then the planned pipeline runs: a scheduler queues a check every 60 s, a worker hands it to the checker, and a site that's down triggers an alert. Dashed stops aren't built yet, the checker isn't pushed yet, and the check values are samples.",
       stops: [
         { name: "API", planned: false },
         { name: "PostgreSQL", planned: false },
