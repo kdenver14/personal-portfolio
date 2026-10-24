@@ -4,13 +4,14 @@ import { useSyncExternalStore } from "react";
 import { SITE_TITLE } from "@/content/profile";
 
 const LINKS = [
+  { id: "technologies", label: "Technologies", short: "Tech" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "activity", label: "Activity" },
   { id: "contact", label: "Contact" },
 ] as const;
 /** Every section heading in page order, including ones without a link, so a section between links lights none. */
-const SECTIONS = ["stack", "projects", "experience", "activity", "more-projects", "contact"];
+const SECTIONS = ["technologies", "projects", "experience", "activity", "more-projects", "contact"];
 /** A section counts as current once its heading rises above this share of the viewport. */
 const ACTIVE_LINE = 0.3;
 const TOP_ID = "intro-name";
@@ -49,7 +50,14 @@ export function NavBar() {
         {LINKS.map((link) => (
           <li key={link.id}>
             <a className="navbar-link" href={`#${link.id}`} aria-current={current === link.id ? "true" : undefined}>
-              {link.label}
+              {"short" in link ? (
+                <>
+                  <span className="navbar-label-full">{link.label}</span>
+                  <span className="navbar-label-short">{link.short}</span>
+                </>
+              ) : (
+                link.label
+              )}
             </a>
           </li>
         ))}

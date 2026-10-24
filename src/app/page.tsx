@@ -21,7 +21,7 @@ export default function Home() {
       <div className="page">
       <main>
         <Intro />
-        <Section id="stack" title="Stack">
+        <Section id="technologies" title="Technologies">
           <Stack />
         </Section>
         <Section id="projects" title="Projects">

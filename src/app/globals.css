@@ -192,18 +192,14 @@
     background: var(--color-panel-hover);
   }
 
-  @media (max-width: 26rem) {
-    .navbar {
-      padding-left: 0.875rem;
-    }
-
-    .navbar-link {
-      padding-inline: 0.5rem;
-      font-size: 0.8125rem;
-    }
+  /* A long label swaps for a short one on a phone, where the full set doesn't fit. Only one is ever displayed,
+     so assistive tech reads just that one. */
+  .navbar-label-short {
+    display: none;
   }
 
-  @media (max-width: 23rem) {
+  /* On a phone the brand gives way so all five links fit, centred; they tighten further on the narrowest screens. */
+  @media (max-width: 39.99rem) {
     .navbar {
       justify-content: center;
       padding-left: 0.3125rem;
@@ -211,6 +207,36 @@
 
     .navbar-brand {
       display: none;
+    }
+
+    .navbar-links {
+      gap: 0;
+    }
+
+    .navbar-link {
+      padding-inline: 0.5rem;
+      font-size: 0.8125rem;
+    }
+
+    .navbar-label-full {
+      display: none;
+    }
+
+    .navbar-label-short {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 23.99rem) {
+    .navbar-link {
+      padding-inline: 0.4375rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 21rem) {
+    .navbar-link {
+      padding-inline: 0.3125rem;
     }
   }
 
