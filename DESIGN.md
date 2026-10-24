@@ -203,7 +203,7 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 - Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.
 - Blue, the only accent, marks focus, the active pin, the gesture skeletons and one status word.
 - One shadow in the system, on the open dialog.
-- Motion is a 160ms colour change, plus a 200ms dialog rise and a pausable 45s tech strip. Both of those stop under reduced motion.
+- Motion is a 160ms colour change, plus a 200ms dialog rise and the tech strip's slow loop. Both of those stop under reduced motion.
 
 ## Colors
 
@@ -323,7 +323,7 @@ A hairline definition list. There is a top rule on the list, then each fact has 
 Plain text at 0.875rem in Graphite, on cards and in the dialog foot. Middle dots trail each tag, so a wrapped line never starts with a dot. There are no boxes, pills or fills.
 
 ### Tech Strip
-A single line of monochrome technology logos, sliding right to left in a 45s linear loop.
+A single line of 35 monochrome technology logos from the public repos, sliding right to left in a linear loop of 2.5s per logo (about 88s), so adding logos lengthens the loop without speeding it up. They run from the web front end through the back end, data, Python and machine learning, C++ and C#, to tooling.
 - **Logos:** 1.75rem square, Slate fill turning Ink on hover, 2.5rem apart. Each is one SVG path: Simple Icons (CC0), or Devicon (MIT) for C#.
 - **Names:** each logo carries its name as an accessible label and a native tooltip.
 - **Loop:** the list is drawn twice so the loop has no seam, and the copy is hidden from assistive tech. Both edges fade out through a 12% mask.

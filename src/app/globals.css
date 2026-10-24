@@ -1166,6 +1166,7 @@
   .marquee-track {
     display: flex;
     width: max-content;
+    /* The duration is set inline from the number of logos. */
     animation: marquee 45s linear infinite;
   }
 

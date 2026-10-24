@@ -1,5 +1,8 @@
 import { TECH } from "@/content/tech";
 
+/** Each logo gets the same time on screen, so adding logos lengthens the loop instead of speeding the strip up. */
+const SECONDS_PER_LOGO = 2.5;
+
 /** The list is rendered twice so the strip can slide by exactly one copy and loop without a seam. */
 function LogoList({ copy }: { copy: boolean }) {
   return (
@@ -20,7 +23,7 @@ function LogoList({ copy }: { copy: boolean }) {
 export function TechMarquee() {
   return (
     <div className="marquee">
-      <div className="marquee-track">
+      <div className="marquee-track" style={{ animationDuration: `${TECH.length * SECONDS_PER_LOGO}s` }}>
         <LogoList copy={false} />
         <LogoList copy />
       </div>
