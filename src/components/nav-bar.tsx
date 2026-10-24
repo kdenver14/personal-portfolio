@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { SITE_TITLE } from "@/content/profile";
+import { RESUME_URL, SITE_TITLE } from "@/content/profile";
 
 const LINKS = [
   { id: "technologies", label: "Technologies", short: "Tech" },
@@ -61,6 +61,12 @@ export function NavBar() {
             </a>
           </li>
         ))}
+        {/* Desktop only: phones reach the résumé from the intro and Contact, and their navbar is full. */}
+        <li className="navbar-resume-item">
+          <a className="navbar-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+            Résumé
+          </a>
+        </li>
       </ul>
     </nav>
   );

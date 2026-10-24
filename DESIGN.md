@@ -283,7 +283,7 @@ Soft and consistent. Cards, panels and the demo video share a 14px radius. The d
 ### Links
 Quiet, underlined, ink.
 - **Default:** Ink text with a 1px Hairline Strong underline, offset 0.25em. The underline turns to the text colour on hover over 160ms.
-- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub, LinkedIn and Résumé (PDF) run inline with 1.5rem gaps (wrapping on narrow phones), each with a ↗ that nudges up and right on hover.
+- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub, LinkedIn and Résumé are rows like More projects: a 1.125rem Slate icon (GitHub from Simple Icons, LinkedIn from Devicon, a drawn page for the résumé), the name at 500, the handle in Graphite, then a Slate ↗. The whole row is the link and tints Panel on hover, when the icon and arrow turn Ink and the arrow nudges up and right. Below 40rem the handle drops under the name.
 - **List name** (More projects only): weight 500 with no underline at rest. The underline appears on hover.
 - **Focus:** a 2px Signal Blue outline, 3px offset, 2px radius, everywhere.
 
@@ -345,7 +345,7 @@ A panel with a head row above a Mono body at line-height 1.7. The head holds the
 
 ### Navbar
 A floating pill, fixed 0.875rem below the top edge so it never touches it, as wide as the column plus 2rem. It is translucent Paper (78%) with a 14px blur, a Hairline border and a soft shadow.
-- The brand "Denver" in Instrument Serif links to the top. Section links (Technologies, Projects, Experience, Activity, Contact) are 0.875rem 500 Graphite pills that tint Panel on hover. Below 40rem the brand gives way so all five fit, centred: Technologies reads "Tech", and the links shrink to 0.8125rem, then 0.75rem below 24rem.
+- The brand "Denver" in Instrument Serif links to the top. Section links (Technologies, Projects, Experience, Activity, Contact) are 0.875rem 500 Graphite pills that tint Panel on hover. From 40rem a filled Ink "Résumé" pill with Paper text ends the row, opening the PDF in a new tab; it is the one filled pill, so it reads apart from the section links. Below 40rem it is hidden (the intro and Contact carry the résumé) and the brand gives way so all five links fit, centred: Technologies reads "Tech", and the links shrink to 0.8125rem, then 0.75rem below 24rem.
 - The section in view is marked: its heading has risen above 30% of the viewport. It gets `aria-current` and a Panel-hover fill. A section without a link, such as More projects, marks none.
 - Headings jumped to land 5.5rem down, clear of the bar. The page's top padding is 6.5rem.
 - On phones the links tighten. Below 23rem the brand hides and the links centre.
