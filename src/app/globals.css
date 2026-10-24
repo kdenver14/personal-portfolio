@@ -2066,12 +2066,21 @@
     font-weight: 500;
   }
 
-  .more-all-arrow {
+  /* The up-right arrow after a link that opens in a new tab (LinkArrow), drawn in the link's colour. */
+  .link-arrow {
     display: inline-block;
+    width: 0.875em;
+    height: 0.875em;
+    margin-left: 0.25em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     transition: transform var(--t-fast) var(--ease-out);
   }
 
-  .more-all:hover .more-all-arrow {
+  a:hover > .link-arrow {
     transform: translate(2px, -2px);
   }
 

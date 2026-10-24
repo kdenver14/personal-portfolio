@@ -3,6 +3,7 @@ import { GITHUB_REPOS_URL } from "@/content/profile";
 import { PROJECTS } from "@/content/projects";
 import { replayFor } from "@/content/replays";
 import { formatYear } from "@/lib/format";
+import { LinkArrow } from "./link-arrow";
 import { MoreProjectDetail } from "./more-project-detail";
 import { ProjectDialog } from "./project-dialog";
 
@@ -33,7 +34,8 @@ export function MoreProjects() {
         ))}
       </ul>
       <a className="more-all" href={GITHUB_REPOS_URL} target="_blank" rel="noopener noreferrer">
-        View more projects <span className="more-all-arrow" aria-hidden="true">↗</span>
+        View more projects
+        <LinkArrow />
       </a>
       {MORE.map(({ project, replay }) => (
         <ProjectDialog key={replay.id} id={replay.id} compact>
