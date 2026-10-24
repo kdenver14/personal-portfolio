@@ -16,6 +16,7 @@ import {
   toStrokes,
 } from "@/lib/dot-field";
 import { type Noise3, createNoise3 } from "@/lib/noise";
+import { useParticlesEnabled } from "./particles-setting";
 
 /** Only a real mouse steers the ring; touch and pen moves usually mean scrolling or tapping. */
 const HOVER_POINTER = "mouse";
@@ -123,12 +124,19 @@ function runField(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, 
   };
 }
 
-/** Grey dashes drifting across the page, quieter behind the text; a ring trailing the mouse swells them. Decorative only. */
+/**
+ * Grey dashes drifting across the page, quieter behind the text; a ring trailing the mouse swells them. Decorative only.
+ * Turned off from the particles switch, it stops animating and hides.
+ */
 export function DotField() {
+  const enabled = useParticlesEnabled();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const columnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
     const canvas = canvasRef.current;
     const column = columnRef.current;
     const context = canvas?.getContext("2d");
@@ -136,10 +144,10 @@ export function DotField() {
       return;
     }
     return runField(canvas, context, column);
-  }, []);
+  }, [enabled]);
 
   return (
-    <div className="field" aria-hidden="true">
+    <div className="field" aria-hidden="true" hidden={!enabled}>
       <canvas ref={canvasRef} className="field-canvas" />
       <div ref={columnRef} className="field-column" />
     </div>

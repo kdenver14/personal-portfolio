@@ -207,7 +207,7 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not too white" ground. Panels and hairlines are blue-gray, and the tint complements Signal Blue. One saturated blue, the only accent, marks focus, the data being pointed at and a single status.
 
 ### Primary
-- **Signal Blue** (`blue`): the focus ring, Contact's "Copied" confirmation, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
+- **Signal Blue** (`blue`): the focus ring, Contact's "Copied" confirmation, the particles switch while on, the bones and joint strokes of the gesture skeletons, and the "In development" status word on a card and in a dialog head. It means "this is focused", "this is the data you are pointing at" or "this is still being built".
 
 ### Neutral
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
@@ -424,6 +424,10 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - Only a mouse steers the ring.
   - Under reduced motion, and when no particle is visible, it draws one still frame and does not animate.
   - It is decorative, so it is `aria-hidden` and has no pointer events.
+  - The particles switch turns it off: it stops animating (no frames at all) and hides, and the choice is remembered on the device.
+
+### Particles Switch
+A pill pinned 1rem from the bottom-right corner, in the navbar's translucent Paper with a Hairline border, blur and soft shadow. It holds "Particles" in Graphite Sans 500 at 0.75rem and a 1.75rem switch: a Signal Blue track with the Paper knob at the right while on, a Hairline Strong track with the knob at the left while off. It is a `role="switch"` button with `aria-checked`. The visitor's choice is saved in `localStorage` (`particles=off`); if storage is blocked, it still works for that visit. On by default. Below 40rem the Technologies note sticks just above it.
 
 ### Stack
 The first section, above Projects, titled "Technologies" (`#technologies`), with a matching nav link. It lists 36 technologies from the public repos (`src/content/stack.ts`) in six groups: Languages, Frontend, Backend, Data, ML and automation, Tools. The owner picked it from a live specimen (grouped list, logo grid, tabs) on 2026-10-24.

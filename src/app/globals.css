@@ -25,6 +25,7 @@
   color-scheme: light;
   --measure: 40rem;
   --page-top: 6.5rem;
+  --particles-toggle-height: 2rem;
   --gutter: 1.25rem;
   --radius: 0.875rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -263,6 +264,72 @@
     position: absolute;
     width: min(var(--measure), 100%);
     visibility: hidden;
+  }
+
+  /* ---------- Particles switch ---------- */
+
+  /* Pinned to the bottom-right corner in the navbar's translucent Paper, so it reads as part of the same chrome.
+     The track turns Signal Blue while the particles are on. */
+  .particles-toggle {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: var(--particles-toggle-height);
+    padding: 0 0.4375rem 0 0.75rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-paper) 78%, transparent);
+    box-shadow: 0 10px 30px -14px rgb(23 23 23 / 0.22);
+    backdrop-filter: blur(14px) saturate(1.4);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-ink-2);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--t-fast) var(--ease-out);
+  }
+
+  .particles-toggle:hover {
+    color: var(--color-ink);
+  }
+
+  .particles-toggle:focus-visible {
+    border-radius: 999px;
+  }
+
+  .particles-switch {
+    position: relative;
+    width: 1.75rem;
+    height: 1rem;
+    border-radius: 999px;
+    background: var(--color-line-strong);
+    transition: background-color var(--t-fast) var(--ease-out);
+  }
+
+  .particles-switch::after {
+    content: "";
+    position: absolute;
+    top: 0.125rem;
+    left: 0.125rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--color-paper);
+    box-shadow: 0 1px 2px rgb(23 23 23 / 0.2);
+    transition: transform var(--t-fast) var(--ease-out);
+  }
+
+  .particles-toggle[aria-checked="true"] .particles-switch {
+    background: var(--color-blue);
+  }
+
+  .particles-toggle[aria-checked="true"] .particles-switch::after {
+    transform: translateX(0.75rem);
   }
 
   .panel {
@@ -1369,9 +1436,10 @@
       padding-block: 0.6rem;
     }
 
+    /* Rides just above the particles switch in the bottom-right corner. */
     .stack-caption.is-active {
       position: sticky;
-      bottom: 1rem;
+      bottom: calc(1.5rem + var(--particles-toggle-height));
       margin-inline: -0.85rem;
       padding-inline: 0.85rem;
       border-radius: 0.75rem;

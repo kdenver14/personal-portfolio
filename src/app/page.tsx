@@ -6,6 +6,7 @@ import { Experience } from "@/components/experience";
 import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
 import { NavBar } from "@/components/nav-bar";
+import { ParticlesToggle } from "@/components/particles-toggle";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectDetail } from "@/components/project-detail";
 import { ProjectDialog } from "@/components/project-dialog";
@@ -19,6 +20,7 @@ export default function Home() {
     <>
       <DotField />
       <NavBar />
+      <ParticlesToggle />
       <div className="page">
       <main>
         <Intro />
