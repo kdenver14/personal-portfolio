@@ -236,7 +236,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Display** (Serif 400, 2.5rem, line-height 1.05, tracking -0.01em): the name, once per page.
 - **Headline** (Serif 400, 2.25rem, line-height 1.05): the project name at the top of its dialog.
 - **Title** (Serif 400, 1.625rem, line-height 1.1): card titles.
-- **Body** (Sans 400, 1rem, line-height 1.65): bio, dialog overview, contact line. Contact's email address is Instrument Serif at 1.6rem to 2.25rem (scaling with the viewport), line-height 1.1, with a Copy pill beside it (Hairline Strong border on Paper, Sans 500 0.8125rem). After a copy it reads "Copied" in Signal Blue for 1.6s. The 40rem column holds lines near 75ch.
+- **Body** (Sans 400, 1rem, line-height 1.65): bio, dialog overview, contact line. Contact's email row ends in a Copy pill (Hairline Strong border on Paper, Sans 500 0.8125rem). After a copy it reads "Copied" in Signal Blue for 1.6s. The 40rem column holds lines near 75ch.
 - **Summary** (Sans 400, 0.9375rem, line-height 1.55): the one-line summary on a card.
 - **Body List** (Sans 400, 0.9375rem, line-height 1.5): More projects rows (names at 500), Details facts (line-height 1.45) and the tech strip.
 - **Label** (Sans 500, 0.875rem, line-height 1.4, Slate, sentence case): section titles and dialog sub-headings. These are real headings, not kickers over another heading. "View project" and the Close pill use the same size and weight in Ink.
@@ -283,7 +283,7 @@ Soft and consistent. Cards, panels and the demo video share a 14px radius. The d
 ### Links
 Quiet, underlined, ink.
 - **Default:** Ink text with a 1px Hairline Strong underline, offset 0.25em. The underline turns to the text colour on hover over 160ms.
-- **Link row** (contact links, "Source on GitHub"): weight 500. Contact's GitHub, LinkedIn and Résumé are rows like More projects: a 1.125rem Slate icon (GitHub from Simple Icons, LinkedIn from Devicon, a drawn page for the résumé), the name at 500, the handle in Graphite, then a Slate ↗. The whole row is the link and tints Panel on hover, when the icon and arrow turn Ink and the arrow nudges up and right. Below 40rem the handle drops under the name.
+- **Link row** (contact links, "Source on GitHub"): weight 500. Contact is four rows like More projects (Email, GitHub, LinkedIn, Résumé): a 1.125rem Slate icon (GitHub from Simple Icons, LinkedIn from Devicon, a drawn envelope and page for email and the résumé), the name at 500, the handle in Graphite, then a Slate ↗, or the Copy pill on the email row. The name is the link and stretches over the row, with Copy above it and tints Panel on hover, when the icon and arrow turn Ink and the arrow nudges up and right. Below 40rem the handle drops under the name.
 - **List name** (More projects only): weight 500 with no underline at rest. The underline appears on hover.
 - **Focus:** a 2px Signal Blue outline, 3px offset, 2px radius, everywhere.
 

@@ -2075,23 +2075,6 @@
     color: var(--color-ink-2);
   }
 
-  /* The address is the call to action: set large in the serif, with Copy beside it for anyone whose mail app
-     doesn't open from a mailto link. */
-  .contact-email {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem 1rem;
-    margin-top: 0.75rem;
-  }
-
-  .contact-address {
-    font-family: var(--font-serif);
-    font-size: clamp(1.6rem, 5.4vw, 2.25rem);
-    line-height: 1.1;
-    text-underline-offset: 0.16em;
-  }
-
   /* Sized for "Copied" too, so the label can change without the pill resizing. */
   .copy-email {
     min-width: 4.75rem;
@@ -2118,23 +2101,25 @@
     color: var(--color-blue);
   }
 
-  /* Rows like More projects: icon, name, handle and ↗, the whole row a link that tints on hover. Rows bleed
-     0.75rem past the column so the tint has room; the hairlines stay column-wide. */
+  /* Rows like More projects: icon, name, handle, then ↗ or Copy. The name is the link and stretches over its row,
+     which tints on hover; Copy sits above the stretched link. Rows bleed 0.75rem past the column so the tint has
+     room; the hairlines stay column-wide. */
   .contact-links {
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     border-top: 1px solid var(--color-line);
   }
 
-  .contact-link {
+  .contact-row {
+    position: relative;
     display: grid;
     grid-template-columns: 1.125rem 7rem minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.75rem;
+    min-height: 3.25rem;
     margin-inline: -0.75rem;
-    padding: 0.8rem 0.75rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     background: linear-gradient(var(--color-line), var(--color-line)) no-repeat center bottom / calc(100% - 1.5rem) 1px;
-    text-decoration: none;
     transition: background-color var(--t-fast) var(--ease-out);
   }
 
@@ -2148,6 +2133,24 @@
   .contact-name {
     font-size: 0.9375rem;
     font-weight: 500;
+    text-decoration-color: transparent;
+  }
+
+  /* Stretches the link over its row, so the whole row is clickable. */
+  .contact-name::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .contact-name:focus-visible {
+    outline: none;
+  }
+
+  .contact-row:has(.contact-name:focus-visible) {
+    outline: 2px solid var(--color-blue);
+    outline-offset: -2px;
   }
 
   .contact-handle {
@@ -2157,25 +2160,34 @@
     overflow-wrap: anywhere;
   }
 
-  .contact-link .link-arrow {
+  .contact-row .link-arrow {
+    justify-self: end;
     color: var(--color-ink-3);
   }
 
-  .contact-link:hover .contact-icon,
-  .contact-link:hover .link-arrow {
+  .contact-row .copy-email {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-row:hover .contact-icon {
     fill: var(--color-ink);
+  }
+
+  .contact-row:hover .link-arrow {
     color: var(--color-ink);
+    transform: translate(2px, -2px);
   }
 
   /* Hover only where a pointer can hover, so a tap on a phone doesn't leave a row stuck tinted. */
   @media (hover: hover) {
-    .contact-link:hover {
+    .contact-row:hover {
       background-color: var(--color-panel);
     }
   }
 
   @media (max-width: 39.99rem) {
-    .contact-link {
+    .contact-row {
       grid-template-columns: 1.125rem minmax(0, 1fr) auto;
     }
 
@@ -2183,16 +2195,12 @@
       grid-row: 2;
       grid-column: 2;
     }
-  }
 
-  .link-arrow {
-    display: inline-block;
-    margin-left: 0.2em;
-    transition: transform var(--t-fast) var(--ease-out);
-  }
-
-  a:hover > .link-arrow {
-    transform: translate(2px, -2px);
+    .contact-row .link-arrow,
+    .contact-row .copy-email {
+      grid-row: 1 / span 2;
+      grid-column: 3;
+    }
   }
 
   .site-footer {
