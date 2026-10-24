@@ -64,7 +64,7 @@ export function NavBar() {
         ))}
         {/* Desktop only: phones reach the résumé from the intro and Contact, and their navbar is full. */}
         <li className="navbar-resume-item">
-          <a className="navbar-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+          <a className="resume-button" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
             Résumé
           </a>
         </li>

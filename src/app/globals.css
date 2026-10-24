@@ -193,12 +193,13 @@
     background: var(--color-panel-hover);
   }
 
-  /* The résumé, set apart from the section links as the one filled pill, so it's findable from anywhere on the page. */
+  /* The résumé, set apart from the section links as the one filled pill, so it's findable from anywhere on the page.
+     The same button leads the intro on phones, where the navbar has no room for it. */
   .navbar-resume-item {
     margin-left: 0.375rem;
   }
 
-  .navbar-resume {
+  .resume-button {
     display: block;
     padding: 0.4375rem 0.875rem;
     border-radius: 999px;
@@ -210,11 +211,11 @@
     transition: background-color var(--t-fast) var(--ease-out);
   }
 
-  .navbar-resume:hover {
+  .resume-button:hover {
     background: color-mix(in oklab, var(--color-ink) 82%, var(--color-paper));
   }
 
-  .navbar-resume:focus-visible {
+  .resume-button:focus-visible {
     border-radius: 999px;
   }
 
@@ -1630,10 +1631,16 @@
     color: var(--color-ink-2);
   }
 
-  /* The one link left in the intro: what a recruiter forwards. */
+  /* The résumé button under the bio, on phones only; from 40rem the navbar shows it on the same screen. */
   .intro-resume {
+    display: flex;
     margin-top: 1.5rem;
-    font-weight: 500;
+  }
+
+  @media (min-width: 40rem) {
+    .intro-resume {
+      display: none;
+    }
   }
 
   @media (max-width: 39.99rem) {

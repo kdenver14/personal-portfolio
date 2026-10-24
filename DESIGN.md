@@ -345,7 +345,7 @@ A panel with a head row above a Mono body at line-height 1.7. The head holds the
 
 ### Navbar
 A floating pill, fixed 0.875rem below the top edge so it never touches it, as wide as the column plus 2rem. It is translucent Paper (78%) with a 14px blur, a Hairline border and a soft shadow.
-- The brand "Denver" in Instrument Serif links to `#top`, which scrolls to the very top of the page, so it lands on the intro alone as on a first visit, not on the name heading. Section links (Technologies, Projects, Experience, Activity, Contact) are 0.875rem 500 Graphite pills that tint Panel on hover. From 40rem a filled Ink "Résumé" pill with Paper text ends the row, opening the PDF in a new tab; it is the one filled pill, so it reads apart from the section links. Below 40rem it is hidden (the intro and Contact carry the résumé) and the brand gives way so all five links fit, centred: Technologies reads "Tech", and the links shrink to 0.8125rem, then 0.75rem below 24rem.
+- The brand "Denver" in Instrument Serif links to `#top`, which scrolls to the very top of the page, so it lands on the intro alone as on a first visit, not on the name heading. Section links (Technologies, Projects, Experience, Activity, Contact) are 0.875rem 500 Graphite pills that tint Panel on hover. From 40rem a filled Ink "Résumé" pill with Paper text ends the row, opening the PDF in a new tab; it is the one filled pill, so it reads apart from the section links. Below 40rem it is hidden (the same button leads the intro there, under the bio) and the brand gives way so all five links fit, centred: Technologies reads "Tech", and the links shrink to 0.8125rem, then 0.75rem below 24rem.
 - The section in view is marked: its heading has risen above 30% of the viewport. It gets `aria-current` and a Panel-hover fill. A section without a link, such as More projects, marks none.
 - Headings jumped to land 5.5rem down, clear of the bar. The page's top padding is 6.5rem.
 - On phones the links tighten. Below 23rem the brand hides and the links centre.
@@ -442,7 +442,7 @@ Part of the page under the bio, not a card: no fill, one Hairline above, 2.5rem 
 - **Open to:** full-stack and backend, internship or junior roles.
 - **Local time:** the live time in Antipolo, then "Antipolo, Philippines · UTC+8". The time is filled in on the client, so the static build never freezes one, and its line is reserved so nothing shifts.
 - **Type:** a Slate label at 0.8125rem, the value in Ink Sans 500 at 0.9375rem, the detail in Graphite at 0.875rem. There is no motion.
-- **Résumé:** a "Résumé (PDF) ↗" link (Sans 500) sits 1.5rem below the facts, the one link left in the intro, opening `public/kurt-denver-chavez-resume.pdf` in a new tab. That copy carries no phone number, since anything on the site is public.
+- **Résumé:** every screen shows exactly one Résumé button near the top, and it looks the same everywhere: the filled Ink pill (`.resume-button`). From 40rem it ends the navbar. Below 40rem the navbar has no room, so it sits 1.5rem under the bio, before the facts. It opens `public/kurt-denver-chavez-resume.pdf` in a new tab, a copy with no phone number, since anything on the site is public. Contact keeps a Résumé row.
 - **Content:** degree, school, graduation, roles and the résumé path live in `src/content/profile.ts`.
 
 ### Gesture Panels

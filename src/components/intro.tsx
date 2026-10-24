@@ -1,6 +1,5 @@
 import { BIO, LOCATION_SHORT, NAME, RESUME_URL, ROLE } from "@/content/profile";
 import { IntroFacts } from "./intro-facts";
-import { LinkArrow } from "./link-arrow";
 
 export function Intro() {
   return (
@@ -14,13 +13,13 @@ export function Intro() {
       <div className="intro-bio">
         {BIO.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
-      <IntroFacts />
+      {/* Phones only: from 40rem the navbar carries the same button, on the same first screen. */}
       <p className="intro-resume">
-        <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
-          Résumé (PDF)
-          <LinkArrow />
+        <a className="resume-button" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+          Résumé
         </a>
       </p>
+      <IntroFacts />
     </section>
   );
 }
