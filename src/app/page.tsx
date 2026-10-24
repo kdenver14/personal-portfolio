@@ -12,6 +12,7 @@ import { ProjectDialog } from "@/components/project-dialog";
 import { Section } from "@/components/section";
 import { SiteFooter } from "@/components/site-footer";
 import { Stack } from "@/components/stack";
+import { TechMarquee } from "@/components/tech-marquee";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <main>
         <Intro />
         <Section id="technologies" title="Technologies">
+          <TechMarquee />
           <Stack />
         </Section>
         <Section id="projects" title="Projects">

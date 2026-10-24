@@ -1170,8 +1170,9 @@
 
   /* ---------- Tech strip ---------- */
 
+  /* Leads the Technologies section, under its title and above the groups. */
   .marquee {
-    margin-top: 2.5rem;
+    margin-bottom: 1.75rem;
     overflow: hidden;
     mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
   }
@@ -1485,12 +1486,12 @@
 
   /* ---------- Intro facts ---------- */
 
-  /* Under the tech strip: where I study, what I'm open to and my local time, the first things someone hiring looks
+  /* Under the bio: where I study, what I'm open to and my local time, the first things someone hiring looks
      for and nowhere else on the page. Three columns between hairlines in a Panel, stacked on a phone. */
   .facts {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     padding: 1.125rem 1.25rem;
   }
 

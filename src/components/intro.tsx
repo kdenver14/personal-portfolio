@@ -1,6 +1,5 @@
 import { BIO, LOCATION_SHORT, NAME, ROLE } from "@/content/profile";
 import { IntroFacts } from "./intro-facts";
-import { TechMarquee } from "./tech-marquee";
 
 export function Intro() {
   return (
@@ -14,7 +13,6 @@ export function Intro() {
       <div className="intro-bio">
         {BIO.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
-      <TechMarquee />
       <IntroFacts />
     </section>
   );

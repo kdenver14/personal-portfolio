@@ -187,7 +187,7 @@ components:
 
 **Creative North Star: "The Quiet Column"**
 
-One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a sliding strip of technology logos, a facts card (studying, open to, local time), a Technologies section listing every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
+One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a facts card (studying, open to, local time), a Technologies section that opens with a sliding strip of logos and then lists every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
 The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and "View project". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.
 
@@ -254,7 +254,7 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 
 One centred column, max width 40rem plus a 1.25rem gutter each side, at every viewport. There is no header bar and no navigation. The page starts 4.5rem from the top, or 7.5rem at 48rem and up, with the name first and nothing above it.
 
-Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the tech strip sits 2.5rem below the bio and the facts card 3rem below the strip. The footer sits 6rem below the last section.
+Vertical rhythm comes from space. Sections sit 5rem apart, or 6.5rem at 48rem and up. A section title sits 1.75rem above its content. In the intro, the facts card sits 2.5rem below the bio. The tech strip leads the Technologies section, 1.75rem above its groups. The footer sits 6rem below the last section.
 
 Projects are a grid of cards inside the column: one column below 40rem, two equal columns from 40rem, with a 1rem gap. Cards in a row share a height, and "View project" pins to each card's foot.
 
@@ -433,7 +433,7 @@ The first section, above Projects, titled "Technologies" (`#technologies`), with
 - **Screen readers:** each pill's name includes its note, so the caption is `aria-hidden`.
 
 ### Intro Facts
-A Panel under the tech strip, 3rem below it, with what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns divided by Hairline Strong rules, stacked with rules between them below 40rem.
+A Panel under the bio, 2.5rem below it, with what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns divided by Hairline Strong rules, stacked with rules between them below 40rem.
 - **Studying:** BS Computer Science, STI College Ortigas-Cainta.
 - **Open to:** full-stack and backend roles, internship or junior.
 - **Local time:** the live time in Antipolo, then "Antipolo, Philippines · UTC+8". The time is filled in on the client, so the static build never freezes one, and its line is reserved so nothing shifts.
