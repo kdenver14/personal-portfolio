@@ -65,8 +65,7 @@ export const STACK: readonly StackGroup[] = [
   {
     name: "ML and automation",
     items: [
-      tech("TensorFlow", "Training a gesture classifier."),
-      tech("Keras", "The classifier's model layers."),
+      tech("Keras", "Training a gesture classifier."),
       tech("MediaPipe", "Hand landmarks from a webcam."),
       tech("OpenCV", "Webcam capture and frames."),
       tech("NumPy", "Landmark arrays for training."),

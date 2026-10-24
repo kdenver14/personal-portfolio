@@ -429,7 +429,7 @@ A liquid field of grey dashes around the text column, in the spirit of Google An
   - It is decorative, so it is `aria-hidden` and has no pointer events.
 
 ### Stack
-The first section, above Projects, titled "Stack". It lists all 37 technologies from the public repos (`src/content/stack.ts`) in six groups: Languages, Frontend, Backend, Data, ML and automation, Tools. The owner picked it from a live specimen (grouped list, logo grid, tabs) on 2026-10-24.
+The first section, above Projects, titled "Stack". It lists 36 technologies from the public repos (`src/content/stack.ts`) in six groups: Languages, Frontend, Backend, Data, ML and automation, Tools. The owner picked it from a live specimen (grouped list, logo grid, tabs) on 2026-10-24.
 - **Rows:** one per group between Hairline rules. The group name is Slate Sans 500 at 0.8125rem in an 8.5rem column (stacked above the pills below 40rem), followed by wrapping pills.
 - **Pills:** Panel fill, full radius, a 1rem Slate logo and the name in Ink Sans 500 at 0.8125rem. A technology with no single-colour logo (Zustand, EF Core) gets a two-letter Mono monogram on a Slate square.
 - **Notes:** pointing at, focusing or tapping a pill turns it Ink with Paper text. The Graphite caption under the rows then reads "Name. What I use it for." Otherwise it reads "Point at or tap a technology to see what I use it for." The caption reserves its height (two lines below 40rem), so nothing below moves. Below 40rem a picked note becomes a Paper card that sticks to the bottom of the screen, so it stays in view in the tall section.
