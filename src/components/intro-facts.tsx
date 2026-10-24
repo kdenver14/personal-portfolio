@@ -17,7 +17,7 @@ const FACTS: readonly Fact[] = [
 /** What someone hiring checks first and the rest of the page doesn't say: where I study, what I'm open to, my time. */
 export function IntroFacts() {
   return (
-    <dl className="panel facts">
+    <dl className="facts">
       {FACTS.map((fact) => (
         <div key={fact.label} className="facts-item">
           <dt className="facts-label">{fact.label}</dt>

@@ -85,7 +85,7 @@ spacing:
   section: "6.5rem"
   section-title-gap: "1.75rem"
   strip-top: "2.5rem"
-  facts-top: "3rem"
+  facts-top: "2.5rem"
   card-gap: "1rem"
   card-padding: "1.25rem 1.25rem 1.125rem"
   dialog-block-gap: "1.75rem"
@@ -172,9 +172,9 @@ components:
     typography: "{typography.body-list}"
     padding: "0.75rem 0"
   facts:
-    backgroundColor: "{colors.panel}"
-    rounded: "{rounded.panel}"
-    padding: "1.125rem 1.25rem"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-list}"
+    padding: "1.25rem 0 0"
   footer:
     textColor: "{colors.ink-3}"
     typography: "{typography.caption}"
@@ -214,9 +214,9 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Ink** (`ink`): the name, card and dialog titles, links, the facts card's values, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
 - **Graphite** (`ink-2`): the role line, bio, card summaries, card and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the facts card's details, code-listing line numbers and comments, and gesture labels.
 - **Slate** (`ink-3`): section titles, the facts card's labels, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the footer, and captions on Paper.
-- **Hairline** (`line`): row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
-- **Hairline Strong** (`line-strong`): resting link underlines, the facts card's dividers, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
-- **Panel** (`panel`): the fill of every project card, the facts card, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
+- **Hairline** (`line`): the rule above the intro facts, row rules in More projects and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
+- **Hairline Strong** (`line-strong`): resting link underlines, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
+- **Panel** (`panel`): the fill of every project card, the live diagram and code panels, and the placeholder fill of a demo video. A hovered card steps one notch darker to Panel Hover.
 - **Panel Hover** (`panel-hover`): the fill of a hovered project card, and nothing else.
 
 ### Named Rules
@@ -263,7 +263,7 @@ The project dialog is up to 44rem wide (always 1rem clear of each viewport edge)
 Rows that pair a name with a year (card head, dialog head, More projects rows) put the name left and the year right, aligned on the baseline. The breakpoints are 40rem (card grid, dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
 
 ### Named Rules
-**The Space Groups Rule.** Group with whitespace and the panel fill. Hairlines are for lists only: More projects rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections or between cards.
+**The Space Groups Rule.** Group with whitespace and the panel fill. Hairlines are for lists only: the intro facts, More projects rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections or between cards.
 
 **The Summary And Story Rule.** The page carries a summary of each project. The full story (media, overview, live diagram, figures, facts and source) lives in that project's dialog, reachable by URL hash.
 
@@ -433,11 +433,11 @@ The first section, above Projects, titled "Technologies" (`#technologies`), with
 - **Screen readers:** each pill's name includes its note, so the caption is `aria-hidden`.
 
 ### Intro Facts
-A Panel under the bio, 2.5rem below it, with what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns divided by Hairline Strong rules, stacked with rules between them below 40rem.
+Part of the page under the bio, not a card: no fill, one Hairline above, 2.5rem below the bio. It holds what someone hiring checks first and the rest of the page doesn't say. It is a `<dl>` of three columns 1.5rem apart, stacked below 40rem. The owner asked for it to blend in after a Panel version stood out as a box.
 - **Studying:** BS Computer Science, STI College Ortigas-Cainta.
-- **Open to:** full-stack and backend roles, internship or junior.
+- **Open to:** full-stack and backend, internship or junior roles.
 - **Local time:** the live time in Antipolo, then "Antipolo, Philippines · UTC+8". The time is filled in on the client, so the static build never freezes one, and its line is reserved so nothing shifts.
-- **Type:** a Slate label at 0.75rem 500, the value in Ink Sans 600 at 0.9375rem, the detail in Graphite at 0.8125rem. There is no motion.
+- **Type:** a Slate label at 0.8125rem, the value in Ink Sans 500 at 0.9375rem, the detail in Graphite at 0.875rem. There is no motion.
 - **Content:** degree, school and roles live in `src/content/profile.ts`. A résumé download belongs here once there is a PDF.
 
 ### Gesture Panels

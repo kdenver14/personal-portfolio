@@ -260,7 +260,7 @@
       "name": "Panel",
       "kind": "card",
       "refersTo": "panel",
-      "description": "The soft grey container for every project visual and the intro's facts card, with a centred Graphite caption.",
+      "description": "The soft grey container for every project visual, with a centred Graphite caption.",
       "html": "<figure class=\"ds-panel\"><div class=\"ds-panel-body\"></div><figcaption class=\"ds-panel-caption\">How a request moves through the code</figcaption></figure>",
       "css": ".ds-panel { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-panel-body { height: 6rem; } .ds-panel-caption { font-family: var(--font-sans); margin-top: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); text-align: center; }"
     },
@@ -308,9 +308,9 @@
       "name": "Intro Facts",
       "kind": "custom",
       "refersTo": "facts",
-      "description": "A Panel under the bio holding a three-column definition list divided by Hairline Strong rules (stacked below 40rem): Studying (BS Computer Science, STI College Ortigas-Cainta), Open to (full-stack and backend roles, internship or junior), Local time (the live time, Antipolo, Philippines · UTC+8). Slate labels, Ink Sans 600 values, Graphite details, no motion.",
-      "html": "<dl class=\"ds-facts\"><div><dt>Studying</dt><dd class=\"v\">BS Computer Science</dd><dd>STI College Ortigas-Cainta</dd></div><div><dt>Open to</dt><dd class=\"v\">Full-stack and backend roles</dd><dd>Internship or junior</dd></div><div><dt>Local time</dt><dd class=\"v\">11:00 AM</dd><dd>Antipolo, Philippines · UTC+8</dd></div></dl>",
-      "css": ".ds-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 1.125rem 1.25rem; border-radius: 14px; background: var(--color-panel); font-family: var(--font-sans); color: var(--color-ink); } .ds-facts > div + div { padding-left: 1.25rem; border-left: 1px solid var(--color-line-strong); } .ds-facts > div:not(:last-child) { padding-right: 1.25rem; } .ds-facts dt { font-size: 0.75rem; font-weight: 500; color: var(--color-ink-3); } .ds-facts dd { margin: 0.15rem 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--color-ink-2); } .ds-facts dd.v { margin-top: 0.3rem; font-size: 0.9375rem; font-weight: 600; line-height: 1.35; color: var(--color-ink); }"
+      "description": "Part of the page under the bio, not a card: a three-column definition list under one Hairline, no fill, stacked below 40rem. Studying (BS Computer Science, STI College Ortigas-Cainta), Open to (full-stack and backend, internship or junior roles), Local time (the live time, Antipolo, Philippines · UTC+8). Slate labels, Ink Sans 500 values, Graphite details, no motion.",
+      "html": "<dl class=\"ds-facts\"><div><dt>Studying</dt><dd class=\"v\">BS Computer Science</dd><dd>STI College Ortigas-Cainta</dd></div><div><dt>Open to</dt><dd class=\"v\">Full-stack and backend</dd><dd>Internship or junior roles</dd></div><div><dt>Local time</dt><dd class=\"v\">11:00 AM</dd><dd>Antipolo, Philippines · UTC+8</dd></div></dl>",
+      "css": ".ds-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 1.5rem; margin: 0; padding-top: 1.25rem; border-top: 1px solid var(--color-line); font-family: var(--font-sans); color: var(--color-ink); } .ds-facts dt { font-size: 0.8125rem; line-height: 1.4; color: var(--color-ink-3); } .ds-facts dd { margin: 0; font-size: 0.875rem; line-height: 1.4; color: var(--color-ink-2); } .ds-facts dd.v { margin-top: 0.25rem; font-size: 0.9375rem; font-weight: 500; color: var(--color-ink); }"
     },
     {
       "name": "Technologies",

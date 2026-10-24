@@ -28,5 +28,5 @@ export const BIO: readonly string[] = [
   "I started on C++, so I still ask who owns a pointer before asking what it does. Several of these projects were written with and without AI, on purpose, as practice.",
 ];
 
-export const OPEN_TO = "Full-stack and backend roles";
-export const OPEN_TO_LEVEL = "Internship or junior";
+export const OPEN_TO = "Full-stack and backend";
+export const OPEN_TO_LEVEL = "Internship or junior roles";

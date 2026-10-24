@@ -1486,47 +1486,39 @@
 
   /* ---------- Intro facts ---------- */
 
-  /* Under the bio: where I study, what I'm open to and my local time, the first things someone hiring looks
-     for and nowhere else on the page. Three columns between hairlines in a Panel, stacked on a phone. */
+  /* Under the bio: where I study, what I'm open to and my local time, the first things someone hiring looks for
+     and nowhere else on the page. Part of the page rather than a card: three columns under one hairline, like the
+     lists, stacked on a phone. */
   .facts {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
     margin-top: 2.5rem;
-    padding: 1.125rem 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
   }
 
   .facts-item {
     min-width: 0;
   }
 
-  .facts-item + .facts-item {
-    padding-left: 1.25rem;
-    border-left: 1px solid var(--color-line-strong);
-  }
-
-  .facts-item:not(:last-child) {
-    padding-right: 1.25rem;
-  }
-
   .facts-label {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.8125rem;
     line-height: 1.4;
     color: var(--color-ink-3);
   }
 
   /* Holds its line before the client fills in the time, so nothing shifts. */
   .facts-value {
-    min-height: 1.35em;
-    margin-top: 0.3rem;
+    min-height: 1.4em;
+    margin-top: 0.25rem;
     font-size: 0.9375rem;
-    font-weight: 600;
-    line-height: 1.35;
+    font-weight: 500;
+    line-height: 1.4;
   }
 
   .facts-detail {
-    margin-top: 0.15rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.4;
     color: var(--color-ink-2);
   }
@@ -1534,17 +1526,6 @@
   @media (max-width: 39.99rem) {
     .facts {
       grid-template-columns: minmax(0, 1fr);
-    }
-
-    .facts-item + .facts-item {
-      margin-top: 0.875rem;
-      padding: 0.875rem 0 0;
-      border-top: 1px solid var(--color-line-strong);
-      border-left: 0;
-    }
-
-    .facts-item:not(:last-child) {
-      padding-right: 0;
     }
   }
 
