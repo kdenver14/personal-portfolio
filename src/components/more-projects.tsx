@@ -2,7 +2,6 @@ import { FEATURED } from "@/content/featured";
 import { GITHUB_REPOS_URL } from "@/content/profile";
 import { PROJECTS } from "@/content/projects";
 import { replayFor } from "@/content/replays";
-import { formatYear } from "@/lib/format";
 import { LinkArrow } from "./link-arrow";
 import { MoreProjectDetail } from "./more-project-detail";
 import { ProjectDialog } from "./project-dialog";
@@ -13,7 +12,7 @@ const MORE = PROJECTS.filter((project) => !FEATURED_REPOS.has(project.repo)).map
   replay: replayFor(project.repo),
 }));
 
-/** Six more repos as rows, each opening a replay pop-up; on hover the year gives way to an arrow. The rest are on GitHub. */
+/** Six more repos as rows, each opening a replay pop-up. The rest are on GitHub. */
 export function MoreProjects() {
   return (
     <>
@@ -24,11 +23,8 @@ export function MoreProjects() {
               {project.name}
             </a>
             <span className="more-desc">{project.function}</span>
-            <span className="more-year tabular">
-              <span className="more-year-text">{formatYear(project.created)}</span>
-              <span className="more-arrow" aria-hidden="true">
-                →
-              </span>
+            <span className="more-arrow" aria-hidden="true">
+              →
             </span>
           </li>
         ))}

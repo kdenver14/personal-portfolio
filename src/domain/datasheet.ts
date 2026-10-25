@@ -35,8 +35,6 @@ export interface Project {
   name: string;
   function: string;
   language: string;
-  /** "YYYY-MM" the repository was created. */
-  created: string;
 }
 
 /** A monochrome logo drawn from one SVG path. */

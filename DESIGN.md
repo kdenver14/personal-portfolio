@@ -214,14 +214,14 @@ A grey-ink palette on a cool near-white with a faint blue cast, the owner's "not
 - **Paper** (`paper`): the page, the dialog surface, the Close pill, the live diagram's empty stops and method chip, and the theme colour.
 - **Ink** (`ink`): the name, project names and dialog titles, links, the facts card's values, code, and text selection (ink background, paper text). At 40% it is the dialog backdrop.
 - **Graphite** (`ink-2`): the role line, bio, project lines, project and dialog meta and tags, the tech strip, dialog overview text, the contact line, captions inside panels, the facts card's details, code-listing line numbers and comments, and gesture labels.
-- **Slate** (`ink-3`): section titles, the facts card's labels, the dialog sub-heading ("Details"), fact labels, the strip's logos, More projects years, the project rows' arrows, the footer, and captions on Paper.
+- **Slate** (`ink-3`): section titles, the facts card's labels, the dialog sub-heading ("Details"), fact labels, the strip's logos, the arrows on Projects and More projects rows, the footer, and captions on Paper.
 - **Hairline** (`line`): the rule above the intro facts, row rules in Projects, More projects, Contact and Details, the rule above the dialog foot, the footer's top rule and the Close pill's resting border.
 - **Hairline Strong** (`line-strong`): resting link underlines, the live diagram's line and resting stops, the tech strip's dot separators and the Close pill's hover border.
 - **Panel** (`panel`): the live diagram and code panels, the placeholder fill of a demo video, and the tint of a hovered list row (Projects, More projects, Contact).
 - **Panel Hover** (`panel-hover`): the navbar link for the section in view, and nothing else.
 
 ### Named Rules
-**The Slate On Paper Rule.** Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1). Text inside a panel uses Graphite (5.19:1 on Panel) or Ink, and a list row's Slate icon, arrow or year turns Ink or gives way when the row tints on hover.
+**The Slate On Paper Rule.** Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1). Text inside a panel uses Graphite (5.19:1 on Panel) or Ink, and a list row's Slate icon or arrow turns Ink when the row tints on hover.
 
 **The One Signal Rule.** Signal Blue is the only accent. It marks focus, the active pin, the gesture bones and the "In development" status word (5.67:1 on Paper, 5.22:1 on Panel). It is never decoration, a heading colour, a link colour or a fill.
 
@@ -261,7 +261,7 @@ Projects are a list of rows inside the column, like More projects and Contact, o
 
 The project dialog is up to 44rem wide (always 1rem clear of each viewport edge) and at most 90dvh tall (capped at 64rem). It scrolls inside itself. Its body has 1.5rem side padding, or 2.5rem from 40rem, and 1.75rem between blocks. Below 40rem the dialog becomes a bottom sheet: full width, up to 92dvh, attached to the bottom edge. The page behind an open dialog does not scroll.
 
-Rows that pair a name with a year (More projects rows and their pop-up heads) put the name left and the year right, aligned on the baseline. Featured projects show no year, by the owner's choice on 2026-10-25. The breakpoints are 40rem (dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
+No project shows a year, by the owner's choice on 2026-10-25: rows put the name left and an arrow right, aligned on the baseline. The breakpoints are 40rem (dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
 
 ### Named Rules
 **The Space Groups Rule.** Group with whitespace and the panel fill. Hairlines are for lists only: the intro facts, the Projects, More projects and Contact rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections.
@@ -380,16 +380,16 @@ Roles, newest first, on a vertical timeline. Each role has 1.25rem vertical padd
 ### More Projects List
 Six repos the owner chose, each with a replay, newest first. Everything else is one link away: "View more projects ↗" under the list opens the GitHub repositories tab in a new tab. It is Sans 500 at 0.875rem, and the arrow nudges up and right on hover. The owner cut the list from 13 rows (2026-10-22) because a replay for every repo was not worth it.
 
-A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and the year in Slate tabular figures.
+A hairline list. There is a top rule on the first row, then each row has a 1px Hairline bottom rule and 0.75rem vertical padding. The tight row padding is deliberate list density, confirmed by the owner. Each row shows the name (500), a one-line description in Graphite and a Slate →.
 - **Interaction:** quieter than the featured rows, by the owner's choice.
   - The whole row opens the project's pop-up (below): the name's link, to `#<id>`, is stretched over it. Every row has a replay; the build fails if one is missing.
   - Rows bleed 0.75rem past the column so the hover tint has room. The hairlines stay column-wide.
-  - On hover, the row takes a Panel tint with a 0.5rem radius, and the year fades up and out as a → arrow slides in, over 160ms.
-  - Keyboard focus outlines the whole row in Signal Blue and shows the arrow.
+  - On hover, the row takes a Panel tint with a 0.5rem radius, and the arrow turns Ink and nudges right, over 160ms.
+  - Keyboard focus outlines the whole row in Signal Blue and darkens the arrow.
   - Hover styles apply only on devices that can hover, so a tap on a phone doesn't leave a row tinted.
 
 ### More Project Pop-up
-A compact version of the project dialog (36rem wide, title at 1.875rem), opened through the URL hash like the featured ones. It holds the name and year, the one-line summary, a replay of the project running, and a foot with the language and "Source on GitHub".
+A compact version of the project dialog (36rem wide, title at 1.875rem), opened through the URL hash like the featured ones. It holds the name, the one-line summary, a replay of the project running, and a foot with the language and "Source on GitHub".
 - **Replay:** a short scripted animation built from the repository's code, in `src/content/replays.ts`, with the timelines in `src/lib/replay.ts`.
   - **Terminal**, for scripts, APIs and console programs. It is dark (#1d2024), in JetBrains Mono 0.75rem. Commands are typed at a `$` prompt.
     - Output lines are only what the program really prints, in its own wording, with sample values. Success lines are a light blue.

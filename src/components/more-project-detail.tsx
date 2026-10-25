@@ -1,6 +1,6 @@
 import type { Project, Replay } from "@/domain/datasheet";
 import { OWNER } from "@/content/profile";
-import { formatYear, repoUrl } from "@/lib/format";
+import { repoUrl } from "@/lib/format";
 import { ReplayFigure } from "./replay-player";
 
 /** A More project's pop-up: what it is, a short replay of it running, and its source. */
@@ -11,7 +11,6 @@ export function MoreProjectDetail({ project, replay }: { project: Project; repla
         <h2 id={`${replay.id}-title`} className="detail-title">
           {project.name}
         </h2>
-        <span className="project-year tabular">{formatYear(project.created)}</span>
       </header>
       <p className="detail-text">{project.function}</p>
       <ReplayFigure replay={replay} />

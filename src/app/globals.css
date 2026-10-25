@@ -486,12 +486,6 @@
 
   /* ---------- Projects: rows ---------- */
 
-  .project-year {
-    flex: none;
-    font-size: 0.875rem;
-    color: var(--color-ink-2);
-  }
-
   .status-preview {
     font-size: 0.875rem;
     color: var(--color-blue);
@@ -1987,8 +1981,7 @@
 
   /* ---------- More projects ---------- */
 
-  /* Quieter than the featured rows: a name, one line and the year, which gives way to an arrow on hover. The row
-     itself is under List rows. */
+  /* Quieter than the featured rows: a name, one line and an arrow. The row itself is under List rows. */
   .more {
     border-top: 1px solid var(--color-line);
   }
@@ -2009,55 +2002,27 @@
     text-decoration-color: transparent;
   }
 
-  .more-year {
-    position: relative;
-    display: inline-flex;
-    justify-content: flex-end;
+  .more-arrow {
     grid-row: 1;
     grid-column: 2;
+    justify-self: end;
     font-size: 0.875rem;
     color: var(--color-ink-3);
-  }
-
-  .more-year-text,
-  .more-arrow {
     transition:
-      opacity var(--t-fast) var(--ease-out),
+      color var(--t-fast) var(--ease-out),
       transform var(--t-fast) var(--ease-out);
   }
 
-  .more-arrow {
-    position: absolute;
-    right: 0;
-    color: var(--color-ink);
-    opacity: 0;
-    transform: translate(-4px, 4px);
-  }
-
-  .more-item:has(.more-name:focus-visible) .more-year-text {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-
+  .more-item:hover .more-arrow,
   .more-item:has(.more-name:focus-visible) .more-arrow {
-    opacity: 1;
-    transform: none;
+    color: var(--color-ink);
+    transform: translateX(3px);
   }
 
   /* Hover only where a pointer can hover, so a tap on a phone doesn't leave a row stuck tinted. */
   @media (hover: hover) {
     .more-item:hover .more-name {
       text-decoration-color: transparent;
-    }
-
-    .more-item:hover .more-year-text {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-
-    .more-item:hover .more-arrow {
-      opacity: 1;
-      transform: none;
     }
   }
 
@@ -2081,7 +2046,7 @@
       font-size: 0.9375rem;
     }
 
-    .more-year {
+    .more-arrow {
       grid-column: 3;
     }
   }
