@@ -30,7 +30,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | A featured project: one-line summary, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
 | The Technologies section (every technology, its group and one-line note) | `src/content/stack.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |
-| A technology logo (shared by the strip and the Technologies section) | `src/content/logos.ts` |
+| A technology logo (for the strip and the Contact links) | `src/content/logos.ts` |
 
 Bump `LAST_REVISED` in `profile.ts` when you publish a change; the footer shows it.
 

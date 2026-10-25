@@ -321,7 +321,7 @@ A hairline definition list. There is a top rule on the list, then each fact has 
 Plain text in Graphite: 0.8125rem in project rows, 0.875rem in the dialog foot. Middle dots trail each tag, so a wrapped line never starts with a dot. There are no boxes, pills or fills.
 
 ### Tech Strip
-A single line of 18 monochrome logos for the main technologies, sliding right to left in a linear loop of 2.5s per logo (45s), so adding logos lengthens the loop without speeding it up. It is a short accent; the Technologies section carries the full list. Every logo path lives in `src/content/logos.ts`, shared with the Technologies section.
+A single line of 18 monochrome logos for the main technologies, sliding right to left in a linear loop of 2.5s per logo (45s), so adding logos lengthens the loop without speeding it up. It is a short accent; the Technologies section carries the full list. Every logo path lives in `src/content/logos.ts`, shared with the Contact links.
 - **Logos:** 1.75rem square, Slate fill turning Ink on hover, 2.5rem apart. Each is one SVG path: Simple Icons (CC0), or Devicon (MIT) for C#.
 - **Names:** each logo carries its name as an accessible label and a native tooltip.
 - **Loop:** the list is drawn twice so the loop has no seam, and the copy is hidden from assistive tech. Both edges fade out through a 12% mask.
@@ -432,8 +432,8 @@ A pill pinned 1rem from the bottom-right corner, in the navbar's translucent Pap
 
 ### Stack
 The first section, above Projects, titled "Technologies" (`#technologies`), with a matching nav link. It lists 36 technologies from the public repos (`src/content/stack.ts`) in six groups: Languages, Frontend, Backend, Data, ML and automation, Tools. The owner picked it from a live specimen (grouped list, logo grid, tabs) on 2026-10-24.
-- **Rows:** one per group between Hairline rules. The group name is Slate Sans 500 at 0.8125rem in an 8.5rem column (stacked above the pills below 40rem), followed by wrapping pills.
-- **Pills:** Panel fill, full radius, a 1rem Slate logo and the name in Ink Sans 500 at 0.8125rem. A technology with no single-colour logo (Zustand, EF Core) gets a two-letter Mono monogram on a Slate square.
+- **Rows:** one per group between Hairline rules, 0.75rem padding top and bottom. The group name is Slate Sans 500 at 0.8125rem in an 8.5rem column (stacked above the pills below 40rem), followed by wrapping pills.
+- **Pills:** small and quiet: Panel fill, full radius, padding 0.2rem 0.6rem, 0.3rem apart, and only the name, in Ink Sans 400 at 0.8125rem. They carry no logos, since the strip above has them. The owner cut the logos and the weight from a live specimen on 2026-10-25, when the section felt cluttered.
 - **Notes:** pointing at, focusing or tapping a pill turns it Ink with Paper text. The Graphite caption under the rows then reads "Name. What I use it for." Otherwise it reads "Point at or tap a technology to see what I use it for." The caption reserves its height (two lines below 40rem), so nothing below moves. Below 40rem a picked note becomes a Paper card that sticks to the bottom of the screen, so it stays in view in the tall section.
 - **Screen readers:** each pill's name includes its note, so the caption is `aria-hidden`.
 

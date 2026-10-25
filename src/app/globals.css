@@ -1372,13 +1372,14 @@
 
   /* ---------- Stack ---------- */
 
-  /* Every technology in the public repos, one row per group: the group's name, then pills with a logo and a name.
-     Pointing at, focusing or tapping a pill shows what I use it for in the caption below. */
+  /* Every technology in the public repos, one row per group: the group's name, then small pills with just the name,
+     since the strip above carries the logos. Pointing at, focusing or tapping a pill shows what I use it for in the
+     caption below. */
   .stack-group {
     display: grid;
     grid-template-columns: 8.5rem minmax(0, 1fr);
     gap: 0.5rem 1rem;
-    padding-block: 0.9rem;
+    padding-block: 0.75rem;
     border-top: 1px solid var(--color-line);
   }
 
@@ -1387,7 +1388,7 @@
   }
 
   .stack-group-name {
-    padding-top: 0.35rem;
+    padding-top: 0.2rem;
     font-size: 0.8125rem;
     font-weight: 500;
     line-height: 1.4;
@@ -1397,20 +1398,18 @@
   .stack-tiles {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .stack-tile {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.35rem 0.65rem 0.35rem 0.5rem;
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
     border: 0;
     border-radius: 999px;
     background: var(--color-panel);
     font: inherit;
     font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.4;
     color: var(--color-ink);
     cursor: pointer;
@@ -1424,43 +1423,9 @@
     border-radius: 999px;
   }
 
-  .stack-logo {
-    flex: none;
-    width: 1rem;
-    height: 1rem;
-    fill: var(--color-ink-3);
-    transition: fill var(--t-fast) var(--ease-out);
-  }
-
-  /* Stands in for a technology with no single-colour logo. */
-  .stack-monogram {
-    display: grid;
-    flex: none;
-    place-items: center;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 3px;
-    background: var(--color-ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.5rem;
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--color-panel);
-  }
-
   .stack-tile[data-on] {
     background: var(--color-ink);
     color: var(--color-paper);
-  }
-
-  .stack-tile[data-on] .stack-logo {
-    fill: var(--color-paper);
-  }
-
-  .stack-tile[data-on] .stack-monogram {
-    background: var(--color-paper);
-    color: var(--color-ink);
   }
 
   /* Room for the longest note, so the page below never jumps as it changes. */
