@@ -1,6 +1,6 @@
 # KDC-14 — portfolio
 
-Personal site of Kurt Denver Chavez. One narrow column: intro, a scrolling strip of technologies, the DIP-8 pin figure, cards for the four repos pinned on GitHub (each opens a dialog with the full project), every other repo, and contact. Every fact links back to a public repo on [github.com/kdenver14](https://github.com/kdenver14).
+Personal site of Kurt Denver Chavez. One narrow column: intro with a few facts for recruiters, every technology, rows for the four repos pinned on GitHub (each opens a dialog with the full project), experience, the longest contribution streak, six more repos, and contact. Every fact links back to a public repo on [github.com/kdenver14](https://github.com/kdenver14).
 
 Next.js 16 (App Router, static export), TypeScript (strict), Tailwind CSS 4, Instrument Serif + Instrument Sans + JetBrains Mono via `next/font`.
 
@@ -27,7 +27,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | The résumé PDF (keep the phone number off it: the site is public) | replace `public/kurt-denver-chavez-resume.pdf` |
 | The intro's facts card (degree, school, roles you're open to, home and time zone) | `src/content/profile.ts` |
 | A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
-| A featured project: card line, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
+| A featured project: one-line summary, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
 | The Technologies section (every technology, its group and one-line note) | `src/content/stack.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |
 | A technology logo (shared by the strip and the Technologies section) | `src/content/logos.ts` |

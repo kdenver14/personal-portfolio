@@ -151,7 +151,7 @@
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Card titles."
+        "purpose": "Project names in the Projects rows."
       },
       "body": {
         "displayName": "Body",
@@ -159,7 +159,7 @@
       },
       "summary": {
         "displayName": "Summary",
-        "purpose": "The one-line summary on a project card."
+        "purpose": "The one short line in a project row."
       },
       "body-list": {
         "displayName": "Body List",
@@ -167,7 +167,7 @@
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Section titles and dialog sub-headings in Slate; View project and Close in Ink."
+        "purpose": "Section titles and dialog sub-headings in Slate; Close in Ink."
       },
       "small": {
         "displayName": "Small",
@@ -207,7 +207,7 @@
       {
         "name": "t-fast",
         "value": "160ms",
-        "purpose": "Link underline, card fill, code-tab and note colour changes. Reduced to 0.01ms under prefers-reduced-motion."
+        "purpose": "Link underline, row tint, code-tab and note colour changes. Reduced to 0.01ms under prefers-reduced-motion."
       },
       {
         "name": "dialog-in",
@@ -265,12 +265,12 @@
       "css": ".ds-panel { margin: 0; padding: 2rem 1rem 1.25rem; background: var(--color-panel); border-radius: 14px; } .ds-panel-body { height: 6rem; } .ds-panel-caption { font-family: var(--font-sans); margin-top: 1.25rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-2); text-align: center; }"
     },
     {
-      "name": "Project Card",
-      "kind": "card",
-      "refersTo": "card",
-      "description": "A whole-card link in a Panel fill: serif title and year, status, Graphite summary and tags, View project at the foot; hover darkens the fill one notch.",
-      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card-head\"><span class=\"ds-card-title\">uptime-monitor</span><span class=\"ds-card-year\">2026</span></span><span class=\"ds-status\">In development</span><span class=\"ds-card-summary\">A website uptime monitor that tracks status and response time, written without AI.</span><ul class=\"ds-tags\"><li>TypeScript</li><li>Express 5</li><li>Prisma</li></ul><span class=\"ds-card-open\">View project</span></a>",
-      "css": ".ds-card { display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem; padding: 1.25rem 1.25rem 1.125rem; background: var(--color-panel); border-radius: 14px; color: var(--color-ink); font-family: var(--font-sans); text-decoration: none; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { background: var(--color-panel-hover); } .ds-card:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; border-radius: 2px; } .ds-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; } .ds-card-title { font-family: var(--font-serif); font-size: 1.625rem; line-height: 1.1; font-weight: 400; } .ds-card-year { font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-status { font-size: 0.875rem; color: var(--color-blue); } .ds-card-summary { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.875rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; } .ds-card-open { margin-top: auto; padding-top: 0.75rem; font-size: 0.875rem; font-weight: 500; }"
+      "name": "Project Row",
+      "kind": "custom",
+      "refersTo": "project-row",
+      "description": "Hairline list row for a featured project, like More projects but fuller: the serif name (1.375rem) with the year and a Slate → on the right, Signal Blue \"In development\" while unfinished, one short Graphite line and Graphite tags at 0.8125rem. The name is the link to the hash-keyed dialog and stretches over the row. On hover (pointer devices only) the row tints Panel (0.5rem radius, bleeding 0.75rem past the column) and the arrow turns Ink and nudges right; keyboard focus outlines the row in Signal Blue.",
+      "html": "<ul class=\"ds-projects\"><li class=\"ds-project-row\"><div class=\"ds-project-head\"><h3 class=\"ds-project-title\"><a class=\"ds-project-name\" href=\"#\">uptime-monitor</a></h3><span class=\"ds-project-year\">2026</span><span class=\"ds-project-arrow\" aria-hidden=\"true\">→</span></div><span class=\"ds-status\">In development</span><p class=\"ds-project-summary\">A backend that checks whether websites are up.</p><ul class=\"ds-tags\"><li>TypeScript</li><li>Express 5</li><li>Prisma</li></ul></li></ul>",
+      "css": ".ds-projects { font-family: var(--font-sans); list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-line); } .ds-project-row { position: relative; display: flex; flex-direction: column; gap: 0.375rem; margin-inline: -0.75rem; padding: 1.125rem 0.75rem; border-radius: 0.5rem; background: linear-gradient(var(--color-line), var(--color-line)) no-repeat center bottom / calc(100% - 1.5rem) 1px; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-project-row:hover { background-color: var(--color-panel); } .ds-project-row:has(.ds-project-name:focus-visible) { outline: 2px solid var(--color-blue); outline-offset: -2px; } .ds-project-head { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; column-gap: 1rem; } .ds-project-title { margin: 0; font-family: var(--font-serif); font-size: 1.375rem; line-height: 1.15; font-weight: 400; } .ds-project-name { color: var(--color-ink); text-decoration: none; outline: none; } .ds-project-name::after { content: \"\"; position: absolute; inset: 0; border-radius: inherit; } .ds-project-year { font-size: 0.875rem; color: var(--color-ink-2); font-variant-numeric: tabular-nums; } .ds-project-arrow { color: var(--color-ink-3); transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-project-row:hover .ds-project-arrow { color: var(--color-ink); transform: translateX(3px); } .ds-status { font-size: 0.875rem; color: var(--color-blue); } .ds-project-summary { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); } .ds-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; font-size: 0.8125rem; color: var(--color-ink-2); } .ds-tags li:not(:last-child)::after { content: \"\\00B7\"; margin-left: 0.5rem; }"
     },
     {
       "name": "Project Dialog",
@@ -371,10 +371,10 @@
   ],
   "narrative": {
     "northStar": "The Quiet Column",
-    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a facts card (studying, open to, local time), a Technologies section that opens with a sliding strip of logos and then lists every technology, four project cards, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, card titles and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a soft blue-gray card (14px radius) with a serif title, year, one short summary, tags and \"View project\". The card opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: More projects, the dialog's Details, the dialog foot and the footer.\n\nUnder the bio, a facts card answers what someone hiring checks first and the page doesn't say elsewhere: where they study, what they're open to, and their local time.",
+    "overview": "One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a facts card (studying, open to, local time), a Technologies section that opens with a sliding strip of logos and then lists every technology, four project rows, experience, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, project names and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.\n\nThe owner's standing steer governs every surface: \"not too bold, professionalism with taste\". The page stays a summary. Each featured project is a hairline row with a serif name, its year and an arrow, one short line and tags. The row opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: Projects, More projects, Contact, the dialog's Details, the dialog foot and the footer.\n\nUnder the bio, a facts card answers what someone hiring checks first and the page doesn't say elsewhere: where they study, what they're open to, and their local time.",
     "keyCharacteristics": [
       "Cool near-white page with a faint blue cast, near-black ink, two quieter greys, blue-gray hairlines.",
-      "Visuals and project cards sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",
+      "Visuals sit in soft Panel fills with a 14px radius. The dialog is the one Paper surface lifted off the page.",
       "Serif for names and titles, sans for everything else, mono only for literal code and markings.",
       "Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.",
       "Blue, the only accent, marks focus, the active pin, the gesture skeletons and one status word.",
@@ -384,17 +384,17 @@
     "rules": [
       {
         "name": "The Slate On Paper Rule",
-        "body": "Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1) and falls below it on a hovered card (4.25:1). Text inside a panel or card uses Graphite (5.19:1 on Panel, 4.82:1 on a hovered card) or Ink, which is why card meta and tags are Graphite.",
+        "body": "Slate (`ink-3`) sits on Paper only. It clears AA on Paper (4.97:1) but only just clears it on Panel (4.57:1). Text inside a panel uses Graphite (5.19:1 on Panel) or Ink, and a list row's Slate icon, arrow or year turns Ink or gives way when the row tints on hover.",
         "section": "colors"
       },
       {
         "name": "The One Signal Rule",
-        "body": "Signal Blue is the only accent. It marks focus, the active pin, the gesture bones and the \"In development\" status word (5.22:1 on Panel, 4.85:1 on a hovered card). It is never decoration, a heading colour, a link colour or a fill.",
+        "body": "Signal Blue is the only accent. It marks focus, the active pin, the gesture bones and the \"In development\" status word (5.67:1 on Paper, 5.22:1 on Panel). It is never decoration, a heading colour, a link colour or a fill.",
         "section": "colors"
       },
       {
         "name": "The Serif Names Rule",
-        "body": "Instrument Serif sets names only: the person, a card title and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.",
+        "body": "Instrument Serif sets names only: the person, a project name and a dialog title. It is always weight 400, and only the serif goes above 1rem. Sans text stays between 0.75rem and 1rem, and its emphasis comes from weight (500 for links, labels and list names) and from moving between Ink, Graphite and Slate.",
         "section": "typography"
       },
       {
@@ -404,7 +404,7 @@
       },
       {
         "name": "The Space Groups Rule",
-        "body": "Group with whitespace and the panel fill. Hairlines are for lists only: More projects rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections or between cards.",
+        "body": "Group with whitespace and the panel fill. Hairlines are for lists only: the intro facts, the Projects, More projects and Contact rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections.",
         "section": "layout"
       },
       {
@@ -414,26 +414,26 @@
       },
       {
         "name": "The One Lift Rule",
-        "body": "The modal dialog is the only element with a shadow and a backdrop. Cards, panels and buttons stay flat. Hover changes tone, never elevation.",
+        "body": "The modal dialog is the only element with a shadow and a backdrop. Rows, panels and buttons stay flat. Hover changes tone, never elevation.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do present each featured project as a Panel card (14px radius, 1rem grid gap, two up from 40rem) that opens its full story in a hash-keyed dialog.",
+      "Do present each featured project as a hairline row (serif name, year and arrow, one short line, tags) that opens its full story in a hash-keyed dialog.",
       "Do keep the open dialog the only lifted surface: Paper, 18px radius, one soft shadow, 40% ink backdrop, a bottom sheet below 40rem.",
       "Do make links Ink with a Hairline Strong underline that darkens on hover over 160ms.",
-      "Do separate sections and cards with space (5rem to 6.5rem between sections), and keep hairlines for lists.",
+      "Do separate sections with space (5rem to 6.5rem between sections), and keep hairlines for lists.",
       "Do set names in Instrument Serif 400, code and file names in JetBrains Mono 400, and everything else in Instrument Sans.",
-      "Do keep Slate text on Paper and use Graphite or Ink inside panels and cards.",
+      "Do keep Slate text on Paper and use Graphite or Ink inside panels.",
       "Do keep motion to 160ms colour changes, the 200ms dialog rise and the pausable tech strip, and turn the rise and the strip off under `prefers-reduced-motion`."
     ],
     "donts": [
       "Don't add a header bar, navigation, numbered sections or tables.",
       "Don't box tags or turn them into pills; tags are plain text joined by middle dots. The dialog's Close button is the only pill.",
       "Don't use blue for links or decoration, or add a second accent colour.",
-      "Don't put a shadow on anything but the open dialog, and don't lift cards on hover.",
+      "Don't put a shadow on anything but the open dialog, and don't lift anything on hover.",
       "Don't add a dark mode; the system is light only by design.",
-      "Don't put a label, kicker or eyebrow above the name, a section title, a card title or a dialog title.",
+      "Don't put a label, kicker or eyebrow above the name, a section title, a project name or a dialog title.",
       "Don't set sans text larger than 1rem or use the serif for anything but names.",
       "Don't add page-load or scroll-triggered entrance animations, or autoplaying media."
     ]

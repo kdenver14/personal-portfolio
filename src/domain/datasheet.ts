@@ -64,7 +64,7 @@ export interface FeaturedProject {
   repo: string;
   name: string;
   status: ProjectStatus;
-  /** One line for the card on the home page. */
+  /** One short line for the project's row on the home page; the overview tells the rest. */
   summary: string;
   /** Full description, shown when the project is opened. */
   overview: readonly string[];

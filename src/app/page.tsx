@@ -7,9 +7,9 @@ import { Intro } from "@/components/intro";
 import { MoreProjects } from "@/components/more-projects";
 import { NavBar } from "@/components/nav-bar";
 import { ParticlesToggle } from "@/components/particles-toggle";
-import { ProjectCard } from "@/components/project-card";
 import { ProjectDetail } from "@/components/project-detail";
 import { ProjectDialog } from "@/components/project-dialog";
+import { ProjectRow } from "@/components/project-row";
 import { Section } from "@/components/section";
 import { SiteFooter } from "@/components/site-footer";
 import { Stack } from "@/components/stack";
@@ -29,9 +29,9 @@ export default function Home() {
           <Stack />
         </Section>
         <Section id="projects" title="Projects">
-          <div className="cards">
-            {FEATURED.map((project) => <ProjectCard key={project.id} project={project} />)}
-          </div>
+          <ul className="project-list">
+            {FEATURED.map((project) => <ProjectRow key={project.id} project={project} />)}
+          </ul>
           {FEATURED.map((project) => (
             <ProjectDialog key={project.id} id={project.id}>
               <ProjectDetail project={project} />

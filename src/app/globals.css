@@ -439,7 +439,52 @@
     }
   }
 
-  /* ---------- Projects: cards ---------- */
+  /* ---------- List rows ---------- */
+
+  /* Projects, More projects and Contact share one row: the name is the link and stretches over its row, which
+     tints on hover. Rows bleed 0.75rem past the column so the tint has room; the hairlines stay column-wide. */
+  .project-row,
+  .more-item,
+  .contact-row {
+    position: relative;
+    margin-inline: -0.75rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(var(--color-line), var(--color-line)) no-repeat center bottom / calc(100% - 1.5rem) 1px;
+    transition: background-color var(--t-fast) var(--ease-out);
+  }
+
+  .project-name::after,
+  .more-name::after,
+  .contact-name::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .project-name:focus-visible,
+  .more-name:focus-visible,
+  .contact-name:focus-visible {
+    outline: none;
+  }
+
+  .project-row:has(.project-name:focus-visible),
+  .more-item:has(.more-name:focus-visible),
+  .contact-row:has(.contact-name:focus-visible) {
+    outline: 2px solid var(--color-blue);
+    outline-offset: -2px;
+  }
+
+  /* Hover only where a pointer can hover, so a tap on a phone doesn't leave a row stuck tinted. */
+  @media (hover: hover) {
+    .project-row:hover,
+    .more-item:hover,
+    .contact-row:hover {
+      background-color: var(--color-panel);
+    }
+  }
+
+  /* ---------- Projects: rows ---------- */
 
   .project-meta {
     display: flex;
@@ -474,75 +519,59 @@
     margin-left: 0.5rem;
   }
 
-  .cards {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
+  /* Each featured project carries more than a More projects row: a serif name with its year and an arrow, the
+     status while unfinished, one short line and the tags. The full story is in its dialog. */
+  .project-list {
+    border-top: 1px solid var(--color-line);
   }
 
-  @media (min-width: 40rem) {
-    .cards {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .card {
+  .project-row {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.25rem 1.25rem 1.125rem;
-    background: var(--color-panel);
-    border-radius: var(--radius);
-    color: var(--color-ink);
-    text-decoration: none;
-    transition: background-color var(--t-fast) var(--ease-out);
+    gap: 0.375rem;
+    padding: 1.125rem 0.75rem;
   }
 
-  .card:hover {
-    background: var(--color-panel-hover);
-  }
-
-  .card-poster {
-    width: 100%;
-    height: auto;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-  }
-
-  .card-head {
-    display: flex;
+  /* A long name wraps instead of pushing the year and arrow off the row. */
+  .project-row-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
+    column-gap: 1rem;
   }
 
-  .card-title {
+  .project-row-title {
     font-family: var(--font-serif);
-    font-size: 1.625rem;
-    line-height: 1.1;
+    font-size: 1.375rem;
+    line-height: 1.15;
     font-weight: 400;
   }
 
-  .card-summary {
+  .project-name {
+    text-decoration-color: transparent;
+  }
+
+  .project-row-arrow {
+    color: var(--color-ink-3);
+    transition:
+      color var(--t-fast) var(--ease-out),
+      transform var(--t-fast) var(--ease-out);
+  }
+
+  .project-row:hover .project-row-arrow,
+  .project-row:has(.project-name:focus-visible) .project-row-arrow {
+    color: var(--color-ink);
+    transform: translateX(3px);
+  }
+
+  .project-row-summary {
     font-size: 0.9375rem;
     line-height: 1.55;
     color: var(--color-ink-2);
   }
 
-  .card-open {
-    margin-top: auto;
-    padding-top: 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-
-  .card-arrow {
-    display: inline-block;
-    transition: transform var(--t-fast) var(--ease-out);
-  }
-
-  .card:hover .card-arrow {
-    transform: translateX(3px);
+  .project-row .tags {
+    font-size: 0.8125rem;
   }
 
   /* ---------- Project dialog ---------- */
@@ -1933,24 +1962,19 @@
 
   /* ---------- More projects ---------- */
 
-  /* Quieter than the featured cards: the whole row is the link, it tints on hover and the year gives way to
-     an arrow. Rows bleed 0.75rem past the column so the tint has room; the hairlines stay column-wide. */
+  /* Quieter than the featured rows: a name, one line and the year, which gives way to an arrow on hover. The row
+     itself is under List rows. */
   .more {
     border-top: 1px solid var(--color-line);
   }
 
   .more-item {
-    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: 1rem;
-    margin-inline: -0.75rem;
     padding: 0.75rem;
-    border-radius: 0.5rem;
-    background: linear-gradient(var(--color-line), var(--color-line)) no-repeat center bottom / calc(100% - 1.5rem) 1px;
     font-size: 0.9375rem;
     line-height: 1.5;
-    transition: background-color var(--t-fast) var(--ease-out);
   }
 
   .more-name {
@@ -1958,23 +1982,6 @@
     grid-column: 1;
     font-weight: 500;
     text-decoration-color: transparent;
-  }
-
-  /* Stretches the link over its row, so the whole row is clickable. */
-  .more-name::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-  }
-
-  .more-name:focus-visible {
-    outline: none;
-  }
-
-  .more-item:has(.more-name:focus-visible) {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -2px;
   }
 
   .more-year {
@@ -2014,10 +2021,6 @@
 
   /* Hover only where a pointer can hover, so a tap on a phone doesn't leave a row stuck tinted. */
   @media (hover: hover) {
-    .more-item:hover {
-      background: var(--color-panel);
-    }
-
     .more-item:hover .more-name {
       text-decoration-color: transparent;
     }
@@ -2058,7 +2061,7 @@
     }
   }
 
-  /* The other repos live on GitHub; the link reads like a card's "View project". */
+  /* The other repos live on GitHub; a small link at weight 500 under the list. */
   .more-all {
     display: inline-block;
     margin-top: 1rem;
@@ -2116,26 +2119,20 @@
     color: var(--color-blue);
   }
 
-  /* Rows like More projects: icon, name, handle, then ↗ or Copy. The name is the link and stretches over its row,
-     which tints on hover; Copy sits above the stretched link. Rows bleed 0.75rem past the column so the tint has
-     room; the hairlines stay column-wide. */
+  /* Icon, name, handle, then the arrow or Copy, on the shared row under List rows. Copy sits above the
+     stretched link. */
   .contact-links {
     margin-top: 1.25rem;
     border-top: 1px solid var(--color-line);
   }
 
   .contact-row {
-    position: relative;
     display: grid;
     grid-template-columns: 1.125rem 7rem minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.75rem;
     min-height: 3.25rem;
-    margin-inline: -0.75rem;
     padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    background: linear-gradient(var(--color-line), var(--color-line)) no-repeat center bottom / calc(100% - 1.5rem) 1px;
-    transition: background-color var(--t-fast) var(--ease-out);
   }
 
   .contact-icon {
@@ -2149,23 +2146,6 @@
     font-size: 0.9375rem;
     font-weight: 500;
     text-decoration-color: transparent;
-  }
-
-  /* Stretches the link over its row, so the whole row is clickable. */
-  .contact-name::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-  }
-
-  .contact-name:focus-visible {
-    outline: none;
-  }
-
-  .contact-row:has(.contact-name:focus-visible) {
-    outline: 2px solid var(--color-blue);
-    outline-offset: -2px;
   }
 
   .contact-handle {
@@ -2192,13 +2172,6 @@
   .contact-row:hover .link-arrow {
     color: var(--color-ink);
     transform: translate(2px, -2px);
-  }
-
-  /* Hover only where a pointer can hover, so a tap on a phone doesn't leave a row stuck tinted. */
-  @media (hover: hover) {
-    .contact-row:hover {
-      background-color: var(--color-panel);
-    }
   }
 
   @media (max-width: 39.99rem) {

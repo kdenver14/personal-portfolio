@@ -36,7 +36,7 @@ function subscribe(listener: () => void): () => void {
 const readHash = (): string => window.location.hash;
 const readServerHash = (): string => "";
 
-/** Clears the project hash: back through history when a card click pushed it, in place for a direct link. */
+/** Clears the project hash: back through history when a click on the page pushed it, in place for a direct link. */
 function leaveProject(): void {
   if (navigatedInPage) {
     window.history.back();

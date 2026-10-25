@@ -8,7 +8,7 @@ export const FEATURED: readonly FeaturedProject[] = [
     repo: "uptime-monitor",
     name: "uptime-monitor",
     status: "preview",
-    summary: "A backend that watches websites and records whether they're up, like UptimeRobot, built from scratch without AI.",
+    summary: "A backend that checks whether websites are up.",
     overview: [
       "A backend that watches websites and reports whether they're up, like UptimeRobot, built from scratch without AI to practise junior backend work.",
       "Monitor CRUD runs through routes, controllers, services and repositories, with Zod validation and PostgreSQL in Docker. A checker that records status codes and response times is written but not pushed yet; a BullMQ worker, scheduling and alerts come next.",
@@ -57,7 +57,7 @@ export const FEATURED: readonly FeaturedProject[] = [
     repo: "Hand-Gesture-Control-Keras-Project",
     name: "Hand Gesture Control",
     status: "active",
-    summary: "Turn your hand into a mouse and a paintbrush with MediaPipe tracking and a small Keras classifier.",
+    summary: "Your hand as a mouse and a paintbrush.",
     overview: [
       "Turn your hand into a mouse and a paintbrush. MediaPipe finds 21 landmarks per frame, a small Keras network sorts the pose into one of five gestures, and a mode state machine decides whether that means draw, volume or click.",
       "Built with three collaborators. With no trained model on disk it falls back to rule-based detection, so it runs without training. macOS only for now: volume goes through osascript.",
@@ -91,7 +91,7 @@ export const FEATURED: readonly FeaturedProject[] = [
     repo: "Data-Structure-and-Algorithms-implementation-",
     name: "DSA implementations",
     status: "complete",
-    summary: "Data structures and algorithms written by hand in C++, from linked lists to heaps, as my interview reviewer.",
+    summary: "Linked lists to heaps, written by hand in C++.",
     overview: [
       "My reviewer for data structures and algorithms: each one written by hand in C++, most with a diagram alongside.",
       "Eight topics, from singly and doubly linked lists, stacks, queues and hash tables to heaps, graphs and binary-tree traversals, plus five sorts and 11 interview problems such as two-sum and reversing a linked list.",
@@ -137,7 +137,7 @@ export const FEATURED: readonly FeaturedProject[] = [
     repo: "Int-as-integer-data_type",
     name: "Int wrapper",
     status: "complete",
-    summary: "A custom Int that behaves like the primitive int, with every operator overloaded and division by zero throwing.",
+    summary: "A C++ Int that acts like the built-in int.",
     overview: [
       "One of my first C++ repos: a custom Int that behaves like the primitive int.",
       "Every arithmetic, comparison, compound-assignment and stream operator is overloaded, division by zero throws, and a variadic template frees several heap Ints in one call.",
