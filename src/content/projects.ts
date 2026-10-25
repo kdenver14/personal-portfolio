@@ -17,15 +17,6 @@ export const PROJECTS: readonly Project[] = [
   { repo: "auto-clicker", name: "Auto-clicker", function: "Two-key autoclicker", language: "C++", created: "2024-03" },
 ];
 
-/** Looks up a repository in the full list; featured entries take their year from here. */
-export function projectByRepo(repo: string, projects: readonly Project[] = PROJECTS): Project {
-  const project = projects.find((p) => p.repo === repo);
-  if (!project) {
-    throw new Error(`Unknown repository "${repo}"`);
-  }
-  return project;
-}
-
 export const STATUS_LABEL = {
   active: "Active",
   preview: "In development",

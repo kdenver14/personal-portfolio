@@ -1,5 +1,5 @@
 import type { FeaturedProject } from "@/domain/datasheet";
-import { ProjectStatus, ProjectYear, TagList } from "./project-meta";
+import { ProjectStatus, TagList } from "./project-meta";
 
 /** Home-page row for a project: the name links to its full detail, opened in a dialog through the URL hash. */
 export function ProjectRow({ project }: { project: FeaturedProject }) {
@@ -11,7 +11,6 @@ export function ProjectRow({ project }: { project: FeaturedProject }) {
             {project.name}
           </a>
         </h3>
-        <ProjectYear project={project} />
         <span className="project-row-arrow" aria-hidden="true">
           →
         </span>

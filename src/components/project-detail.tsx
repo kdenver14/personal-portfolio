@@ -6,7 +6,7 @@ import { handPoses, parseGestureFile } from "@/lib/landmarks";
 import { CodeListing } from "./code-listing";
 import { GestureFigure } from "./gesture-figure";
 import { DemoFigure } from "./live-demo";
-import { ProjectStatus, ProjectYear, TagList } from "./project-meta";
+import { ProjectStatus, TagList } from "./project-meta";
 import { ProjectVideoFigure } from "./project-video";
 
 const GESTURE_PROJECT_ID = "hand-gesture-control";
@@ -36,10 +36,7 @@ export function ProjectDetail({ project }: { project: FeaturedProject }) {
         <h2 id={`${project.id}-title`} className="detail-title">
           {project.name}
         </h2>
-        <span className="project-meta">
-          <ProjectStatus project={project} />
-          <ProjectYear project={project} />
-        </span>
+        <ProjectStatus project={project} />
       </header>
       {project.video ? <ProjectVideoFigure video={project.video} /> : null}
       <div className="detail-text">

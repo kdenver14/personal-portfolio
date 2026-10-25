@@ -190,7 +190,7 @@ components:
 
 One narrow column on a cool near-white with a faint blue cast, about 640px, read top to bottom like a well-made personal page. It runs name, role line and short bio, a facts card (studying, open to, local time), four project rows, experience, a Technologies section that opens with a sliding strip of logos and then lists every technology, the longest contribution streak, six more repos with a link to the rest on GitHub, and how to reach them. Instrument Serif at 400 carries the voice moments: the 40px name, project names and dialog titles. Instrument Sans carries everything else at small, even sizes. JetBrains Mono appears only where the content is literally code or a file name.
 
-The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a hairline row with a serif name, its year and an arrow, one short line and tags. The row opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: Projects, More projects, Contact, the dialog's Details, the dialog foot and the footer.
+The owner's standing steer governs every surface: "not too bold, professionalism with taste". The page stays a summary. Each featured project is a hairline row with a serif name and an arrow, one short line and tags. The row opens a native dialog keyed to the URL hash, and the full story lives there. That story is the overview, a live diagram of the project working, gesture data or a code listing, a Details list and the source link. Whitespace groups the page. Hairlines appear only in lists: Projects, More projects, Contact, the dialog's Details, the dialog foot and the footer.
 
 The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place under the tech strip went briefly to a "How I write code" block (rejected: no visual) and then a dot globe (rejected: "just a globe", no facts). What the owner liked in the chip was a visual whose parts are facts about them. An ID badge on a swinging strap followed and was rejected too: the owner had to wait for it to stop moving to read it. Then three parody formats (a food label, a receipt, an index card with a stamp) were rejected as corny. "At a glance", a summary panel with a code-share bar, came next and was dropped the same day for repeating the page: the availability line, the projects, the pull request, the streak and the links all appear elsewhere. A language line (home and four languages as transit stops) followed, then lost its notes to the Technologies section. On 2026-10-24 the owner asked what a large company's recruiter wants, and the slot became a facts card: where they study, what they're open to, and their local time. The intro's Email/GitHub/LinkedIn row went too, since Contact carries them. Rules for this slot: only facts found nowhere else on the page, readable at load, in plain copy that would work on a résumé. Light only, by design (`color-scheme: light`).
 
@@ -261,7 +261,7 @@ Projects are a list of rows inside the column, like More projects and Contact, o
 
 The project dialog is up to 44rem wide (always 1rem clear of each viewport edge) and at most 90dvh tall (capped at 64rem). It scrolls inside itself. Its body has 1.5rem side padding, or 2.5rem from 40rem, and 1.75rem between blocks. Below 40rem the dialog becomes a bottom sheet: full width, up to 92dvh, attached to the bottom edge. The page behind an open dialog does not scroll.
 
-Rows that pair a name with a year (project rows, dialog head, More projects rows) put the name left and the year right, aligned on the baseline. The breakpoints are 40rem (dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
+Rows that pair a name with a year (More projects rows and their pop-up heads) put the name left and the year right, aligned on the baseline. Featured projects show no year, by the owner's choice on 2026-10-25. The breakpoints are 40rem (dialog sheet, live-diagram stops from down to across, gesture panels from three to five across, More projects rows from two lines to 11rem name, description and year) and 48rem (page-top and section spacing).
 
 ### Named Rules
 **The Space Groups Rule.** Group with whitespace and the panel fill. Hairlines are for lists only: the intro facts, the Projects, More projects and Contact rows, the Details facts, the rule above the dialog foot and the footer. Never put dividers between sections.
@@ -302,11 +302,11 @@ A small Slate Label `h2` in sentence case, 1.75rem above the section's content. 
 - **Caption:** inside the panel, centred, Graphite Caption, 1.25rem below the figure.
 
 ### Project Row
-The name is the link to the project's dialog (`#project-id`) and stretches over its row, as in More projects and Contact. The order is: the serif Title, then the year (Graphite, tabular figures) and a Slate → on the right; a Signal Blue "In development" when it applies; a Graphite Summary of one short line; and Graphite tags at Caption size. A hairline sits above the list and under each row. Rows have 1.125rem vertical padding and 0.375rem between lines, and bleed 0.75rem past the column. On hover (pointer devices only) the row tints Panel inside an 8px radius over 160ms, and the arrow turns Ink and nudges right. Keyboard focus draws the blue ring inside the row. A long name wraps rather than pushing the year and arrow off the row.
+The name is the link to the project's dialog (`#project-id`) and stretches over its row, as in More projects and Contact. The order is: the serif Title with a Slate → on the right; a Signal Blue "In development" when it applies; a Graphite Summary of one short line; and Graphite tags at Caption size. A hairline sits above the list and under each row. Rows have 1.125rem vertical padding and 0.375rem between lines, and bleed 0.75rem past the column. On hover (pointer devices only) the row tints Panel inside an 8px radius over 160ms, and the arrow turns Ink and nudges right. Keyboard focus draws the blue ring inside the row. A long name wraps rather than pushing the arrow off the row.
 
 ### Project Dialog
 A native modal `<dialog>` opened from the URL hash. A direct link opens it, and Back closes it. Escape, a backdrop click and the Close pill also close it. It is a Paper surface with an 18px radius, the system's one shadow and a 40% ink backdrop. It rises 12px and fades in over 200ms on the house ease-out, with no animation under reduced motion. A sticky bar at the top holds the Close pill on the right. The body runs in this order:
-- the head: Headline serif name with status and year;
+- the head: Headline serif name, with the status on the right while unfinished;
 - the video when present;
 - the Graphite overview;
 - the Live Diagram, with its caption and Pause/Play/Replay control;
@@ -453,7 +453,7 @@ Hand-landmark skeletons drawn from real training data. They appear only in the H
 ## Do's and Don'ts
 
 ### Do:
-- **Do** present each featured project as a hairline row (serif name, year and arrow, one short line, tags) that opens its full story in a hash-keyed dialog.
+- **Do** present each featured project as a hairline row (serif name and arrow, one short line, tags) that opens its full story in a hash-keyed dialog.
 - **Do** keep the open dialog the only lifted surface: Paper, 18px radius, one soft shadow, 40% ink backdrop, a bottom sheet below 40rem.
 - **Do** make links Ink with a Hairline Strong underline that darkens on hover over 160ms.
 - **Do** separate sections with space (5rem to 6.5rem between sections), and keep hairlines for lists.

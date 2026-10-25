@@ -1,10 +1,5 @@
 import type { FeaturedProject } from "@/domain/datasheet";
-import { projectByRepo, STATUS_LABEL } from "@/content/projects";
-import { formatYear } from "@/lib/format";
-
-export function ProjectYear({ project }: { project: FeaturedProject }) {
-  return <span className="project-year tabular">{formatYear(projectByRepo(project.repo).created)}</span>;
-}
+import { STATUS_LABEL } from "@/content/projects";
 
 /** Only unfinished work is called out; active and complete projects need no label. */
 export function ProjectStatus({ project }: { project: FeaturedProject }) {

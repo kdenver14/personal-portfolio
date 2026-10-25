@@ -26,7 +26,7 @@ All content lives in `src/content/`, typed by `src/domain/datasheet.ts`.
 | Name, contact, bio | `src/content/profile.ts` |
 | The résumé PDF (keep the phone number off it: the site is public) | replace `public/kurt-denver-chavez-resume.pdf` |
 | The intro's facts card (degree, school, roles you're open to, home and time zone) | `src/content/profile.ts` |
-| A row in More projects (and every project's year); each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
+| A row in More projects, with its year; each More project also needs a replay | `src/content/projects.ts`, `src/content/replays.ts` |
 | A featured project: one-line summary, full overview, details, tags, live demo, video, code listing | `src/content/featured.ts` |
 | The Technologies section (every technology, its group and one-line note) | `src/content/stack.ts` |
 | Technologies in the scrolling strip | `src/content/tech.ts` |
