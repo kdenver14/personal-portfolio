@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type ContributionDay, formatDay, longestStreak, monthLabels, parseContributions, toWeeks } from "./contributions";
+import { type ContributionDay, blinkRhythm, formatDay, longestStreak, monthLabels, parseContributions, toWeeks } from "./contributions";
 
 const day = (date: string, count: number): ContributionDay => ({ date, count, level: count > 0 ? 1 : 0 });
 
@@ -31,6 +31,29 @@ describe("monthLabels", () => {
   it("labels the first week of each month and drops one that would crowd the next", () => {
     const days = Array.from({ length: 70 }, (_, i) => day(new Date(Date.UTC(2026, 0, 25) + i * 86_400_000).toISOString().slice(0, 10), 0));
     expect(monthLabels(toWeeks(days)).map((m) => m.label)).toEqual(["Feb", "Mar"]);
+  });
+});
+
+describe("blinkRhythm", () => {
+  const dates = Array.from({ length: 60 }, (_, i) => new Date(Date.UTC(2025, 11, 5) + i * 86_400_000).toISOString().slice(0, 10));
+
+  it("gives a day the same rhythm on every call", () => {
+    expect(blinkRhythm("2025-12-05")).toEqual(blinkRhythm("2025-12-05"));
+  });
+
+  it("keeps every blink between 1.6 s and 4 s, starting somewhere inside its own cycle", () => {
+    for (const date of dates) {
+      const { seconds, offset } = blinkRhythm(date);
+      expect(seconds).toBeGreaterThanOrEqual(1.6);
+      expect(seconds).toBeLessThanOrEqual(4);
+      expect(offset).toBeGreaterThanOrEqual(0);
+      expect(offset).toBeLessThan(seconds);
+    }
+  });
+
+  it("gives neighbouring days different rhythms, so the lights fall out of step", () => {
+    const periods = new Set(dates.map((date) => blinkRhythm(date).seconds.toFixed(2)));
+    expect(periods.size).toBeGreaterThan(dates.length * 0.8);
   });
 });
 

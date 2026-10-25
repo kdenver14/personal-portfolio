@@ -201,7 +201,7 @@ The owner retired the DIP-8 chip on 2026-10-23 after three redesigns. Its place 
 - Links are ink with a light blue-gray underline that darkens on hover. Blue is not a link colour.
 - Blue, the only accent, marks focus, the active pin, the gesture skeletons and one status word.
 - One shadow in the system, on the open dialog.
-- Motion is a 160ms colour change, plus a 200ms dialog rise, the tech strip's slow loop and the streak's slow blink. All three stop under reduced motion.
+- Motion is a 160ms colour change, plus a 200ms dialog rise, the tech strip's slow loop and the streak's twinkle. All three stop under reduced motion.
 
 ## Colors
 
@@ -357,7 +357,7 @@ Only the longest coding streak, drawn like GitHub's contribution calendar but ju
 - **Numbers (left):** "Longest streak **71 days** in a row", with the count in Instrument Serif at 2.25rem. The dates and the streak's total contributions sit below in Slate. The streak is all-time, and the latest one wins a tie.
 - **Chart (right):** the streak's days in week columns from Sunday, with month labels and Mon/Wed/Fri. Cells are a fixed 14px with 3px gaps and a 3px radius. Days outside the streak in its first and last weeks are blank. Each cell has a `title` with its count and date.
 - **Colour:** GitHub's light-theme greens (#9be9a8, #40c463, #30a14e, #216e39). This is the one place the page leaves blue, because the owner asked for GitHub's look.
-- **Blink:** the streak's green days light up together in a slow 3s blink, a little brighter with a soft green glow at the peak, as the owner asked on 2026-10-25. The legend stays still, and the chart is still under reduced motion.
+- **Twinkle:** the streak's green days blink like Christmas lights, as the owner asked on 2026-10-25: each day on its own rhythm (1.6s to 4s, starting partway into its cycle), from half opacity up to full, a little brighter, with a soft green glow. The rhythm is seeded by the date (`blinkRhythm` in `src/lib/contributions.ts`), so it is the same on every load. The legend stays still, and under reduced motion every day keeps its plain shade.
 - "From GitHub" and a Less–More legend run along the bottom. On phones the chart wraps under the numbers.
 - The chart is `aria-hidden`; the figure's label states the streak, its dates and its total.
 

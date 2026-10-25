@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { CONTRIBUTIONS, LONGEST_STREAK } from "@/content/activity";
 import { GITHUB_URL } from "@/content/profile";
-import { type ContributionDay, type Streak, formatDay, monthLabels, toWeeks } from "@/lib/contributions";
+import { type ContributionDay, type Streak, blinkRhythm, formatDay, monthLabels, toWeeks } from "@/lib/contributions";
 
 type CSSVars = CSSProperties & Record<`--${string}`, string>;
 
@@ -15,6 +15,12 @@ const count = (n: number, word: string) => `${n.toLocaleString("en-US")} ${word}
 
 function dayTitle(day: ContributionDay): string {
   return `${count(day.count, "contribution")} on ${formatDay(day.date)}`;
+}
+
+/** The day's own blink speed and phase; a negative delay starts it partway through its cycle. */
+function blinkStyle(date: string): CSSVars {
+  const { seconds, offset } = blinkRhythm(date);
+  return { "--blink": `${seconds.toFixed(2)}s`, "--blink-delay": `${(-offset).toFixed(2)}s` };
 }
 
 /** Just the streak's days, laid out in GitHub's week columns. */
@@ -36,7 +42,7 @@ function Chart({ days }: { days: readonly ContributionDay[] }) {
         {weeks.flatMap((week, w) =>
           week.map((day, d) =>
             day ? (
-              <span key={day.date} className="streak-cell" data-level={day.level} title={dayTitle(day)} />
+              <span key={day.date} className="streak-cell" data-level={day.level} title={dayTitle(day)} style={blinkStyle(day.date)} />
             ) : (
               <span key={`${w}-${d}`} className="streak-cell is-blank" />
             ),

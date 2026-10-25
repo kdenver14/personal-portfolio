@@ -1807,7 +1807,6 @@
     --contrib-3: #30a14e;
     --contrib-4: #216e39;
     --contrib-glow: color-mix(in oklab, var(--contrib-2) 55%, transparent);
-    --blink: 3s;
     --cell: 0.875rem;
     --cell-gap: 3px;
     display: flex;
@@ -1897,17 +1896,24 @@
     background: var(--contrib-4);
   }
 
-  /* The streak's green days light up together in a slow blink: a little brighter, with a soft green glow. The
-     legend stays still, and so does the chart under reduced motion. */
+  /* The streak's green days twinkle like a string of lights, each on its own rhythm (set per day as --blink and
+     --blink-delay): dim, then bright with a soft green glow. The legend stays still, and so does the chart under
+     reduced motion, where every day keeps its plain shade. */
   @media (prefers-reduced-motion: no-preference) {
     .streak-grid .streak-cell[data-level]:not([data-level="0"]) {
-      animation: streak-blink var(--blink) ease-in-out infinite;
+      animation: streak-blink var(--blink) ease-in-out var(--blink-delay) infinite;
     }
   }
 
   @keyframes streak-blink {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+
     50% {
-      filter: brightness(1.12);
+      opacity: 1;
+      filter: brightness(1.15);
       box-shadow: 0 0 6px 1px var(--contrib-glow);
     }
   }
