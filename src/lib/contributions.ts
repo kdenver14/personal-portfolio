@@ -36,8 +36,8 @@ const DAYS_PER_WEEK = 7;
 const MIN_LABEL_WEEKS = 3;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
 /** The shortest and longest cycle of a day's on-and-off pattern, in seconds. */
-const BLINK_MIN_SECONDS = 2;
-const BLINK_MAX_SECONDS = 5;
+const BLINK_MIN_SECONDS = 3;
+const BLINK_MAX_SECONDS = 7;
 /** How many on-and-off patterns the stylesheet defines (`streak-window-1` and on). */
 export const BLINK_PATTERNS = 3;
 

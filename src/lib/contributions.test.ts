@@ -41,11 +41,11 @@ describe("blinkRhythm", () => {
     expect(blinkRhythm("2025-12-05")).toEqual(blinkRhythm("2025-12-05"));
   });
 
-  it("keeps every cycle between 2 s and 5 s, starting somewhere inside itself", () => {
+  it("keeps every cycle between 3 s and 7 s, starting somewhere inside itself", () => {
     for (const date of dates) {
       const { seconds, offset } = blinkRhythm(date);
-      expect(seconds).toBeGreaterThanOrEqual(2);
-      expect(seconds).toBeLessThanOrEqual(5);
+      expect(seconds).toBeGreaterThanOrEqual(3);
+      expect(seconds).toBeLessThanOrEqual(7);
       expect(offset).toBeGreaterThanOrEqual(0);
       expect(offset).toBeLessThan(seconds);
     }
