@@ -1806,6 +1806,8 @@
     --contrib-2: #40c463;
     --contrib-3: #30a14e;
     --contrib-4: #216e39;
+    --contrib-glow: color-mix(in oklab, var(--contrib-2) 55%, transparent);
+    --blink: 3s;
     --cell: 0.875rem;
     --cell-gap: 3px;
     display: flex;
@@ -1893,6 +1895,21 @@
 
   .streak-cell[data-level="4"] {
     background: var(--contrib-4);
+  }
+
+  /* The streak's green days light up together in a slow blink: a little brighter, with a soft green glow. The
+     legend stays still, and so does the chart under reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .streak-grid .streak-cell[data-level]:not([data-level="0"]) {
+      animation: streak-blink var(--blink) ease-in-out infinite;
+    }
+  }
+
+  @keyframes streak-blink {
+    50% {
+      filter: brightness(1.12);
+      box-shadow: 0 0 6px 1px var(--contrib-glow);
+    }
   }
 
   .streak-foot {
