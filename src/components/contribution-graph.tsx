@@ -17,10 +17,11 @@ function dayTitle(day: ContributionDay): string {
   return `${count(day.count, "contribution")} on ${formatDay(day.date)}`;
 }
 
-/** The day's own blink speed and phase; a negative delay starts it partway through its cycle. */
-function blinkStyle(date: string): CSSVars {
-  const { seconds, offset } = blinkRhythm(date);
-  return { "--blink": `${seconds.toFixed(2)}s`, "--blink-delay": `${(-offset).toFixed(2)}s` };
+/** A day's light: its on-and-off pattern, its speed, and a negative delay that starts it partway through. */
+function DayCell({ day }: { day: ContributionDay }) {
+  const { seconds, offset, pattern } = blinkRhythm(day.date);
+  const rhythm: CSSVars = { "--blink": `${seconds.toFixed(2)}s`, "--blink-delay": `${(-offset).toFixed(2)}s` };
+  return <span className="streak-cell" data-level={day.level} data-blink={pattern} title={dayTitle(day)} style={rhythm} />;
 }
 
 /** Just the streak's days, laid out in GitHub's week columns. */
@@ -42,7 +43,7 @@ function Chart({ days }: { days: readonly ContributionDay[] }) {
         {weeks.flatMap((week, w) =>
           week.map((day, d) =>
             day ? (
-              <span key={day.date} className="streak-cell" data-level={day.level} title={dayTitle(day)} style={blinkStyle(day.date)} />
+              <DayCell key={day.date} day={day} />
             ) : (
               <span key={`${w}-${d}`} className="streak-cell is-blank" />
             ),

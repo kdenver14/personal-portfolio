@@ -220,9 +220,9 @@
         "purpose": "The tech strip, right to left, never pausing; static and wrapped under prefers-reduced-motion."
       },
       {
-        "name": "streak-blink",
-        "value": "1.6–4s per day (seeded by date), ease-in-out, infinite, negative delay; opacity 0.5 to 1 with brightness(1.15) and a soft green glow at 50%",
-        "purpose": "The Activity streak's green days twinkling out of step, like Christmas lights. Off under prefers-reduced-motion."
+        "name": "streak-window",
+        "value": "2–5s per day (seeded by date), linear, infinite, negative delay; three on/off patterns, off at opacity 0.25, each switch about 2% of the cycle",
+        "purpose": "The Activity streak's green days switching on and off out of step, like a building's windows at night. Off under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -337,7 +337,7 @@
       "name": "Longest Streak",
       "kind": "custom",
       "refersTo": "activity",
-      "description": "Only the longest GitHub contribution streak: its length in serif 2.25rem with dates and total beside a mini GitHub-style calendar of just the streak's weeks (fixed 14px cells, GitHub light greens, the page's one non-blue colour by owner request). The green days twinkle like Christmas lights, each on its own date-seeded rhythm (1.6–4s): half opacity up to full, brighter, with a soft green glow; still under reduced motion. Data is fetched from GitHub at build.",
+      "description": "Only the longest GitHub contribution streak: its length in serif 2.25rem with dates and total beside a mini GitHub-style calendar of just the streak's weeks (fixed 14px cells, GitHub light greens, the page's one non-blue colour by owner request). The green days switch on and off like a building's windows at night: one of three patterns per day on its own date-seeded 2–5s cycle, on at the day's shade, off at 25% opacity, quick switches; all on under reduced motion. Data is fetched from GitHub at build.",
       "html": "<figure class=\"ds-graph\"><p class=\"ds-graph-head\">Longest streak <strong>71 days</strong> in a row</p><div class=\"ds-graph-grid\"><span class=\"ds-cell\" data-l=\"0\"></span><span class=\"ds-cell\" data-l=\"1\"></span><span class=\"ds-cell\" data-l=\"2\"></span><span class=\"ds-cell\" data-l=\"1\"></span><span class=\"ds-cell\" data-l=\"0\"></span><span class=\"ds-cell\" data-l=\"3\"></span><span class=\"ds-cell\" data-l=\"4\"></span><span class=\"ds-cell\" data-l=\"2\"></span><span class=\"ds-cell\" data-l=\"1\"></span><span class=\"ds-cell\" data-l=\"0\"></span><span class=\"ds-cell\" data-l=\"2\"></span><span class=\"ds-cell\" data-l=\"3\"></span><span class=\"ds-cell\" data-l=\"1\"></span><span class=\"ds-cell\" data-l=\"0\"></span><span class=\"ds-cell\" data-l=\"0\"></span><span class=\"ds-cell\" data-l=\"1\"></span><span class=\"ds-cell\" data-l=\"2\"></span><span class=\"ds-cell\" data-l=\"4\"></span><span class=\"ds-cell\" data-l=\"3\"></span><span class=\"ds-cell\" data-l=\"2\"></span><span class=\"ds-cell\" data-l=\"1\"></span></div></figure>",
       "css": ".ds-graph { margin: 0; font-family: var(--font-sans); color: var(--color-ink-2); font-size: 0.9375rem; } .ds-graph-head strong { color: var(--color-ink); } .ds-graph-grid { display: grid; grid-template-rows: repeat(7, 14px); grid-auto-flow: column; grid-auto-columns: 14px; gap: 3px; margin-top: 0.75rem; } .ds-cell { border-radius: 3px; background: var(--color-panel); } .ds-cell[data-l='1'] { background: #9be9a8; } .ds-cell[data-l='2'] { background: #40c463; } .ds-cell[data-l='3'] { background: #30a14e; } .ds-cell[data-l='4'] { background: #216e39; }"
     },

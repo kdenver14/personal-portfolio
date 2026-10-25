@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { type ContributionDay, blinkRhythm, formatDay, longestStreak, monthLabels, parseContributions, toWeeks } from "./contributions";
+import { BLINK_PATTERNS, type ContributionDay, blinkRhythm, formatDay, longestStreak, monthLabels, parseContributions, toWeeks } from "./contributions";
 
 const day = (date: string, count: number): ContributionDay => ({ date, count, level: count > 0 ? 1 : 0 });
 
@@ -41,18 +41,23 @@ describe("blinkRhythm", () => {
     expect(blinkRhythm("2025-12-05")).toEqual(blinkRhythm("2025-12-05"));
   });
 
-  it("keeps every blink between 1.6 s and 4 s, starting somewhere inside its own cycle", () => {
+  it("keeps every cycle between 2 s and 5 s, starting somewhere inside itself", () => {
     for (const date of dates) {
       const { seconds, offset } = blinkRhythm(date);
-      expect(seconds).toBeGreaterThanOrEqual(1.6);
-      expect(seconds).toBeLessThanOrEqual(4);
+      expect(seconds).toBeGreaterThanOrEqual(2);
+      expect(seconds).toBeLessThanOrEqual(5);
       expect(offset).toBeGreaterThanOrEqual(0);
       expect(offset).toBeLessThan(seconds);
     }
   });
 
+  it("uses every pattern the stylesheet defines, and no other", () => {
+    const patterns = new Set(dates.map((date) => blinkRhythm(date).pattern));
+    expect([...patterns].sort()).toEqual(Array.from({ length: BLINK_PATTERNS }, (_, i) => i + 1));
+  });
+
   it("gives neighbouring days different rhythms, so the lights fall out of step", () => {
-    const periods = new Set(dates.map((date) => blinkRhythm(date).seconds.toFixed(2)));
+    const periods = new Set(dates.map((date) => blinkRhythm(date).seconds.toFixed(3)));
     expect(periods.size).toBeGreaterThan(dates.length * 0.8);
   });
 });

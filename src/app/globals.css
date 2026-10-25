@@ -1806,7 +1806,7 @@
     --contrib-2: #40c463;
     --contrib-3: #30a14e;
     --contrib-4: #216e39;
-    --contrib-glow: color-mix(in oklab, var(--contrib-2) 55%, transparent);
+    --window-off: 0.25;
     --cell: 0.875rem;
     --cell-gap: 3px;
     display: flex;
@@ -1896,25 +1896,70 @@
     background: var(--contrib-4);
   }
 
-  /* The streak's green days twinkle like a string of lights, each on its own rhythm (set per day as --blink and
-     --blink-delay): dim, then bright with a soft green glow. The legend stays still, and so does the chart under
-     reduced motion, where every day keeps its plain shade. */
+  /* The streak's green days switch on and off like a building's windows at night. Each day has its own pattern
+     (data-blink), cycle length and start (--blink, --blink-delay). On is the day's own shade; off drops to
+     --window-off, and the switch takes a moment, like a light. The legend stays still, and so does the chart
+     under reduced motion, where every day stays on. */
   @media (prefers-reduced-motion: no-preference) {
-    .streak-grid .streak-cell[data-level]:not([data-level="0"]) {
-      animation: streak-blink var(--blink) ease-in-out var(--blink-delay) infinite;
+    .streak-grid .streak-cell[data-blink] {
+      animation: streak-window-1 var(--blink) linear var(--blink-delay) infinite;
+    }
+
+    .streak-grid .streak-cell[data-blink="2"] {
+      animation-name: streak-window-2;
+    }
+
+    .streak-grid .streak-cell[data-blink="3"] {
+      animation-name: streak-window-3;
     }
   }
 
-  @keyframes streak-blink {
+  /* Mostly on, then off for a spell. */
+  @keyframes streak-window-1 {
     0%,
+    68%,
+    96%,
     100% {
-      opacity: 0.5;
+      opacity: 1;
     }
 
-    50% {
+    70%,
+    94% {
+      opacity: var(--window-off);
+    }
+  }
+
+  /* On and off about equally. */
+  @keyframes streak-window-2 {
+    0%,
+    44%,
+    96%,
+    100% {
       opacity: 1;
-      filter: brightness(1.15);
-      box-shadow: 0 0 6px 1px var(--contrib-glow);
+    }
+
+    46%,
+    94% {
+      opacity: var(--window-off);
+    }
+  }
+
+  /* Off twice, briefly. */
+  @keyframes streak-window-3 {
+    0%,
+    28%,
+    48%,
+    74%,
+    96%,
+    100% {
+      opacity: 1;
+    }
+
+    30%,
+    46%,
+    76%,
+    94% {
+      opacity: var(--window-off);
     }
   }
 

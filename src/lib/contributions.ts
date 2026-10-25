@@ -22,10 +22,12 @@ export interface MonthLabel {
 }
 
 export interface BlinkRhythm {
-  /** One full dim-to-bright-to-dim cycle. */
+  /** One full cycle of the day's on-and-off pattern. */
   readonly seconds: number;
   /** How far into its cycle the day starts, so the lights are out of step from the first frame. */
   readonly offset: number;
+  /** Which on-and-off pattern it follows, 1 to `BLINK_PATTERNS`. */
+  readonly pattern: number;
 }
 
 const MS_PER_DAY = 86_400_000;
@@ -33,21 +35,23 @@ const DAYS_PER_WEEK = 7;
 /** A month label needs this many week columns of room before the next one. */
 const MIN_LABEL_WEEKS = 3;
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
-/** The quickest and slowest a day may blink, in seconds. */
-const BLINK_MIN_SECONDS = 1.6;
-const BLINK_MAX_SECONDS = 4;
+/** The shortest and longest cycle of a day's on-and-off pattern, in seconds. */
+const BLINK_MIN_SECONDS = 2;
+const BLINK_MAX_SECONDS = 5;
+/** How many on-and-off patterns the stylesheet defines (`streak-window-1` and on). */
+export const BLINK_PATTERNS = 3;
 
 const toTime = (date: string) => Date.parse(`${date}T00:00:00Z`);
 const weekday = (date: string) => new Date(toTime(date)).getUTCDay();
 
 /**
- * Each day's own blink, so the streak twinkles like a string of lights. Seeded by the date, so the server and
- * the browser draw the same rhythm.
+ * Each day's own on-and-off rhythm, so the streak flickers like a building's windows at night. Seeded by the
+ * date, so the server and the browser draw the same rhythm.
  */
 export function blinkRhythm(date: string): BlinkRhythm {
   const random = seededRandom(toTime(date) / MS_PER_DAY);
   const seconds = BLINK_MIN_SECONDS + random() * (BLINK_MAX_SECONDS - BLINK_MIN_SECONDS);
-  return { seconds, offset: random() * seconds };
+  return { seconds, offset: random() * seconds, pattern: 1 + Math.floor(random() * BLINK_PATTERNS) };
 }
 
 /** "Dec 5, 2025". */
