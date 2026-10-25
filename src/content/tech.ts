@@ -1,7 +1,7 @@
 import type { TechLogo } from "@/domain/datasheet";
 import { logoNamed } from "./logos";
 
-/** The scrolling strip under the intro: a short accent of the main technologies. The Stack section has the full list. */
+/** The scrolling strip that opens the Technologies section: a short accent of the main technologies. The list below it has them all. */
 export const TECH: readonly TechLogo[] = [
   "TypeScript",
   "JavaScript",

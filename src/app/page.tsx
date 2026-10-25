@@ -24,10 +24,6 @@ export default function Home() {
       <div className="page">
       <main>
         <Intro />
-        <Section id="technologies" title="Technologies">
-          <TechMarquee />
-          <Stack />
-        </Section>
         <Section id="projects" title="Projects">
           <ul className="project-list">
             {FEATURED.map((project) => <ProjectRow key={project.id} project={project} />)}
@@ -40,6 +36,10 @@ export default function Home() {
         </Section>
         <Section id="experience" title="Experience">
           <Experience />
+        </Section>
+        <Section id="technologies" title="Technologies">
+          <TechMarquee />
+          <Stack />
         </Section>
         <Section id="activity" title="Activity">
           <ContributionGraph />

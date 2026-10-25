@@ -4,14 +4,14 @@ import { useSyncExternalStore } from "react";
 import { RESUME_URL, SITE_TITLE } from "@/content/profile";
 
 const LINKS = [
-  { id: "technologies", label: "Technologies", short: "Tech" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
+  { id: "technologies", label: "Technologies", short: "Tech" },
   { id: "activity", label: "Activity" },
   { id: "contact", label: "Contact" },
 ] as const;
 /** Every section heading in page order, including ones without a link, so a section between links lights none. */
-const SECTIONS = ["technologies", "projects", "experience", "activity", "more-projects", "contact"];
+const SECTIONS = ["projects", "experience", "technologies", "activity", "more-projects", "contact"];
 /** A section counts as current once its heading rises above this share of the viewport. */
 const ACTIVE_LINE = 0.3;
 /** No element has this id, so the browser scrolls to the very top: the intro alone, as on a first visit. */

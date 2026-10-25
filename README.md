@@ -1,6 +1,6 @@
 # KDC-14 — portfolio
 
-Personal site of Kurt Denver Chavez. One narrow column: intro with a few facts for recruiters, every technology, rows for the four repos pinned on GitHub (each opens a dialog with the full project), experience, the longest contribution streak, six more repos, and contact. Every fact links back to a public repo on [github.com/kdenver14](https://github.com/kdenver14).
+Personal site of Kurt Denver Chavez. One narrow column: intro with a few facts for recruiters, rows for the four repos pinned on GitHub (each opens a dialog with the full project), experience, every technology, the longest contribution streak, six more repos, and contact. Every fact links back to a public repo on [github.com/kdenver14](https://github.com/kdenver14).
 
 Next.js 16 (App Router, static export), TypeScript (strict), Tailwind CSS 4, Instrument Serif + Instrument Sans + JetBrains Mono via `next/font`.
 
